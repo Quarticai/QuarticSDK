@@ -20,7 +20,6 @@ class APIHelpers:
         """
         self.configuration = Configuration.get_configuration(
             host, username, password, oauth_token, verify_ssl)
-        pass
 
     def call_api(self, url, method_type, path_params, query_params, body):
         """
