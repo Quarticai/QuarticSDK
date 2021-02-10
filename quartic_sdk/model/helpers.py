@@ -1,13 +1,12 @@
 import hashlib
-import math
-from time import process_time
 
 import cloudpickle
+import math
 import numpy as np
 import pandas as pd
+from time import time
 
 from quartic_sdk.exceptions import InvalidPredictionException
-
 from quartic_sdk.utilities.constants import NUM_ROW_PER_PREDICTION, MAX_PREDICTION_PROCESSING_TIME
 
 
@@ -39,9 +38,9 @@ class Validations(object):
         :param test_df: Test Dataframe
         :return:        tuple of prediction and processing time
         """
-        start_time = process_time()
+        start_time = time()
         prediction = model.predict(test_df)
-        end_time = process_time()
+        end_time = time()
 
         return prediction, end_time - start_time
 

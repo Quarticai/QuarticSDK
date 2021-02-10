@@ -11,7 +11,7 @@ from quartic_sdk.model.helpers import Validations, ModelUtils
 from quartic_sdk.utilities.constants import MAX_MODEL_SIZE, SAVE_MODEL_ENDPOINT
 
 
-class ModelABC(abc.ABCMeta):
+class ModelABC(metaclass=abc.ABCMeta):
     """
     A Base Class Model for Wrapping User Models into Quartic Deployments.
     User need to Inherit this class and override the predict method with all the post model training steps like,
@@ -22,7 +22,6 @@ class ModelABC(abc.ABCMeta):
 
     Parameters
     ----------
-    model : User Model which should be wrapped
     name : Name of the model to be saved in Quartic
     description : Description of the current model
     log_level : Log Level for logs created/executed during run time i.e. during real time predictions
@@ -66,8 +65,7 @@ class ModelABC(abc.ABCMeta):
     my_model.save('my_model_output', [Tag('A'), Tag('B')], Tag('C'), input_data, None)
     """
 
-    def __init__(self, model, name: str, description: str = '', log_level: str = 'INFO'):
-        self.model = model
+    def __init__(self, name: str, description: str = '', log_level: str = 'INFO'):
         self.name = name
         self.description = description
         self.log_level = log_level
