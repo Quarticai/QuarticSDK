@@ -47,7 +47,7 @@ class APIHelpers:
         """
         request_url = self.configuration.host + url
         for path_param in path_params:
-            request_url += path_params + "/"
+            request_url += path_param + "/"
 
         if self.configuration.auth_type == BASIC:
             return requests.get(request_url, auth=(
