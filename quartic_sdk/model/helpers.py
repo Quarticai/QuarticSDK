@@ -1,12 +1,13 @@
 import hashlib
 
 import cloudpickle
+import base64
 import math
 import numpy as np
 import pandas as pd
 from time import time
 
-from quartic_sdk.exceptions import InvalidPredictionException
+from quartic_sdk.utilities.exceptions import InvalidPredictionException
 from quartic_sdk.utilities.constants import NUM_ROW_PER_PREDICTION, MAX_PREDICTION_PROCESSING_TIME
 
 
@@ -94,6 +95,9 @@ class ModelUtils(object):
         :param model:   Model to pickle
         :return:        Pickled Model as string
         """
-        model_pkl = cloudpickle.dumps(model, protocol=0)
-        checksum = cls.get_checksum(model_pkl)
-        return checksum + model_pkl.decode()
+
+        model_pkl = cloudpickle.dumps(model)
+        model_string = base64.b64encode(model_pkl)
+        checksum = cls.get_checksum(model_string)
+        print(checksum)
+        return checksum + model_string.decode()

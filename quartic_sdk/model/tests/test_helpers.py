@@ -1,12 +1,8 @@
-from unittest.mock import Mock
-
-import pytest
 import sys
 from unittest import TestCase
 import pandas as pd
 
-from quartic_sdk.exceptions import InvalidPredictionException
-from quartic_sdk.model.ModelABC import ModelABC
+from quartic_sdk.utilities.exceptions import InvalidPredictionException
 from quartic_sdk.model.helpers import Validations
 from quartic_sdk.model.tests import ModelThatReturnsString, SlowModel
 
@@ -34,3 +30,5 @@ class TestModelValidations(TestCase):
         with self.assertRaises(AssertionError):
             data = {'col_A': [1, 2], 'col_B': [3, 4]}
             Validations.validate_model(SlowModel(), pd.DataFrame(data=data))
+
+    

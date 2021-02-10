@@ -1,5 +1,7 @@
 import abc
 import logging
+from pprint import pprint
+
 import sys
 from typing import List
 
@@ -103,6 +105,8 @@ class ModelABC(metaclass=abc.ABCMeta):
         }
         if ml_node:
             request_body['ml_node_id'] = ml_node
+
+        print(request_body)
         response: Response = client.api_helper.call_api(SAVE_MODEL_ENDPOINT, method_type='POST', body=request_body)
         response.raise_for_status()
 

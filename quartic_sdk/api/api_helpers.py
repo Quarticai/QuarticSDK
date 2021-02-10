@@ -70,14 +70,11 @@ class APIHelpers:
         request_url = self.configuration.host + url
         for path_param in path_params:
             request_url += path_param + "/"
-        query_string = '&'.join([f"{k}={v}" for k, v in query_params.items()])
-        if query_string:
-            request_url += '?'+ query_string
-        print(request_url)
+        headers = {'Content-Type': 'application/json', 'Accept':'application/json'}
         if self.configuration.auth_type == BASIC:
             return requests.post(request_url, auth=(
                 self.configuration.username, self.configuration.password),
-                data=body)
+                data=body, headers=headers)
         elif self.configuration.auth_type == OAUTH:
             # TODO: Add oauth call
             return None
