@@ -43,7 +43,7 @@ class ModelABC(metaclass=abc.ABCMeta):
     class MyModel(ModelABC):
         def __init__(self, model):
             self.model = model
-            super().__init__(model, 'MyModel', 'model description', 'INFO')
+            super().__init__('MyModel', 'model description', 'INFO')
 
         def preprocess(self, input_df):
             transformed_df = custom_transform(input_df)
