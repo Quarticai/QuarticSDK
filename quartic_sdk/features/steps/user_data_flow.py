@@ -19,4 +19,3 @@ def step_impl(context):
 
     with mock.patch('requests.get') as requests_get:
         requests_get.return_value = [{"id": 1, "name": "Asset_name", "edge_connectors": [1,2]}]
-    pass
