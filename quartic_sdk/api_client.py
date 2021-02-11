@@ -23,9 +23,8 @@ class APIClient:
         """
         Return the SDK version
         """
-        __version__=None
         exec(open("./_version.py", "r").read())
-        return __version__
+        return None
 
     def assets(self):
         """
