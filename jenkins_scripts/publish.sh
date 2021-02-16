@@ -9,16 +9,8 @@ set -ex
 echo "$BRANCH_NAME"
 
 
-# Obfuscate all branches.
-# make obfuscate command creates a new directory deming-core-obfuscated with obfuscated code.
-# To disable obfuscation comment the make obfuscate and cd ../deming-core-obfuscated statements
-git clone https://$GIT_USER:$GIT_TOKEN@github.com/Quarticai/quartic-licenses.git
-pip install pyarmor==6.2.8
-pyarmor register quartic-licenses/pyarmor-regfile-1.zip
 pip install pip==20.2.3
 pip install -r requirements.txt
-make obfuscate
-rm -rf quartic-licenses
 make build
 
 NAME=quartic_sdk
