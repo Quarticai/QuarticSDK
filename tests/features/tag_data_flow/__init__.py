@@ -53,14 +53,14 @@ def step_impl(context):
         world.tag_data_without_transformation = world.first_tag.data(
             start_time=1, stop_time=2)
 
-    test_transformation1 = [{
-        "transformation_type": "interpolation",
-        "column": "1",
-        "method": "linear"
-    }]
-
     with mock.patch('requests.post') as requests_post:
         requests_post.return_value = APIHelperCallAPI(TAG_DATA_POST)
+
+        test_transformation1 = [{
+            "transformation_type": "interpolation",
+            "column": "1",
+            "method": "linear"
+        }]
 
         world.tag_data_with_correct_transformation = world.first_tag.data(
             start_time=1, stop_time=2, transformations=test_transformation1)

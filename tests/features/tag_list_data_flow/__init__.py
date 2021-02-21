@@ -60,19 +60,19 @@ def step_impl(context):
         world.tag_list_data_json = world.tag_list.data(
             start_time=1, stop_time=2, return_type=Constants.RETURN_JSON)
 
-    test_transformation1 = [{
-        "transformation_type": "interpolation",
-        "column": "1",
-        "method": "linear"
-    }, {
-        "transformation_type": "interpolation",
-        "column": "2",
-        "method": "cubic",
-        "order": 2
-    }]
-
     with mock.patch('requests.post') as requests_post:
         requests_post.return_value = APIHelperCallAPI(TAG_LIST_DATA_POST)
+
+        test_transformation1 = [{
+            "transformation_type": "interpolation",
+            "column": "1",
+            "method": "linear"
+        }, {
+            "transformation_type": "interpolation",
+            "column": "2",
+            "method": "cubic",
+            "order": 2
+        }]
 
         world.first_asset_data_with_correct_transformation = world.tag_list.data(
             start_time=1, stop_time=2, transformations=test_transformation1)
