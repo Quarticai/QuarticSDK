@@ -21,14 +21,11 @@ def get_committed_files():
     files = []
     files_list = bash_command(
         'git', 'diff', '--cached', '--name-status').split()
-    i = 0
-    while i < len(files_list):
+    for i in range(0, len(files_list), 2):
         action = files_list[i].decode("utf-8")
         file = files_list[i + 1].decode("utf-8")
         if action != 'D' and file.endswith('.py'):
             files.append(file)
-        i = i + 2
-
     return files
 
 
@@ -79,10 +76,7 @@ def check_if_file_to_evaluate(file_location):
             return False
         with open(file_location, 'r') as f:
             l = f.read().split(" ")
-            if l[1] == EVALUATION_CHECK_PASS:
-                return False
-            else:
-                return True
+            return l[1] != EVALUATION_CHECK_PASS
     except IndexError:
         return False
 
