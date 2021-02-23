@@ -30,7 +30,7 @@ else
     exit 1
 fi
 
-if [[ "$BRANCE_NAME" =~ ^[v0-9]*\.[x0-9]*\.[x0-9]*$ ]]; then
+if [[ "$BRANCH_NAME" =~ ^[v0-9]*\.[x0-9]*\.[x0-9]*$ ]]; then
   curl -SfL https://github.com/github/hub/releases/download/v2.13.0/hub-linux-amd64-2.13.0.tgz | tar xzv --wildcards 'hub-*/bin/hub' --strip=2
   ./hub release create --draft --prerelease="$VERSION" -t "$BRANCH_NAME" branch -F CHANGELOG.md
   pip install twine==3.3.0 wheel==0.36.2
