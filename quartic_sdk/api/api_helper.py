@@ -63,10 +63,10 @@ class APIHelper:
         if self.configuration.auth_type == Constants.BASIC:
             return requests.get(request_url, auth=(
                 self.configuration.username, self.configuration.password),
-                                params=query_params)
+                                params=query_params, verify=self.configuration.verify_ssl)
         elif self.configuration.auth_type == Constants.OAUTH:
             headers = self._get_oauth_headers()
-            return requests.get(request_url, params=query_params, headers=headers)
+            return requests.get(request_url, params=query_params, headers=headers, verify=self.configuration.verify_ssl)
 
     def __http_post_api(self, url, path_params=[], query_params={}, body={}):
         """
@@ -83,10 +83,10 @@ class APIHelper:
             headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
             return requests.post(request_url, auth=(
                 self.configuration.username, self.configuration.password),
-                                 json=body, headers=headers, params=query_params)
+                                 json=body, headers=headers, params=query_params, verify=self.configuration.verify_ssl)
         elif self.configuration.auth_type == Constants.OAUTH:
             headers = self._get_oauth_headers()
-            return requests.post(request_url, params=query_params, json=body, headers=headers)
+            return requests.post(request_url, params=query_params, json=body, headers=headers, verify=self.configuration.verify_ssl)
 
     def __http_patch_api(self, url, path_params=[], query_params={}, body={}):
         """
