@@ -15,7 +15,7 @@ class APIClient:
             username=None,
             password=None,
             oauth_token=None,
-            verify_ssl=None):
+            verify_ssl=True):
         """
         Create the API Client
         """
