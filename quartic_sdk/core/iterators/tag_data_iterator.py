@@ -20,7 +20,7 @@ class TagDataIterator:
             offset=0,
             granularity=0,
             return_type=Constants.RETURN_JSON,
-            transformations=None):
+            transformations=[]):
         """
         We initialize the iterator with the given parameters
         :param tags: (BaseEntityList) Refers to the instance of BaseEntityList with
@@ -125,7 +125,9 @@ class TagDataIterator:
             tag_data_return_str = json.dumps(tag_data_return)
 
             tag_data_return = pd.read_json(tag_data_return_str,
-                                           orient="split")
+                                           orient="split",
+                                           convert_dates=False,
+                                           convert_axes=False)
 
         return tag_data_return
 
@@ -147,7 +149,9 @@ class TagDataIterator:
             tag_data_return_str = json.dumps(tag_data_return)
 
             tag_data_return = pd.read_json(tag_data_return_str,
-                                           orient="split")
+                                           orient="split",
+                                           convert_dates=False,
+                                           convert_axes=False)
 
         return tag_data_return
 
@@ -160,7 +164,7 @@ class TagDataIterator:
             api_helper,
             granularity=0,
             return_type=Constants.RETURN_PANDAS,
-            transformations=None):
+            transformations=[]):
         """
         The method creates the TagDataIterator instance based upon the parameters that are passed here
         :param start_time: (epoch) Start_time for getting data
