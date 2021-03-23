@@ -77,7 +77,7 @@ class Tag(Base):
         :param name: name of the object attribute we want to access for example tag.tag_type
         :return: Either mapped value or raw value with respect to the object attribute
         """
-        edge_connector_mapping = Tag.mapping
-        if name in edge_connector_mapping.keys() and edge_connector_mapping[name].get(self.__dict__[name]):
-            return edge_connector_mapping[name][self.__dict__[name]]
+        tag_mapping = Tag.mapping
+        if name in tag_mapping.keys() and tag_mapping[name].get(self.__dict__[name]):
+            return tag_mapping[name][self.__dict__[name]]
         return object.__getattribute__(self, name)
