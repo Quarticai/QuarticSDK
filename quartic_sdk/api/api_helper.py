@@ -8,12 +8,21 @@ class APIHelper:
     The class is the helper class which will be used for making the API calls
     """
 
-    def __init__(self, host, username=None, password=None, oauth_token=None, verify_ssl=None):
+    def __init__(self, host, username=None, password=None, oauth_token=None, cert_path=None, verify_ssl=None):
         """
         Create API Client
         """
         self.configuration = Configuration.get_configuration(
-            host, username, password, oauth_token, verify_ssl)
+            host, username, password, oauth_token, cert_path, verify_ssl)
+
+    def can_verify_ssl_certificate(self):
+        """
+        This method returns the value of verify that can be boolean or certificate path for ssl cerification
+        """
+        verify = self.configuration.verify_ssl
+        if self.configuration.verify_ssl and self.configuration.cert_path:
+            verify = self.configuration.cert_path
+        return verify
 
     def call_api(self, url, method_type, path_params=[], query_params={}, body={}):
         """
@@ -61,12 +70,17 @@ class APIHelper:
             request_url += str(path_param) + "/"
 
         if self.configuration.auth_type == Constants.BASIC:
-            return requests.get(request_url, auth=(
-                self.configuration.username, self.configuration.password),
-                                params=query_params)
+            return requests.get(
+                request_url,
+                auth=(self.configuration.username, self.configuration.password),
+                params=query_params,
+                verify=self.can_verify_ssl_certificate()
+            )
         elif self.configuration.auth_type == Constants.OAUTH:
             headers = self._get_oauth_headers()
-            return requests.get(request_url, params=query_params, headers=headers)
+            return requests.get(
+                request_url, params=query_params, headers=headers, verify=self.can_verify_ssl_certificate()
+            )
 
     def __http_post_api(self, url, path_params=[], query_params={}, body={}):
         """
@@ -81,12 +95,19 @@ class APIHelper:
             request_url += str(path_param) + "/"
         if self.configuration.auth_type == Constants.BASIC:
             headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
-            return requests.post(request_url, auth=(
-                self.configuration.username, self.configuration.password),
-                                 json=body, headers=headers, params=query_params)
+            return requests.post(
+                request_url,
+                auth=(self.configuration.username, self.configuration.password),
+                json=body,
+                headers=headers,
+                params=query_params,
+                verify=self.can_verify_ssl_certificate()
+            )
         elif self.configuration.auth_type == Constants.OAUTH:
             headers = self._get_oauth_headers()
-            return requests.post(request_url, params=query_params, json=body, headers=headers)
+            return requests.post(
+                request_url, params=query_params, json=body, headers=headers, verify=self.can_verify_ssl_certificate()
+            )
 
     def __http_patch_api(self, url, path_params=[], query_params={}, body={}):
         """

@@ -5,9 +5,10 @@ with the APIClient to make the API calls
 import urllib3
 from quartic_sdk.utilities.constants import OAUTH, BASIC
 
+
 class Configuration:
 
-    def __init__(self, host, username=None, password=None, oauth_token=None, verify_ssl=True):
+    def __init__(self, host, username=None, password=None, oauth_token=None, cert_path=None, verify_ssl=True):
         """
         Initialize the configuration
         :param host:
@@ -29,6 +30,7 @@ class Configuration:
             raise Exception("Auth not provided")
 
         self.verify_ssl = verify_ssl
+        self.cert_path = cert_path
 
     def get_basic_auth_token(self):
         """
@@ -41,15 +43,16 @@ class Configuration:
         ).get('authorization')
 
     @classmethod
-    def get_configuration(cls, host, username=None, password=None, oauth_token=None, verify_ssl=True):
+    def get_configuration(cls, host, username=None, password=None, oauth_token=None, cert_path=None, verify_ssl=True):
         """
         The method gets all the required params and returns the configuration details
         for making the API calls
-        :param host:
-        :param username:
-        :param password:
-        :param oauth_token:
-        :param verify_ssl:
+        :param host: name of the host
+        :param username: username of the user
+        :param password: password of the user
+        :param oauth_token: oauth token for authenticating requests
+        :param cert_path: path of certificate
+        :param verify_ssl: boolean value
         :return: Configuration object
         """
-        return Configuration(host, username, password, oauth_token, verify_ssl)
+        return Configuration(host, username, password, oauth_token, cert_path, verify_ssl)
