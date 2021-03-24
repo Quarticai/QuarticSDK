@@ -1,4 +1,3 @@
-
 """
 The given file contains the class to refer to the tag entity
 """
@@ -12,6 +11,14 @@ class Tag(Base):
     The given class refers to the tag entity which is created based upon the
     tag object returned from the API
     """
+
+    mapping = {
+        "tag_type": Constants.TAG_TYPES,
+        "tag_data_type": Constants.TAG_DATA_TYPES,
+        "tag_value_type": Constants.TAG_VALUE_TYPES,
+        "tag_process_type": Constants.PROCESS_VARIABLE_TYPES,
+        "category": Constants.INTELLIGENCE_CATEGORIES
+    }
 
     def __repr__(self):
         """
@@ -61,3 +68,16 @@ class Tag(Base):
             granularity,
             return_type,
             transformations)
+
+    def __getattribute__(self, name):
+        """
+        This method overrides the python's object __getattribute__ method. This is used to
+        map some constant value of an object to some meaningful string constants for better
+        readability
+        :param name: name of the object attribute we want to access for example tag.tag_type
+        :return: Either mapped value or raw value with respect to the object attribute
+        """
+        tag_mapping = Tag.mapping
+        if name in tag_mapping.keys() and tag_mapping[name].get(self.__dict__[name]):
+            return tag_mapping[name][self.__dict__[name]]
+        return object.__getattribute__(self, name)

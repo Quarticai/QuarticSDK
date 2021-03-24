@@ -1,4 +1,3 @@
-
 """
 The given file contains the class to refer to the asset entity
 """
@@ -12,6 +11,10 @@ class Asset(Base):
     The given class refers to the asset entity which is created based upon the
     asset object returned from the API
     """
+
+    mapping = {
+        "status": Constants.STATUS
+    }
 
     def __repr__(self):
         """
@@ -86,3 +89,16 @@ class Asset(Base):
             granularity,
             return_type,
             transformations)
+
+    def __getattribute__(self, name):
+        """
+        This method overrides the python's object __getattribute__ method. This is used to
+        map some constant value of an object to some meaningful string constants for better
+        readability
+        :param name: name of the object attribute we want to access for example asset.status
+        :return: Either mapped value or raw value with respect to the object attribute
+        """
+        asset_mapping = Asset.mapping
+        if name in asset_mapping.keys() and asset_mapping[name].get(self.__dict__[name]):
+            return asset_mapping[name][self.__dict__[name]]
+        return object.__getattribute__(self, name)
