@@ -16,7 +16,7 @@ Classes
 
 
 
-.. class:: APIClient(host, username=None, password=None, oauth_token=None, verify_ssl=None)
+.. class:: APIClient(host, username=None, password=None, oauth_token=None, cert_path=None, verify_ssl=True)
 
 
    .. method:: version()

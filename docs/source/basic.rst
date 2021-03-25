@@ -20,6 +20,7 @@ This class has the following parameters for initialization:
 -  **oauth\_token (optional)**: Required for OAuth2.0 Authentication.
 -  **verify\_ssl (optional)**: Required when the host needs to be
    verified for SSL.
+-  **cert\_path (optional)**: Required for verification of SSL certificates for HTTPS requests.
 
 Here's an example:
 
@@ -161,7 +162,25 @@ template as `Asset: {asset_name}_{asset_id}`. The available attributes in the cl
 -  **last_overhaul_date**: The last overhaul date of the asset in epoch
 -  **onboarded_at**: The onboarded at time of the asset in epoch
 -  **created_at**: The created at time of the asset in epoch
--  **status**: The streaming status of the asset :- 0.INIT, 1.ACTIVE, 2.PARTIAL_STREAMING, 3.INACTIVE, 4.UNASSIGNED_TAGS
+-  **status**: The streaming status of the asset. They are given by:
+.. list-table:: Asset streaming status
+   :widths: 50 50
+   :header-rows: 1
+
+   * - Integer
+     - Constant
+   * - 0
+     - INIT
+   * - 1
+     - ACTIVE
+   * - 2
+     - PARTIAL_STREAMING
+   * - 3
+     - INACTIVE
+   * - 4
+     - UNASSIGNED_TAGS
+
+
 
 The available methods are as follows:
 *************************************
@@ -219,12 +238,70 @@ The available attributes in this class are:
 -  **id**: Tag ID
 -  **name**: Tag Name
 -  **tag_type**: The tag types:- 1.Raw, 2.Soft, 3.Aggregation, 4.Bitwise, 5.Writeback
--  **tag_data_type**: The tag data types:- 0.Double, 1.String, 2.Boolean, 3.Int, 4.Long, 5.Float
+-  **tag_data_type**: The tag data types. They are given by
+.. list-table:: Tag Data Types
+   :widths: 50 50
+   :header-rows: 1
+
+   * - Integer
+     - Constant
+   * - 1
+     - RAW
+   * - 2
+     - SOFT
+   * - 3
+     - AGGREGATION
+   * - 4
+     - BITWISE
+   * - 5
+     - WRITEBACK
 -  **short_name**: Tag short name
 -  **edge_connector**: The data source ID
--  **tag_process_type**: The tag process types:- 1.Process Variable, 2.Condition Variable, 3.Process Alarm, 4.Process Event, 5.Anomaly Score, 6.Predicted Variable, 7.Others, 8.Workflow, 9.Influencing Score
--  **category**: Intelligence Categories:- 1.Energy, 2.Throughput, 3.Reliability, 4.Quality, 5.Safety, 6.Environment
--  **uom**: The unit of measurement:- 1.Celsius, 2.Fahrenheit, 3.Pound per square inch, 4.Pascal, 5.Millibar, 6.Pound-force per square inch, 7.dB, 8.Acceleration of gravity, 9.Inch per second, 10.Revolutions per minute, 11.Meter, 12.Centemeter, 13.Millimeter, 14.Metre per second squared, 15.Millimetre per second, 16.Volt, 17.Amperes, 18.Milliampere, 19.Poiseuille, 20.Poise, 21.Kinematic, 22.Stokes, 23.Standard litre per minute, 24.On/Off, 25.Percent, 26.pH, 27.kilogram, 28.Percent On, 29.None, 30.Millimetre per second squared, 31.Counts, 32.Gallon, 33.Gallon per minute, 34.Inch, 35.Micro Simens, 36.Micro Simens Per Centimeter, 37.Parts Per Million, 38.Running/Stopped, 39.Open/Closed, 40.0/1, 41.Liters, 42.Hertz, 43.Hours, 44.Tonnes, 45.Optical density, 46.in/s pk, 47.Gs p-p, 48.Gs rms, 49.Gs pk, 50.kg/h, 51.kQ, null.No unit
+-  **tag_process_type**: The tag process types. They are given by:
+.. list-table:: Tag Process Type
+   :widths: 50 50
+   :header-rows: 1
+
+   * - Integer
+     - Constant
+   * - 1
+     - PROCESS_VARIABLE
+   * - 2
+     - CONDITION_VARIABLE
+   * - 3
+     - PROCESS_ALARM
+   * - 4
+     - PROCESS_EVENT
+   * - 5
+     - ANOMALY_SCORE
+   * - 6
+     - PREDICTED_VARIABLE
+   * - 7
+     - OTHERS
+   * - 8
+     - WORKFLOW
+   * - 9
+     - INFLUENCING_SCORE
+-  **category**: Intelligence Categories. They are given by:
+.. list-table:: Tag Intelligence Categories
+   :widths: 50 50
+   :header-rows: 1
+
+   * - Integer
+     - Constant
+   * - 1
+     - Energy
+   * - 2
+     - Throughput
+   * - 3
+     - Reliability
+   * - 4
+     - Quality
+   * - 5
+     - Safety
+   * - 6
+     - Environment
+-  **uom_name**: The name of measurement unit.
 -  **asset**: ID of the asset
 -  **created_by**: The user ID, who created this tag
 -  **value_table**: The key value pair where key is the integer while the value is the string
@@ -290,11 +367,49 @@ The available attributes in this class are:
 -  **id**: Datasource ID
 -  **created_at**: Time of creation of data source in epoch
 -  **edge_device**: ID of the edge node
--  **connector_protocol**: The different datasource types:- 200.ABDF1, 201.OPTO22, 202.OPCDA, 203.OSIPI, 204.MODBUS, 205.MQTT, 206.OPCUA, 207.SQL
+-  **connector_protocol**: The different datasource types are as follows:
+.. list-table:: Data Source connector protocol
+   :widths: 50 50
+   :header-rows: 1
+
+   * - Integer
+     - Constant
+   * - 200
+     - ABDF1
+   * - 201
+     - OPTO22
+   * - 202
+     - OPCDA
+   * - 203
+     - OSIPI
+   * - 204
+     - MODBUS
+   * - 205
+     - MQTT
+   * - 206
+     - OPCUA
+   * - 207
+     - SQL
 -  **last_streamed_on**: Last streamed on epoch
 -  **update_interval**: Update interval in ms
 -  **name**: Name of the datasource
--  **stream_status**: The stream status for the datasource:- 0.INIT, 1.ACTIVE, 2.PARTIAL STREAMING, 3.INACTIVE, 4.UNASSIGNED TAGS
+-  **stream_status**: The stream status for the datasource are as follows:
+.. list-table:: Data Source streaming status
+   :widths: 50 50
+   :header-rows: 1
+
+   * - Integer
+     - Constant
+   * - 0
+     - INIT
+   * - 1
+     - ACTIVE
+   * - 2
+     - PARTIAL_STREAMING
+   * - 3
+     - INACTIVE
+   * - 4
+     - UNASSIGNED_TAGS
 -  **created_by**: ID of the user who created the datasource
 -  **config**: Configurations of the data source
 -  **parent**: In case of query datasource, this refers to the ID of the parent datasource

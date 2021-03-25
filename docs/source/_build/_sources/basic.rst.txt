@@ -20,6 +20,7 @@ This class has the following parameters for initialization:
 -  **oauth\_token (optional)**: Required for OAuth2.0 Authentication.
 -  **verify\_ssl (optional)**: Required when the host needs to be
    verified for SSL.
+-  **cert\_path (optional)**: Required for verification of SSL certificates for HTTPS requests.
 
 Here's an example:
 
@@ -224,7 +225,7 @@ The available attributes in this class are:
 -  **edge_connector**: The data source ID
 -  **tag_process_type**: The tag process types:- 1.Process Variable, 2.Condition Variable, 3.Process Alarm, 4.Process Event, 5.Anomaly Score, 6.Predicted Variable, 7.Others, 8.Workflow, 9.Influencing Score
 -  **category**: Intelligence Categories:- 1.Energy, 2.Throughput, 3.Reliability, 4.Quality, 5.Safety, 6.Environment
--  **uom**: The unit of measurement
+-  **uom_name**: The name of measurement unit:- 1.Celsius, 2.Fahrenheit, 3.Pound per square inch, 4.Pascal, 5.Millibar, 6.Pound-force per square inch, 7.dB, 8.Acceleration of gravity, 9.Inch per second, 10.Revolutions per minute, 11.Meter, 12.Centemeter, 13.Millimeter, 14.Metre per second squared, 15.Millimetre per second, 16.Volt, 17.Amperes, 18.Milliampere, 19.Poiseuille, 20.Poise, 21.Kinematic, 22.Stokes, 23.Standard litre per minute, 24.On/Off, 25.Percent, 26.pH, 27.kilogram, 28.Percent On, 29.None, 30.Millimetre per second squared, 31.Counts, 32.Gallon, 33.Gallon per minute, 34.Inch, 35.Micro Simens, 36.Micro Simens Per Centimeter, 37.Parts Per Million, 38.Running/Stopped, 39.Open/Closed, 40.0/1, 41.Liters, 42.Hertz, 43.Hours, 44.Tonnes, 45.Optical density, 46.in/s pk, 47.Gs p-p, 48.Gs rms, 49.Gs pk, 50.kg/h, 51.kQ, null.No unit
 -  **asset**: ID of the asset
 -  **created_by**: The user ID, who created this tag
 -  **value_table**: The key value pair where key is the integer while the value is the string

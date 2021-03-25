@@ -1,13 +1,19 @@
-
 from quartic_sdk.core.entities.base import Base
 import quartic_sdk.utilities.constants as Constants
 from quartic_sdk.core.iterators.tag_data_iterator import TagDataIterator
+
 
 class EdgeConnector(Base):
     """
     The given class refers to the data source entity which is created based upon the
     data source object returned from the API
     """
+
+    mapping = {
+        "status": Constants.STATUS,
+        'connector_protocol': Constants.CONNECTOR_PROTOCOLS,
+        "stream_status": Constants.STATUS,
+    }
 
     def __repr__(self):
         """
@@ -51,5 +57,17 @@ class EdgeConnector(Base):
         """
         tags = self.get_tags()
         return TagDataIterator.create_tag_data_iterator(tags, start_time, stop_time, self.api_helper,
-            granularity, return_type, transformations)
+                                                        granularity, return_type, transformations)
 
+    def __getattribute__(self, name):
+        """
+        This method overrides the python's object __getattribute__ method. This is used to
+        map some constant value of an object to some meaningful string constants for better
+        readability
+        :param name: name of the object attribute we want to access for example edge_connector.connector_protocol
+        :return: Either mapped value or raw value with respect to the object attribute
+        """
+        edge_connector_mapping = EdgeConnector.mapping
+        if name in edge_connector_mapping.keys() and edge_connector_mapping[name].get(self.__dict__[name]):
+            return edge_connector_mapping[name][self.__dict__[name]]
+        return object.__getattribute__(self, name)

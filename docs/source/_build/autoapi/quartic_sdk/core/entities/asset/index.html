@@ -51,10 +51,15 @@
 </table>
 <dl class="py class">
 <dt id="quartic_sdk.core.entities.asset.Asset">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.core.entities.asset.</span></code><code class="sig-name descname"><span class="pre">Asset</span></code><a class="headerlink" href="#quartic_sdk.core.entities.asset.Asset" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.core.entities.asset.</span></code><code class="sig-name descname"><span class="pre">Asset</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body_json</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_helper</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.asset.Asset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../base/index.html#quartic_sdk.core.entities.base.Base" title="quartic_sdk.core.entities.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">quartic_sdk.core.entities.base.Base</span></code></a></p>
 <p>The given class refers to the asset entity which is created based upon the
 asset object returned from the API</p>
+<dl class="py attribute">
+<dt id="quartic_sdk.core.entities.asset.Asset.mapping">
+<code class="sig-name descname"><span class="pre">mapping</span></code><a class="headerlink" href="#quartic_sdk.core.entities.asset.Asset.mapping" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt id="quartic_sdk.core.entities.asset.Asset.__repr__">
 <code class="sig-name descname"><span class="pre">__repr__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.asset.Asset.__repr__" title="Permalink to this definition">¶</a></dt>
@@ -117,6 +122,16 @@ dictionary. An example value here is:
 between the given duration</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="quartic_sdk.core.entities.asset.Asset.__getattribute__">
+<code class="sig-name descname"><span class="pre">__getattribute__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.asset.Asset.__getattribute__" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method overrides the python’s object __getattribute__ method. This is used to
+map some constant value of an object to some meaningful string constants for better
+readability
+:param name: name of the object attribute we want to access for example asset.status
+:return: Either mapped value or raw value with respect to the object attribute</p>
 </dd></dl>
 
 </dd></dl>

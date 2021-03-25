@@ -182,3 +182,253 @@ Module Contents
 
    
 
+.. data:: INIT
+   :annotation: = 0
+
+   
+
+.. data:: ACTIVE
+   :annotation: = 1
+
+   
+
+.. data:: PARTIAL_STREAMING
+   :annotation: = 2
+
+   
+
+.. data:: INACTIVE
+   :annotation: = 3
+
+   
+
+.. data:: UNASSIGNED_TAGS
+   :annotation: = 4
+
+   
+
+.. data:: STATUS
+   
+
+   
+
+.. data:: ABDF1
+   :annotation: = 200
+
+   
+
+.. data:: OPTO22
+   :annotation: = 201
+
+   
+
+.. data:: OPCDA
+   :annotation: = 202
+
+   
+
+.. data:: OSIPI
+   :annotation: = 203
+
+   
+
+.. data:: MODBUS
+   :annotation: = 204
+
+   
+
+.. data:: MQTT
+   :annotation: = 205
+
+   
+
+.. data:: OPCUA
+   :annotation: = 206
+
+   
+
+.. data:: SQL
+   :annotation: = 207
+
+   
+
+.. data:: SPECTRAL
+   :annotation: = 208
+
+   
+
+.. data:: CONNECTOR_PROTOCOLS
+   
+
+   
+
+.. data:: RAW_TAG
+   :annotation: = 1
+
+   
+
+.. data:: SOFT_TAG
+   :annotation: = 2
+
+   
+
+.. data:: AGGREGATION_TAG
+   :annotation: = 3
+
+   
+
+.. data:: BITWISE_TAG
+   :annotation: = 4
+
+   
+
+.. data:: WRITEBACK_TAG
+   :annotation: = 5
+
+   
+
+.. data:: TAG_TYPES
+   
+
+   
+
+.. data:: DOUBLE
+   :annotation: = 0
+
+   
+
+.. data:: STRING
+   :annotation: = 1
+
+   
+
+.. data:: BOOLEAN
+   :annotation: = 2
+
+   
+
+.. data:: INT
+   :annotation: = 3
+
+   
+
+.. data:: LONG
+   :annotation: = 4
+
+   
+
+.. data:: FLOAT
+   :annotation: = 5
+
+   
+
+.. data:: SPECTRAL
+   :annotation: = 6
+
+   
+
+.. data:: TAG_DATA_TYPES
+   
+
+   
+
+.. data:: CAT
+   :annotation: = 0
+
+   
+
+.. data:: CONTI
+   :annotation: = 1
+
+   
+
+.. data:: TAG_VALUE_TYPES
+   
+
+   
+
+.. data:: PROCESS_VARIABLE
+   :annotation: = 1
+
+   
+
+.. data:: CONDITION_VARIABLE
+   :annotation: = 2
+
+   
+
+.. data:: PROCESS_ALARM
+   :annotation: = 3
+
+   
+
+.. data:: PROCESS_EVENT
+   :annotation: = 4
+
+   
+
+.. data:: ANOMALY_SCORE
+   :annotation: = 5
+
+   
+
+.. data:: PREDICTED_VARIABLE
+   :annotation: = 6
+
+   
+
+.. data:: OTHERS
+   :annotation: = 7
+
+   
+
+.. data:: WORKFLOW
+   :annotation: = 8
+
+   
+
+.. data:: INFLUENCING_SCORE
+   :annotation: = 9
+
+   
+
+.. data:: PROCESS_VARIABLE_TYPES
+   
+
+   
+
+.. data:: ENERGY
+   :annotation: = 1
+
+   
+
+.. data:: THROUGHPUT
+   :annotation: = 2
+
+   
+
+.. data:: RELIABILITY
+   :annotation: = 3
+
+   
+
+.. data:: QUALITY
+   :annotation: = 4
+
+   
+
+.. data:: SAFETY
+   :annotation: = 5
+
+   
+
+.. data:: ENVIRONMENT
+   :annotation: = 6
+
+   
+
+.. data:: INTELLIGENCE_CATEGORIES
+   
+
+   
+
