@@ -50,6 +50,7 @@ making API calls.</p></li>
 <li><p><strong>oauth_token (optional)</strong>: Required for OAuth2.0 Authentication.</p></li>
 <li><p><strong>verify_ssl (optional)</strong>: Required when the host needs to be
 verified for SSL.</p></li>
+<li><p><strong>cert_path (optional)</strong>: Required for verification of SSL certificates for HTTPS requests.</p></li>
 </ul>
 <p>Here’s an example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">client</span> <span class="o">=</span> <span class="n">APIClient</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;http://test.quartic.ai&quot;</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="s2">&quot;username&quot;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s2">&quot;password&quot;</span><span class="p">)</span>
@@ -231,7 +232,7 @@ template as <cite>Tag: {tag_name}_{tag_id}</cite></p>
 <li><p><strong>edge_connector</strong>: The data source ID</p></li>
 <li><p><strong>tag_process_type</strong>: The tag process types:- 1.Process Variable, 2.Condition Variable, 3.Process Alarm, 4.Process Event, 5.Anomaly Score, 6.Predicted Variable, 7.Others, 8.Workflow, 9.Influencing Score</p></li>
 <li><p><strong>category</strong>: Intelligence Categories:- 1.Energy, 2.Throughput, 3.Reliability, 4.Quality, 5.Safety, 6.Environment</p></li>
-<li><p><strong>uom</strong>: The unit of measurement</p></li>
+<li><p><strong>uom_name</strong>: The name of measurement unit:- 1.Celsius, 2.Fahrenheit, 3.Pound per square inch, 4.Pascal, 5.Millibar, 6.Pound-force per square inch, 7.dB, 8.Acceleration of gravity, 9.Inch per second, 10.Revolutions per minute, 11.Meter, 12.Centemeter, 13.Millimeter, 14.Metre per second squared, 15.Millimetre per second, 16.Volt, 17.Amperes, 18.Milliampere, 19.Poiseuille, 20.Poise, 21.Kinematic, 22.Stokes, 23.Standard litre per minute, 24.On/Off, 25.Percent, 26.pH, 27.kilogram, 28.Percent On, 29.None, 30.Millimetre per second squared, 31.Counts, 32.Gallon, 33.Gallon per minute, 34.Inch, 35.Micro Simens, 36.Micro Simens Per Centimeter, 37.Parts Per Million, 38.Running/Stopped, 39.Open/Closed, 40.0/1, 41.Liters, 42.Hertz, 43.Hours, 44.Tonnes, 45.Optical density, 46.in/s pk, 47.Gs p-p, 48.Gs rms, 49.Gs pk, 50.kg/h, 51.kQ, null.No unit</p></li>
 <li><p><strong>asset</strong>: ID of the asset</p></li>
 <li><p><strong>created_by</strong>: The user ID, who created this tag</p></li>
 <li><p><strong>value_table</strong>: The key value pair where key is the integer while the value is the string</p></li>

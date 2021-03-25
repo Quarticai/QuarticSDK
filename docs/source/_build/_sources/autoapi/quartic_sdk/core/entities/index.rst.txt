@@ -39,12 +39,18 @@ Classes
 
 
 
-.. class:: Asset
+.. class:: Asset(body_json, api_helper)
+
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
    The given class refers to the asset entity which is created based upon the
    asset object returned from the API
+
+   .. attribute:: mapping
+      
+
+      
 
    .. method:: __repr__(self)
 
@@ -93,8 +99,18 @@ Classes
           between the given duration
 
 
+   .. method:: __getattribute__(self, name)
 
-.. class:: Batch
+      This method overrides the python's object __getattribute__ method. This is used to
+      map some constant value of an object to some meaningful string constants for better
+      readability
+      :param name: name of the object attribute we want to access for example asset.status
+      :return: Either mapped value or raw value with respect to the object attribute
+
+
+
+.. class:: Batch(body_json, api_helper)
+
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -107,7 +123,8 @@ Classes
 
 
 
-.. class:: ContextFrame
+.. class:: ContextFrame(body_json, api_helper)
+
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -125,7 +142,8 @@ Classes
 
 
 
-.. class:: ContextFrameOccurrence
+.. class:: ContextFrameOccurrence(body_json, api_helper)
+
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -145,6 +163,11 @@ Classes
 
    The given class refers to the data source entity which is created based upon the
    data source object returned from the API
+
+   .. attribute:: mapping
+      
+
+      
 
    .. method:: __repr__(self)
 
@@ -182,6 +205,15 @@ Classes
           between the given duration
 
 
+   .. method:: __getattribute__(self, name)
+
+      This method overrides the python's object __getattribute__ method. This is used to
+      map some constant value of an object to some meaningful string constants for better
+      readability
+      :param name: name of the object attribute we want to access for example edge_connector.connector_protocol
+      :return: Either mapped value or raw value with respect to the object attribute
+
+
 
 .. class:: Tag(body_json, api_helper)
 
@@ -190,6 +222,11 @@ Classes
 
    The given class refers to the tag entity which is created based upon the
    tag object returned from the API
+
+   .. attribute:: mapping
+      
+
+      
 
    .. method:: __repr__(self)
 
@@ -220,6 +257,15 @@ Classes
           }]
       :return: (DataIterator) DataIterator object which can be iterated to get the data
           between the given duration
+
+
+   .. method:: __getattribute__(self, name)
+
+      This method overrides the python's object __getattribute__ method. This is used to
+      map some constant value of an object to some meaningful string constants for better
+      readability
+      :param name: name of the object attribute we want to access for example tag.tag_type
+      :return: Either mapped value or raw value with respect to the object attribute
 
 
 

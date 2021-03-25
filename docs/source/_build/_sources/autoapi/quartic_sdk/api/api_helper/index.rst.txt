@@ -16,10 +16,15 @@ Classes
 
 
 
-.. class:: APIHelper(host, username=None, password=None, oauth_token=None, verify_ssl=None)
+.. class:: APIHelper(host, username=None, password=None, oauth_token=None, cert_path=None, verify_ssl=None)
 
 
    The class is the helper class which will be used for making the API calls
+
+   .. method:: can_verify_ssl_certificate(self)
+
+      This method returns the value of verify that can be boolean or certificate path for ssl cerification
+
 
    .. method:: call_api(self, url, method_type, path_params=[], query_params={}, body={})
 

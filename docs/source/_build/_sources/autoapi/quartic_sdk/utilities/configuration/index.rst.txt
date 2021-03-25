@@ -22,7 +22,7 @@ Classes
 
 
 
-.. class:: Configuration(host, username=None, password=None, oauth_token=None, verify_ssl=True)
+.. class:: Configuration(host, username=None, password=None, oauth_token=None, cert_path=None, verify_ssl=True)
 
 
    .. method:: get_basic_auth_token(self)
@@ -32,16 +32,17 @@ Classes
       :return: The token for basic HTTP authentication.
 
 
-   .. method:: get_configuration(cls, host, username=None, password=None, oauth_token=None, verify_ssl=True)
+   .. method:: get_configuration(cls, host, username=None, password=None, oauth_token=None, cert_path=None, verify_ssl=True)
       :classmethod:
 
       The method gets all the required params and returns the configuration details
       for making the API calls
-      :param host:
-      :param username:
-      :param password:
-      :param oauth_token:
-      :param verify_ssl:
+      :param host: name of the host
+      :param username: username of the user
+      :param password: password of the user
+      :param oauth_token: oauth token for authenticating requests
+      :param cert_path: path of certificate
+      :param verify_ssl: boolean value
       :return: Configuration object
 
 

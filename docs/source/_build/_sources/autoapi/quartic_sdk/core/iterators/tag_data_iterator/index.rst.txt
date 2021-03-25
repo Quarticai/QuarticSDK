@@ -16,7 +16,7 @@ Classes
 
 
 
-.. class:: TagDataIterator(tags, start_time, stop_time, count, api_helper, offset=0, granularity=0, return_type=Constants.RETURN_JSON, transformations=None)
+.. class:: TagDataIterator(tags, start_time, stop_time, count, api_helper, offset=0, granularity=0, return_type=Constants.RETURN_JSON, transformations=[])
 
 
    The given class is the iterator class, which will be used to iterate
@@ -49,7 +49,7 @@ Classes
       We override this method to get the object at the given key
 
 
-   .. method:: create_tag_data_iterator(cls, tags, start_time, stop_time, api_helper, granularity=0, return_type=Constants.RETURN_PANDAS, transformations=None)
+   .. method:: create_tag_data_iterator(cls, tags, start_time, stop_time, api_helper, granularity=0, return_type=Constants.RETURN_PANDAS, transformations=[])
       :classmethod:
 
       The method creates the TagDataIterator instance based upon the parameters that are passed here
