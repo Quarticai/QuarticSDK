@@ -89,7 +89,7 @@ class APIClient:
     def list_models(
             self,
             is_active: bool = None,
-            ml_node: int = None) -> List[Dict]:
+            ml_node: int = None):
         """
         List models and its parameters accessible by user
         :param is_active: Boolean Indicator if list should contain active nodes or not
