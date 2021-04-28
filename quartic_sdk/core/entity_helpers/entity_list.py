@@ -129,7 +129,7 @@ class EntityList:
         We return the EntityList after removing the entities with the attributes having the given values
         :param kwargs: Dict which maps `filter_key` to filter_value
         """
-        filtered_entities = set([entity.id for entity in self.filter(**kwargs)])
+        filtered_entities = {entity.id for entity in self.filter(**kwargs)}
         excluded_entities = [entity for entity in self._entities
                                 if entity.id not in filtered_entities]
         return EntityList(self._class_type, excluded_entities)
