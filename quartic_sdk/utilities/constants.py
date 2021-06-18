@@ -32,6 +32,11 @@ GET_CONTEXT_FRAME_OCCURRENCES = "/api/v1/context_frame_occurrences/"
 GET_BATCHES = "/api/v1/batches/"
 POST_OPCUA_DATA = "/api/v1/historical_tag_data/"
 CMD_MODEL_ENDPOINT = '/cmd/model/'
+GET_SITES = "/api/v1/site/"
+GET_PRODUCTS = "/api/v1/product/"
+PROCEDURES = "/api/v1/procedure/"
+PROCEDURE_STEPS = "/api/v1/procedure_step/"
+POST_RULE_VALIDATE_JSON = "/api/v1/rule_validate_json/"
 
 # Entity types
 ASSET_ENTITY = "Asset"
@@ -41,6 +46,10 @@ CONTEXT_FRAME_OCCURRENCE_ENTITY = "ContextFrameOccurrence"
 TAG_ENTITY = "Tag"
 EDGE_CONNECTOR_ENTITY = "EdgeConnector"
 MODEL_ENTITY = "Model"
+SITE_ENTITY = "Site"
+PRODUCT_ENTITY = "Product"
+PROCEDURE_ENTITY = "Procedure"
+PROCEDURE_STEP_ENTITY = "ProcedureStep"
 
 # Data return type constants
 RETURN_JSON = "json"
@@ -151,6 +160,7 @@ RELIABILITY = 3
 QUALITY = 4
 SAFETY = 5
 ENVIRONMENT = 6
+OTHERS = 7
 
 INTELLIGENCE_CATEGORIES = {
     ENERGY: 'Energy',
@@ -158,8 +168,34 @@ INTELLIGENCE_CATEGORIES = {
     RELIABILITY: 'Reliability',
     QUALITY: 'Quality',
     SAFETY: 'Safety',
-    ENVIRONMENT: 'Environment'
+    ENVIRONMENT: 'Environment',
+    OTHERS: 'Others'
 }
 
 DEFAULT_PAGE_LIMIT_ROWS = 200000
 DEFAULT_BATCH_SIZE = 200000
+
+# Step Types in ProcedureStep hierarchy
+UNIT_PROCEDURE = 1
+OPERATION = 2
+PHASE = 3
+PHASE_STEP = 4
+
+# raw_json key types used for creating rule
+TAG = '0'
+OPERATOR = '1'
+
+# Operators needed for creating raw_json for rules creation
+PLUS = '0'
+MINUS = '1'
+MULTIPLY = '3'
+DIVIDE = '4'
+EXPONENT = '5'
+LESSER = '6'
+GREATER = '7'
+LESSER_EQUAL = '8'
+GREATER_EQUAL = '9'
+EQUAL = '10'
+RANGE = '11'
+AND = '12'
+OR = '13'
