@@ -142,6 +142,31 @@ Module Contents
 
    
 
+.. data:: GET_SITES
+   :annotation: = /api/v1/site/
+
+   
+
+.. data:: GET_PRODUCTS
+   :annotation: = /api/v1/product/
+
+   
+
+.. data:: PROCEDURES
+   :annotation: = /api/v1/procedure/
+
+   
+
+.. data:: PROCEDURE_STEPS
+   :annotation: = /api/v1/procedure_step/
+
+   
+
+.. data:: POST_RULE_VALIDATE_JSON
+   :annotation: = /api/v1/rule_validate_json/
+
+   
+
 .. data:: ASSET_ENTITY
    :annotation: = Asset
 
@@ -174,6 +199,26 @@ Module Contents
 
 .. data:: MODEL_ENTITY
    :annotation: = Model
+
+   
+
+.. data:: SITE_ENTITY
+   :annotation: = Site
+
+   
+
+.. data:: PRODUCT_ENTITY
+   :annotation: = Product
+
+   
+
+.. data:: PROCEDURE_ENTITY
+   :annotation: = Procedure
+
+   
+
+.. data:: PROCEDURE_STEP_ENTITY
+   :annotation: = ProcedureStep
 
    
 
@@ -432,6 +477,11 @@ Module Contents
 
    
 
+.. data:: OTHERS
+   :annotation: = 7
+
+   
+
 .. data:: INTELLIGENCE_CATEGORIES
    
 
@@ -444,6 +494,71 @@ Module Contents
 
 .. data:: DEFAULT_BATCH_SIZE
    :annotation: = 200000
+
+   
+
+.. data:: PLUS
+   :annotation: = 0
+
+   
+
+.. data:: MINUS
+   :annotation: = 1
+
+   
+
+.. data:: MULTIPLY
+   :annotation: = 3
+
+   
+
+.. data:: DIVIDE
+   :annotation: = 4
+
+   
+
+.. data:: EXPONENT
+   :annotation: = 5
+
+   
+
+.. data:: LESSER
+   :annotation: = 6
+
+   
+
+.. data:: GREATER
+   :annotation: = 7
+
+   
+
+.. data:: LESSER_EQUAL
+   :annotation: = 8
+
+   
+
+.. data:: GREATER_EQUAL
+   :annotation: = 9
+
+   
+
+.. data:: EQUAL
+   :annotation: = 10
+
+   
+
+.. data:: RANGE
+   :annotation: = 11
+
+   
+
+.. data:: AND
+   :annotation: = 12
+
+   
+
+.. data:: OR
+   :annotation: = 13
 
    
 

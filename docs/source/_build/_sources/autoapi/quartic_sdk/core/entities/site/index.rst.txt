@@ -1,0 +1,48 @@
+:mod:`quartic_sdk.core.entities.site`
+=====================================
+
+.. py:module:: quartic_sdk.core.entities.site
+
+.. autoapi-nested-parse::
+
+   The given file contains the class to refer to the Site entity
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   quartic_sdk.core.entities.site.Site
+
+
+
+.. class:: Site
+
+   Bases: :class:`quartic_sdk.core.entities.base.Base`
+
+   The given class refers to the site entity which is created based upon the site response
+   returned by the API
+
+   .. method:: __repr__(self)
+
+      Override the method to return the site name
+
+
+   .. method:: assets(self)
+      :abstractmethod:
+
+      Get the assets belongs to a site
+
+
+   .. method:: edge_connectors(self)
+      :abstractmethod:
+
+      Get the edge_connectors belongs to a site
+
+
+

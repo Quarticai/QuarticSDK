@@ -44,6 +44,10 @@
 <li class="toctree-l1"><a class="reference internal" href="context_frame_occurrence/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">quartic_sdk.core.entities.context_frame_occurrence</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="edge_connector/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">quartic_sdk.core.entities.edge_connector</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="model/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">quartic_sdk.core.entities.model</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="procedure/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">quartic_sdk.core.entities.procedure</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="procedure_step/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">quartic_sdk.core.entities.procedure_step</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="product/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">quartic_sdk.core.entities.product</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="site/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">quartic_sdk.core.entities.site</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="tag/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">quartic_sdk.core.entities.tag</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="type_mapping/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">quartic_sdk.core.entities.type_mapping</span></code></a></li>
 </ul>
@@ -80,11 +84,23 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#quartic_sdk.core.entities.Model" title="quartic_sdk.core.entities.Model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Model</span></code></a></p></td>
 <td><p>The given class refers to the Model entity which is created based upon the</p></td>
 </tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#quartic_sdk.core.entities.Site" title="quartic_sdk.core.entities.Site"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Site</span></code></a></p></td>
+<td><p>The given class refers to the site entity which is created based upon the site response</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quartic_sdk.core.entities.Procedure" title="quartic_sdk.core.entities.Procedure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Procedure</span></code></a></p></td>
+<td><p>The given class refers to the Procedure entity which is created based upon the procedure response</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#quartic_sdk.core.entities.Product" title="quartic_sdk.core.entities.Product"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Product</span></code></a></p></td>
+<td><p>The given class refers to the product entity which is created based upon the product response</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quartic_sdk.core.entities.ProcedureStep" title="quartic_sdk.core.entities.ProcedureStep"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ProcedureStep</span></code></a></p></td>
+<td><p>The given class refers to the ProcedureStep entity which is created based upon the</p></td>
+</tr>
 </tbody>
 </table>
 <dl class="py class">
 <dt id="quartic_sdk.core.entities.Asset">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.core.entities.</span></code><code class="sig-name descname"><span class="pre">Asset</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body_json</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_helper</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.Asset" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.core.entities.</span></code><code class="sig-name descname"><span class="pre">Asset</span></code><a class="headerlink" href="#quartic_sdk.core.entities.Asset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="base/index.html#quartic_sdk.core.entities.base.Base" title="quartic_sdk.core.entities.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">quartic_sdk.core.entities.base.Base</span></code></a></p>
 <p>The given class refers to the asset entity which is created based upon the
 asset object returned from the API</p>
@@ -173,7 +189,7 @@ readability
 
 <dl class="py class">
 <dt id="quartic_sdk.core.entities.Batch">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.core.entities.</span></code><code class="sig-name descname"><span class="pre">Batch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body_json</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_helper</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.Batch" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.core.entities.</span></code><code class="sig-name descname"><span class="pre">Batch</span></code><a class="headerlink" href="#quartic_sdk.core.entities.Batch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="base/index.html#quartic_sdk.core.entities.base.Base" title="quartic_sdk.core.entities.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">quartic_sdk.core.entities.base.Base</span></code></a></p>
 <p>The given class refers to the batch entity which is created based upon the batch
 object returned from the API</p>
@@ -187,7 +203,7 @@ object returned from the API</p>
 
 <dl class="py class">
 <dt id="quartic_sdk.core.entities.ContextFrame">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.core.entities.</span></code><code class="sig-name descname"><span class="pre">ContextFrame</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body_json</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_helper</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.ContextFrame" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.core.entities.</span></code><code class="sig-name descname"><span class="pre">ContextFrame</span></code><a class="headerlink" href="#quartic_sdk.core.entities.ContextFrame" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="base/index.html#quartic_sdk.core.entities.base.Base" title="quartic_sdk.core.entities.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">quartic_sdk.core.entities.base.Base</span></code></a></p>
 <p>The given class refers to the context frame entity which is created based
 upon the context frame object returned from the API</p>
@@ -208,7 +224,7 @@ upon the context frame object returned from the API</p>
 
 <dl class="py class">
 <dt id="quartic_sdk.core.entities.ContextFrameOccurrence">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.core.entities.</span></code><code class="sig-name descname"><span class="pre">ContextFrameOccurrence</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body_json</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_helper</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.ContextFrameOccurrence" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.core.entities.</span></code><code class="sig-name descname"><span class="pre">ContextFrameOccurrence</span></code><a class="headerlink" href="#quartic_sdk.core.entities.ContextFrameOccurrence" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="base/index.html#quartic_sdk.core.entities.base.Base" title="quartic_sdk.core.entities.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">quartic_sdk.core.entities.base.Base</span></code></a></p>
 <p>The given class refers to the context frame occurrence entity which is created
 based upon the context frame occurrence object returned from the API</p>
@@ -393,6 +409,148 @@ Model object returned from the API</p>
 
 </dd></dl>
 
+<dl class="py class">
+<dt id="quartic_sdk.core.entities.Site">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.core.entities.</span></code><code class="sig-name descname"><span class="pre">Site</span></code><a class="headerlink" href="#quartic_sdk.core.entities.Site" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="base/index.html#quartic_sdk.core.entities.base.Base" title="quartic_sdk.core.entities.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">quartic_sdk.core.entities.base.Base</span></code></a></p>
+<p>The given class refers to the site entity which is created based upon the site response
+returned by the API</p>
+<dl class="py method">
+<dt id="quartic_sdk.core.entities.Site.__repr__">
+<code class="sig-name descname"><span class="pre">__repr__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.Site.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override the method to return the site name</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="quartic_sdk.core.entities.Site.assets">
+<em class="property"><span class="pre">abstract</span> </em><code class="sig-name descname"><span class="pre">assets</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.Site.assets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the assets belongs to a site</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="quartic_sdk.core.entities.Site.edge_connectors">
+<em class="property"><span class="pre">abstract</span> </em><code class="sig-name descname"><span class="pre">edge_connectors</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.Site.edge_connectors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the edge_connectors belongs to a site</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="quartic_sdk.core.entities.Procedure">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.core.entities.</span></code><code class="sig-name descname"><span class="pre">Procedure</span></code><a class="headerlink" href="#quartic_sdk.core.entities.Procedure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="base/index.html#quartic_sdk.core.entities.base.Base" title="quartic_sdk.core.entities.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">quartic_sdk.core.entities.base.Base</span></code></a></p>
+<p>The given class refers to the Procedure entity which is created based upon the procedure response
+returned by the API</p>
+<dl class="py attribute">
+<dt id="quartic_sdk.core.entities.Procedure.UNIT_PROCEDURE">
+<code class="sig-name descname"><span class="pre">UNIT_PROCEDURE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">1</span></em><a class="headerlink" href="#quartic_sdk.core.entities.Procedure.UNIT_PROCEDURE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="quartic_sdk.core.entities.Procedure.__repr__">
+<code class="sig-name descname"><span class="pre">__repr__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.Procedure.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override the method to return the Procedure name</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="quartic_sdk.core.entities.Procedure.fetch_unit_procedures">
+<code class="sig-name descname"><span class="pre">fetch_unit_procedures</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.Procedure.fetch_unit_procedures" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is used for fetching all the UnitProcedures belongs to a particular procedure
+in PH hierarchy
+:param query_params: Dictionary of filter conditions
+:return: List of UnitProcedure(ProcedureStep Entity) Objects</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="quartic_sdk.core.entities.Procedure.create_unit_procedure">
+<code class="sig-name descname"><span class="pre">create_unit_procedure</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_batch_tag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_batch_tag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_rule</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_rule</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asset_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.Procedure.create_unit_procedure" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is used to create UnitProcedure inside a particular Procedure
+:param name: UnitProcedure Name
+:param start_batch_tag: Tag Object
+:param stop_batch_tag: Tag Object
+:param order: sequence in which we want to add child nodes inside parent(procedure) node
+:param start_rule: Rule (Util Class) Object
+:param stop_rule: Rule (Util Class) Object
+:param asset_list: List containing asset ids
+:return: UnitProcedure(ProcedureStep Entity) Object</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="quartic_sdk.core.entities.Product">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.core.entities.</span></code><code class="sig-name descname"><span class="pre">Product</span></code><a class="headerlink" href="#quartic_sdk.core.entities.Product" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="base/index.html#quartic_sdk.core.entities.base.Base" title="quartic_sdk.core.entities.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">quartic_sdk.core.entities.base.Base</span></code></a></p>
+<p>The given class refers to the product entity which is created based upon the product response
+returned by the API</p>
+<dl class="py method">
+<dt id="quartic_sdk.core.entities.Product.__repr__">
+<code class="sig-name descname"><span class="pre">__repr__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.Product.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override the method to return the product name</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="quartic_sdk.core.entities.Product.get_procedures">
+<code class="sig-name descname"><span class="pre">get_procedures</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.Product.get_procedures" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method id used for fetching all the procedures belongs to a product
+:param query_params: Dictionary of filter conditions
+:return: List of Procedure(Procedure Entity) objects</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="quartic_sdk.core.entities.Product.create_procedure">
+<code class="sig-name descname"><span class="pre">create_procedure</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">site</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_batch_tag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_batch_tag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_attributes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_rule</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_rule</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.Product.create_procedure" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is used for creating procedure of PH hierarchy inside particular product
+:param name: Procedure Name
+:param site: Site Object
+:param start_batch_tag: Tag Object
+:param stop_batch_tag: Tag Object
+:param additional_attributes: Additional attributes required to create procedure in the dictionary format
+and contains fields of Procedure like receipe_type, formula and receipe_version
+:param start_rule: Rule Class Object
+:param stop_rule: Rule Class Object
+:return: Procedure(Procedure Entity) Object</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="quartic_sdk.core.entities.ProcedureStep">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.core.entities.</span></code><code class="sig-name descname"><span class="pre">ProcedureStep</span></code><a class="headerlink" href="#quartic_sdk.core.entities.ProcedureStep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="base/index.html#quartic_sdk.core.entities.base.Base" title="quartic_sdk.core.entities.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">quartic_sdk.core.entities.base.Base</span></code></a></p>
+<p>The given class refers to the ProcedureStep entity which is created based upon the
+procedure step response returned by the API</p>
+<dl class="py method">
+<dt id="quartic_sdk.core.entities.ProcedureStep.__repr__">
+<code class="sig-name descname"><span class="pre">__repr__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.ProcedureStep.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override the method to return the ProcedureStep name</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="quartic_sdk.core.entities.ProcedureStep.fetch_substep_details">
+<code class="sig-name descname"><span class="pre">fetch_substep_details</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.ProcedureStep.fetch_substep_details" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is used for fetching procedure substep details like Operation/Phase/PhaseStep
+:param query_params: Dictionary of filter conditions
+:return: List of ProcedureStep(ProcedureStep Entity) Objects</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="quartic_sdk.core.entities.ProcedureStep.create_procedure_step">
+<code class="sig-name descname"><span class="pre">create_procedure_step</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_batch_tag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_batch_tag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">procedure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_rule</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_rule</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asset_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.ProcedureStep.create_procedure_step" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is used to create Procedure Step like Operation/Phase/PhaseStep
+:param name: ProcedureStep Name
+:param start_batch_tag: Tag Object
+:param stop_batch_tag: Tag Object
+:param procedure: Procedure Object
+:param order: Sequence in which we want to add child nodes inside parent(UnitProcedure/Operation/Phase) node
+:param start_rule: Rule (Util Class) Object
+:param stop_rule: Rule (Util Class) Object
+:param asset_list: List containing asset ids
+:return: ProcedureStep(ProcedureStep Entity) Object</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 </div>
 </div>
@@ -419,6 +577,7 @@ Model object returned from the API</p>
 <li class="toctree-l1"><a class="reference internal" href="../../../../quick-start.html">Quick start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../basic.html">Basic Functionality</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../model_creation.html">Model Creation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../index.html">API Reference</a></li>
 </ul>
 

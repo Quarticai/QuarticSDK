@@ -175,16 +175,6 @@ INTELLIGENCE_CATEGORIES = {
 DEFAULT_PAGE_LIMIT_ROWS = 200000
 DEFAULT_BATCH_SIZE = 200000
 
-# Step Types in ProcedureStep hierarchy
-UNIT_PROCEDURE = 1
-OPERATION = 2
-PHASE = 3
-PHASE_STEP = 4
-
-# raw_json key types used for creating rule
-TAG = '0'
-OPERATOR = '1'
-
 # Operators needed for creating raw_json for rules creation
 PLUS = '0'
 MINUS = '1'

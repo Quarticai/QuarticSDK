@@ -14,5 +14,6 @@ Submodules
    constants/index.rst
    exceptions/index.rst
    test_helpers/index.rst
+   utils/index.rst
 
 

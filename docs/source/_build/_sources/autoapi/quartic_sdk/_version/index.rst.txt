@@ -13,7 +13,7 @@ Module Contents
 ---------------
 
 .. data:: __version__
-   :annotation: = plt.5368.0
+   :annotation: = plt.5547.0
 
    
 

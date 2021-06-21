@@ -21,8 +21,7 @@ Classes
 
 
 
-.. class:: Asset(body_json, api_helper)
-
+.. class:: Asset
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 

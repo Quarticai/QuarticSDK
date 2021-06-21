@@ -11,6 +11,7 @@ class Procedure(Base):
     The given class refers to the Procedure entity which is created based upon the procedure response
     returned by the API
     """
+    UNIT_PROCEDURE = 1
 
     def __repr__(self):
         """
@@ -29,7 +30,7 @@ class Procedure(Base):
 
         query_params.update({
             "procedure": self.id,
-            "step_type": Constants.UNIT_PROCEDURE
+            "step_type": self.UNIT_PROCEDURE
         })
         return_json = self.api_helper.call_api(
             Constants.PROCEDURE_STEPS, Constants.API_GET, query_params=query_params).json()
@@ -50,7 +51,7 @@ class Procedure(Base):
         :param name: UnitProcedure Name
         :param start_batch_tag: Tag Object
         :param stop_batch_tag: Tag Object
-        :param order: equence in which we want to add child nodes inside parent(procedure) node
+        :param order: sequence in which we want to add child nodes inside parent(procedure) node
         :param start_rule: Rule (Util Class) Object
         :param stop_rule: Rule (Util Class) Object
         :param asset_list: List containing asset ids
@@ -65,7 +66,7 @@ class Procedure(Base):
                 "name": name,
                 "start_batch_tag": start_batch_tag.id,
                 "stop_batch_tag": stop_batch_tag.id,
-                "step_type": Constants.UNIT_PROCEDURE,
+                "step_type": self.UNIT_PROCEDURE,
                 "procedure": self.id,
                 "order": order,
                 "start_rule": start_rule.rule_schema(),

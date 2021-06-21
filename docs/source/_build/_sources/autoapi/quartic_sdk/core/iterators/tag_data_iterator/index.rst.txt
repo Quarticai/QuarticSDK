@@ -76,12 +76,4 @@ Classes
           between the given duration
 
 
-   .. method:: return_complete_data_frame_from_iterator(tag_data_iterator)
-      :staticmethod:
-
-      Returns the complete data frame as returned from the tag data iterator
-      :param tag_data_iterator: TagDataIterator object
-      :return: (pd.DataFrame)
-
-
 

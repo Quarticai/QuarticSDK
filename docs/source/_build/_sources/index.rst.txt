@@ -15,5 +15,6 @@ of username and password; and in OAuth2.0, the client token.
    quick-start.rst
    basic.rst
    model_creation.rst
+   changelog.rst
 
 .. include:: home.rst

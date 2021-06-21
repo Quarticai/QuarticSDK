@@ -1,0 +1,52 @@
+:mod:`quartic_sdk.utilities.utils`
+==================================
+
+.. py:module:: quartic_sdk.utilities.utils
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   quartic_sdk.utilities.utils.Rule
+
+
+
+.. class:: Rule(client, name, first_tag, operator, second_tag, duration_ms)
+
+
+   This helper class is used for creating and validating raw_json needed for creation of
+   RuleDefinition schema for Procedure/ProcedureStep
+
+   .. attribute:: TAG
+      :annotation: = 0
+
+      
+
+   .. attribute:: OPERATOR
+      :annotation: = 1
+
+      
+
+   .. method:: raw_json(self)
+
+      This method returns raw_json schema required for RuleDefinition creation
+      :return: Json Schema
+
+
+   .. method:: rule_schema(self)
+
+      This method returns schema required for RuleDefinition creation
+      :return: Json Schema
+
+
+   .. method:: validate_rule_raw_json(self)
+
+      This is used to validate raw_json schema
+
+
+

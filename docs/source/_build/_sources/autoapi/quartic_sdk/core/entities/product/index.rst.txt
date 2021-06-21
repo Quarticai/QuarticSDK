@@ -1,0 +1,57 @@
+:mod:`quartic_sdk.core.entities.product`
+========================================
+
+.. py:module:: quartic_sdk.core.entities.product
+
+.. autoapi-nested-parse::
+
+   The given file contains the class to refer to the Product entity
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   quartic_sdk.core.entities.product.Product
+
+
+
+.. class:: Product
+
+   Bases: :class:`quartic_sdk.core.entities.base.Base`
+
+   The given class refers to the product entity which is created based upon the product response
+   returned by the API
+
+   .. method:: __repr__(self)
+
+      Override the method to return the product name
+
+
+   .. method:: get_procedures(self, query_params={})
+
+      This method id used for fetching all the procedures belongs to a product
+      :param query_params: Dictionary of filter conditions
+      :return: List of Procedure(Procedure Entity) objects
+
+
+   .. method:: create_procedure(self, name, site, start_batch_tag, stop_batch_tag, additional_attributes, start_rule, stop_rule)
+
+      This method is used for creating procedure of PH hierarchy inside particular product
+      :param name: Procedure Name
+      :param site: Site Object
+      :param start_batch_tag: Tag Object
+      :param stop_batch_tag: Tag Object
+      :param additional_attributes: Additional attributes required to create procedure in the dictionary format
+      and contains fields of Procedure like receipe_type, formula and receipe_version
+      :param start_rule: Rule Class Object
+      :param stop_rule: Rule Class Object
+      :return: Procedure(Procedure Entity) Object
+
+
+

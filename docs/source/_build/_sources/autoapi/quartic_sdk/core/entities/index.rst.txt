@@ -17,6 +17,10 @@ Submodules
    context_frame_occurrence/index.rst
    edge_connector/index.rst
    model/index.rst
+   procedure/index.rst
+   procedure_step/index.rst
+   product/index.rst
+   site/index.rst
    tag/index.rst
    type_mapping/index.rst
 
@@ -36,11 +40,14 @@ Classes
    quartic_sdk.core.entities.EdgeConnector
    quartic_sdk.core.entities.Tag
    quartic_sdk.core.entities.Model
+   quartic_sdk.core.entities.Site
+   quartic_sdk.core.entities.Procedure
+   quartic_sdk.core.entities.Product
+   quartic_sdk.core.entities.ProcedureStep
 
 
 
-.. class:: Asset(body_json, api_helper)
-
+.. class:: Asset
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -111,8 +118,7 @@ Classes
 
 
 
-.. class:: Batch(body_json, api_helper)
-
+.. class:: Batch
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -125,8 +131,7 @@ Classes
 
 
 
-.. class:: ContextFrame(body_json, api_helper)
-
+.. class:: ContextFrame
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -145,8 +150,7 @@ Classes
 
 
 
-.. class:: ContextFrameOccurrence(body_json, api_helper)
-
+.. class:: ContextFrameOccurrence
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -296,6 +300,138 @@ Classes
       Returns the model object saved in the model
       :param query_params: Dictionary of filter conditions
       :return:    Returns a Model which is subclass of BaseQuarticModel
+
+
+
+.. class:: Site
+
+   Bases: :class:`quartic_sdk.core.entities.base.Base`
+
+   The given class refers to the site entity which is created based upon the site response
+   returned by the API
+
+   .. method:: __repr__(self)
+
+      Override the method to return the site name
+
+
+   .. method:: assets(self)
+      :abstractmethod:
+
+      Get the assets belongs to a site
+
+
+   .. method:: edge_connectors(self)
+      :abstractmethod:
+
+      Get the edge_connectors belongs to a site
+
+
+
+.. class:: Procedure
+
+   Bases: :class:`quartic_sdk.core.entities.base.Base`
+
+   The given class refers to the Procedure entity which is created based upon the procedure response
+   returned by the API
+
+   .. attribute:: UNIT_PROCEDURE
+      :annotation: = 1
+
+      
+
+   .. method:: __repr__(self)
+
+      Override the method to return the Procedure name
+
+
+   .. method:: fetch_unit_procedures(self, query_params={})
+
+      This method is used for fetching all the UnitProcedures belongs to a particular procedure
+      in PH hierarchy
+      :param query_params: Dictionary of filter conditions
+      :return: List of UnitProcedure(ProcedureStep Entity) Objects
+
+
+   .. method:: create_unit_procedure(self, name, start_batch_tag, stop_batch_tag, order, start_rule, stop_rule, asset_list)
+
+      This method is used to create UnitProcedure inside a particular Procedure
+      :param name: UnitProcedure Name
+      :param start_batch_tag: Tag Object
+      :param stop_batch_tag: Tag Object
+      :param order: sequence in which we want to add child nodes inside parent(procedure) node
+      :param start_rule: Rule (Util Class) Object
+      :param stop_rule: Rule (Util Class) Object
+      :param asset_list: List containing asset ids
+      :return: UnitProcedure(ProcedureStep Entity) Object
+
+
+
+.. class:: Product
+
+   Bases: :class:`quartic_sdk.core.entities.base.Base`
+
+   The given class refers to the product entity which is created based upon the product response
+   returned by the API
+
+   .. method:: __repr__(self)
+
+      Override the method to return the product name
+
+
+   .. method:: get_procedures(self, query_params={})
+
+      This method id used for fetching all the procedures belongs to a product
+      :param query_params: Dictionary of filter conditions
+      :return: List of Procedure(Procedure Entity) objects
+
+
+   .. method:: create_procedure(self, name, site, start_batch_tag, stop_batch_tag, additional_attributes, start_rule, stop_rule)
+
+      This method is used for creating procedure of PH hierarchy inside particular product
+      :param name: Procedure Name
+      :param site: Site Object
+      :param start_batch_tag: Tag Object
+      :param stop_batch_tag: Tag Object
+      :param additional_attributes: Additional attributes required to create procedure in the dictionary format
+      and contains fields of Procedure like receipe_type, formula and receipe_version
+      :param start_rule: Rule Class Object
+      :param stop_rule: Rule Class Object
+      :return: Procedure(Procedure Entity) Object
+
+
+
+.. class:: ProcedureStep
+
+   Bases: :class:`quartic_sdk.core.entities.base.Base`
+
+   The given class refers to the ProcedureStep entity which is created based upon the
+   procedure step response returned by the API
+
+   .. method:: __repr__(self)
+
+      Override the method to return the ProcedureStep name
+
+
+   .. method:: fetch_substep_details(self, query_params={})
+
+      This method is used for fetching procedure substep details like Operation/Phase/PhaseStep
+      :param query_params: Dictionary of filter conditions
+      :return: List of ProcedureStep(ProcedureStep Entity) Objects
+
+
+   .. method:: create_procedure_step(self, name, start_batch_tag, stop_batch_tag, procedure, order, start_rule, stop_rule, asset_list)
+
+      This method is used to create Procedure Step like Operation/Phase/PhaseStep
+      :param name: ProcedureStep Name
+      :param start_batch_tag: Tag Object
+      :param stop_batch_tag: Tag Object
+      :param procedure: Procedure Object
+      :param order: Sequence in which we want to add child nodes inside parent(UnitProcedure/Operation/Phase) node
+      :param start_rule: Rule (Util Class) Object
+      :param stop_rule: Rule (Util Class) Object
+      :param asset_list: List containing asset ids
+      :return: ProcedureStep(ProcedureStep Entity) Object
 
 
 

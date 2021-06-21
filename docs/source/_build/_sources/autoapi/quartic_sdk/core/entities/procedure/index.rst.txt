@@ -1,0 +1,62 @@
+:mod:`quartic_sdk.core.entities.procedure`
+==========================================
+
+.. py:module:: quartic_sdk.core.entities.procedure
+
+.. autoapi-nested-parse::
+
+   The given file contains the class to refer to the Procedure entity
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   quartic_sdk.core.entities.procedure.Procedure
+
+
+
+.. class:: Procedure
+
+   Bases: :class:`quartic_sdk.core.entities.base.Base`
+
+   The given class refers to the Procedure entity which is created based upon the procedure response
+   returned by the API
+
+   .. attribute:: UNIT_PROCEDURE
+      :annotation: = 1
+
+      
+
+   .. method:: __repr__(self)
+
+      Override the method to return the Procedure name
+
+
+   .. method:: fetch_unit_procedures(self, query_params={})
+
+      This method is used for fetching all the UnitProcedures belongs to a particular procedure
+      in PH hierarchy
+      :param query_params: Dictionary of filter conditions
+      :return: List of UnitProcedure(ProcedureStep Entity) Objects
+
+
+   .. method:: create_unit_procedure(self, name, start_batch_tag, stop_batch_tag, order, start_rule, stop_rule, asset_list)
+
+      This method is used to create UnitProcedure inside a particular Procedure
+      :param name: UnitProcedure Name
+      :param start_batch_tag: Tag Object
+      :param stop_batch_tag: Tag Object
+      :param order: sequence in which we want to add child nodes inside parent(procedure) node
+      :param start_rule: Rule (Util Class) Object
+      :param stop_rule: Rule (Util Class) Object
+      :param asset_list: List containing asset ids
+      :return: UnitProcedure(ProcedureStep Entity) Object
+
+
+

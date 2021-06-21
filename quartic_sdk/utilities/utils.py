@@ -7,6 +7,9 @@ class Rule:
     This helper class is used for creating and validating raw_json needed for creation of
     RuleDefinition schema for Procedure/ProcedureStep
     """
+    # raw_json key types used for creating rule
+    TAG = '0'
+    OPERATOR = '1'
 
     def __init__(self, client, name, first_tag, operator, second_tag, duration_ms):
         """
@@ -32,13 +35,13 @@ class Rule:
         """
         return {
             "0": {
-                Constants.TAG: str(self.first_tag.id)
+                self.TAG: str(self.first_tag.id)
             },
             "1": {
-                Constants.OPERATOR: self.operator
+                self.OPERATOR: self.operator
             },
             "2": {
-                Constants.TAG: str(self.second_tag.id)
+                self.TAG: str(self.second_tag.id)
             }
         }
 

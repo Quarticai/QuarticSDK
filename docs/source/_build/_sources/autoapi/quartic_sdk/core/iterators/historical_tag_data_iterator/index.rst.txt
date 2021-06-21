@@ -43,10 +43,4 @@ Classes
       Note that the return object is inclusive of time ranges
 
 
-   .. method:: get_complete_data_in_range(historical_data_iterator)
-      :staticmethod:
-
-      Get complete data frame from the opcua data iterator
-
-
 

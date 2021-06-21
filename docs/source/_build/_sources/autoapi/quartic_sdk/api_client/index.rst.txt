@@ -73,4 +73,18 @@ Classes
       :return:          list of dictionary
 
 
+   .. method:: products(self, query_params={})
+
+      This method is used to fetch list of all product belongs to a particular client
+      :param query_params: Dictionary of filter conditions
+      :return: Product(Product Entity) Objects
+
+
+   .. method:: sites(self, query_params={})
+
+      This method is used to fetch all sites available for a user's client
+      :param query_params: Dictionary of filter conditions
+      :return: Site(Site Entity) Objects
+
+
 
