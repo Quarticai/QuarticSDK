@@ -55,13 +55,13 @@ class EdgeConnector(Base):
         return HistoricalTagDataIterator(tags, self.id, start_time, stop_time, self.api_helper, batch_size, max_records,
             return_type)
 
-    def data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_PANDAS, batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS, transformations=[]):
+    def data(self, start_time, stop_time, sampling_ratio=1, return_type=Constants.RETURN_PANDAS, batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS, transformations=[]):
         """
         Get the data of all tags in the edge connector between the given start_time and
-        stop_time for the given granularity
+        stop_time for the given sampling_ratio
         :param start_time: (epoch) Start_time for getting data
         :param stop_time: (epoch) Stop_time for getting data
-        :param granularity: Granularity of the data
+        :param sampling_ratio: sampling_ratio of the data
         :param return_type: The param decides whether the data after querying will be
             json(when value is "json") or pandas dataframe(when value is "pd"). By default,
             it takes the value as "json"
@@ -87,7 +87,7 @@ class EdgeConnector(Base):
         """
         tags = self.get_tags()
         return TagDataIterator.create_tag_data_iterator(tags, start_time, stop_time, self.api_helper,
-                                                        granularity, return_type, batch_size, transformations)
+                                                        sampling_ratio, return_type, batch_size, transformations)
 
     def __getattribute__(self, name):
         """
