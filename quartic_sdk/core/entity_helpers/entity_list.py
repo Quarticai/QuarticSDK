@@ -85,13 +85,13 @@ class EntityList:
                        The `filter_key` can be decomposed into two parts: (attribute, operator)
                        For instance, if `filter_key` is `created_at__lt` then ('created_at', 'lt')
                        It might also be a simple query where we check for equality, then `filter_key` is simply the attribute name
-        """ 
+        """
         filtered_entities = self._entities
         negate = kwargs.pop('_negate') if '_negate' in kwargs else False
         for filter_key in kwargs:
             filter_attribute, filter_operator = filter_key.split('__') if '__' in filter_key else (filter_key, 'eq')
             filter_func = lambda x, y: not getattr(operator, filter_operator)(x, y) if negate else getattr(operator, filter_operator)(x, y)
-            filtered_entities = list(filter(lambda entity: filter_func(getattr(entity, filter_attribute), kwargs[filter_key]), filtered_entities))      
+            filtered_entities = list(filter(lambda entity: filter_func(getattr(entity, filter_attribute), kwargs[filter_key]), filtered_entities))
         return EntityList(self._class_type, filtered_entities)
 
     def check_object_in_list(self, instance):
@@ -152,16 +152,16 @@ class EntityList:
             self,
             start_time,
             stop_time,
-            granularity=0,
+            sampling_ratio=1,
             return_type=Constants.RETURN_PANDAS,
             batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS,
             transformations=[]):
         """
         Get the data of all tags in the list between the given start_time and
-        stop_time for the given granularity
+        stop_time for the given sampling_ratio
         :param start_time: (epoch) Start_time for getting data
         :param stop_time: (epoch) Stop_time for getting data
-        :param granularity: Granularity of the data
+        :param sampling_ratio: sampling_ratio of the data
         :param return_type: The param decides whether the data after querying will be
             json(when value is "json") or pandas dataframe(when value is "pd"). By default,
             it takes the value as "json"
@@ -191,7 +191,7 @@ class EntityList:
             start_time,
             stop_time,
             self.first().api_helper,
-            granularity,
+            sampling_ratio,
             return_type,
             batch_size,
             transformations)
