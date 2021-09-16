@@ -60,8 +60,10 @@ class APIClient:
         Get the edge connectors method
         :param query_params: Dictionary of filter conditions
         """
+
+        query_params['parent__isnull'] = True
         return_json = self.api_helper.call_api(
-            Constants.GET_EDGE_CONNECTORS, Constants.API_GET, query_params={"parent__isnull": True}).json()
+            Constants.GET_EDGE_CONNECTORS, Constants.API_GET, query_params=query_params).json()
         return EntityFactory(Constants.EDGE_CONNECTOR_ENTITY, return_json, self.api_helper)
 
     def process_units(self):
