@@ -19,7 +19,7 @@ class TagDataIterator:
             total_count,
             batch_size,
             api_helper,
-            granularity=0,
+            sampling_ratio=1,
             return_type=Constants.RETURN_JSON,
             transformations=[]):
         """
@@ -32,7 +32,7 @@ class TagDataIterator:
                 containing 200,000 points
         :param api_helper: (APIHelper) APIHelper class object
         :param cursor: Pagination cursor string
-        :param granularity: The granularity at which the tag data is queried
+        :param sampling_ratio: The sampling_ratio at which the tag data is queried
         :param return_type: The param decides whether the data after querying will be
             json(when value is "json") or pandas dataframe(when value is "pd"). By default,
             it takes the value as "json"
@@ -64,7 +64,7 @@ class TagDataIterator:
         self.start_time = start_time
         self.stop_time = stop_time
         self.api_helper = api_helper
-        self.granularity = granularity
+        self.sampling_ratio = sampling_ratio
         self.return_type = return_type
 
         self._transformations = transformations
@@ -115,7 +115,7 @@ class TagDataIterator:
             "tags": [tag.id for tag in self.tags.all()],
             "start_time": self.start_time,
             "stop_time": self.stop_time,
-            "granularity": self.granularity,
+            "sampling_ratio": self.sampling_ratio,
             "transformations": self._transformations,
             "batch_size": self.batch_size
         }
@@ -166,7 +166,7 @@ class TagDataIterator:
             start_time,
             stop_time,
             api_helper,
-            granularity=0,
+            sampling_ratio=1,
             return_type=Constants.RETURN_PANDAS,
             batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS,
             transformations=[]):
@@ -174,7 +174,7 @@ class TagDataIterator:
         The method creates the TagDataIterator instance based upon the parameters that are passed here
         :param start_time: (epoch) Start_time for getting data
         :param stop_time: (epoch) Stop_time for getting data
-        :param granularity: Granularity of the data
+        :param sampling_ratio: sampling_ratio of the data
         :param return_type: The param decides whether the data after querying will be
             json(when value is "json") or pandas dataframe(when value is "pd"). By default,
             it takes the value as "json"
@@ -205,7 +205,7 @@ class TagDataIterator:
             "tags": [tag.id for tag in tags.all()],
             "start_time": start_time,
             "stop_time": stop_time,
-            "granularity": granularity,
+            "sampling_ratio": sampling_ratio,
             "transformations": transformations,
             "batch_size": batch_size
         }
@@ -222,6 +222,6 @@ class TagDataIterator:
             total_count=tag_data_response["total_count"],
             api_helper=api_helper,
             batch_size=batch_size,
-            granularity=granularity,
+            sampling_ratio=sampling_ratio,
             return_type=return_type,
             transformations=transformations)
