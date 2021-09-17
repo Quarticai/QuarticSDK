@@ -47,7 +47,7 @@ class GraphqlClient:
         self.logger = logging.getLogger()
         coloredlogs.install(level='DEBUG', logger=self.logger)
 
-    @ staticmethod
+    @staticmethod
     def version():
         """
         Return the SDK version
