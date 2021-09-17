@@ -8,7 +8,7 @@ from typing import Optional, Union
 from urllib.parse import urlparse
 import re
 
-SCHEMA_REGEX = re.compile(r"(?:(?:https?|ftp)://)")
+SCHEMA_REGEX = re.compile(r"(?:(?:https?)://)")
 
 
 class GraphqlClient:
