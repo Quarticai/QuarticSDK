@@ -1,5 +1,8 @@
 from requests import HTTPError
 import quartic_sdk.utilities.constants as Constants
+import datetime, pytz
+from pytz import timezone
+from datetime import datetime
 
 
 class Rule:
@@ -70,3 +73,45 @@ class Rule:
             )
         except HTTPError as exception:
             raise Exception(f'Exception in validating rule: {exception.response.content.decode()}')
+
+class TimeUtils:
+
+    @classmethod
+    def parse_telemetry_ts(cls, ts, time_zone='UTC'):
+        """
+        Parses as datetime.datetime, a string that represents physical
+            timestamp i.e. telemetry timestamps, or the timestamps stored in
+            database.
+        :param ts: String/Int representing time
+        :param time_zone: Timezone string
+        :return: datetime.datetime with timezone. The timezone is always in UTC
+            because that's how telemetry date format is designed to be.
+        """
+        user_tz = timezone(time_zone)
+        return pytz.utc.localize(
+            datetime.utcfromtimestamp(float(str(ts)) / 1000.)
+        ).astimezone(user_tz)
+
+class QueryDictConverter:
+    
+    @classmethod
+    def convert_epoch_to_datetime(cls, query_param_dict):
+        """
+        Converts timestamp fields in query_params to datetime if epoch timestamp is provided.
+        fields that can pass epoch timestamps are provided in set Constants.TIMESTAMPFIELDS
+
+        :param: Dictionay representing query_params from request
+        :return: Dicttionary
+        """
+        timestamp_fields = Constants.TIMESTAMPFIELDS
+        
+        for param in query_param_dict.keys():
+            if param in timestamp_fields:
+                try:
+                    query_param_dict[param] = TimeUtils.parse_telemetry_ts(query_param_dict[param])
+                except ValueError as exception:
+                    """
+                    support the datetime timestamps as well
+                    """
+                    pass                
+        return query_param_dict
