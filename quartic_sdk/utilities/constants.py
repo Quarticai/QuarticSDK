@@ -195,31 +195,29 @@ AND = '12'
 OR = '13'
 
 #timestamp_fields set
-TIMESTAMPFIELDS = {'created_at'
-,'updated_at' 
-,'created_at__lt' 
-,'updated_at__lt'
-,'created_at__gt'
-,'updated_at__gt'
-,'last_streamed_on'
-,'last_streamed_on__gt'
-,'last_streamed_on__lt'
-,'last_overhaul_date'
-,'last_overhaul_date__lt'
-,'last_overhaul_date__gt'
-,'start_time'
-,'start_time__gt'
-,'start_time__lt'
-,'stop_time'
-,'stop_time__gt'
-,'stop_time__lt'
-,'start'
-,'start__gt'
-,'start__lt'
-,'stop'
-,'stop__gt'
-,'stop__lt'
-,'last_streamed_on'
-,'last_streamed_on__gt'
-,'last_streamed_on__lt'
+TIMESTAMPFIELDS = {
+    'created_at',
+    'updated_at',
+    'created_at__lt',
+    'updated_at__lt',
+    'created_at__gt',
+    'updated_at__gt',
+    'last_overhaul_date',
+    'last_overhaul_date__lt',
+    'last_overhaul_date__gt',
+    'start_time',
+    'start_time__gt',
+    'start_time__lt',
+    'stop_time',
+    'stop_time__gt',
+    'stop_time__lt',
+    'start',
+    'start__gt',
+    'start__lt',
+    'stop',
+    'stop__gt',
+    'stop__lt',
+    'last_streamed_on',
+    'last_streamed_on__gt',
+    'last_streamed_on__lt',
 }
