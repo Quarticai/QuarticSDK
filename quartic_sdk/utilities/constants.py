@@ -23,22 +23,39 @@ API_PUT = "PUT"
 API_DELETE = "DELETE"
 
 # API calls
-GET_ASSETS = "/api/v1/asset/"
-GET_CONTEXT_FRAME_DEFINITIONS = "/api/v1/context_frame_definitions/"
-GET_EDGE_CONNECTORS = "/api/v1/edge_connector/"
-GET_TAGS = "/api/v1/tags/"
-RETURN_TAG_DATA = "/api/v1/tag_data/"
-GET_CONTEXT_FRAME_OCCURRENCES = "/api/v1/context_frame_occurrences/"
-GET_BATCHES = "/api/v1/batches/"
-GET_EVENT_FRAMES = "/api/v1/event_frame/"
-GET_EVENT_FRAME_OCCURRENCES = "/api/v1/ef_occurrence/"
-POST_OPCUA_DATA = "/api/v1/historical_tag_data/"
+# GET_ASSETS = "/api/v1/asset/"
+# GET_CONTEXT_FRAME_DEFINITIONS = "/api/v1/context_frame_definitions/"
+# GET_EDGE_CONNECTORS = "/api/v1/edge_connector/"
+# GET_TAGS = "/api/v1/tags/"
+# RETURN_TAG_DATA = "/api/v1/tag_data/"
+# GET_CONTEXT_FRAME_OCCURRENCES = "/api/v1/context_frame_occurrences/"
+# GET_BATCHES = "/api/v1/batches/"
+# GET_EVENT_FRAMES = "/api/v1/event_frame/"
+# GET_EVENT_FRAME_OCCURRENCES = "/api/v1/ef_occurrence/"
+# POST_OPCUA_DATA = "/api/v1/historical_tag_data/"
+# CMD_MODEL_ENDPOINT = '/cmd/model/'
+# GET_SITES = "/api/v1/site/"
+# GET_PRODUCTS = "/api/v1/product/"
+# PROCEDURES = "/api/v1/procedure/"
+# PROCEDURE_STEPS = "/api/v1/procedure_step/"
+# POST_RULE_VALIDATE_JSON = "/api/v1/rule_validate_json/"
+
+GET_ASSETS = "/asset/"
+GET_CONTEXT_FRAME_DEFINITIONS = "/context_frame_definitions/"
+GET_EDGE_CONNECTORS = "/edge_connector/"
+GET_TAGS = "/tags/"
+RETURN_TAG_DATA = "/tag_data/"
+GET_CONTEXT_FRAME_OCCURRENCES = "/context_frame_occurrences/"
+GET_BATCHES = "/batches/"
+GET_EVENT_FRAMES = "/event_frame/"
+GET_EVENT_FRAME_OCCURRENCES = "/ef_occurrence/"
+POST_OPCUA_DATA = "/historical_tag_data/"
 CMD_MODEL_ENDPOINT = '/cmd/model/'
-GET_SITES = "/api/v1/site/"
-GET_PRODUCTS = "/api/v1/product/"
-PROCEDURES = "/api/v1/procedure/"
-PROCEDURE_STEPS = "/api/v1/procedure_step/"
-POST_RULE_VALIDATE_JSON = "/api/v1/rule_validate_json/"
+GET_SITES = "/site/"
+GET_PRODUCTS = "/product/"
+PROCEDURES = "/procedure/"
+PROCEDURE_STEPS = "/procedure_step/"
+POST_RULE_VALIDATE_JSON = "/rule_validate_json/"
 
 # Entity types
 ASSET_ENTITY = "Asset"
@@ -193,3 +210,33 @@ EQUAL = '10'
 RANGE = '11'
 AND = '12'
 OR = '13'
+
+#timestamp_fields set
+TIMESTAMPFIELDS = {'created_at'
+,'updated_at' 
+,'created_at__lt' 
+,'updated_at__lt'
+,'created_at__gt'
+,'updated_at__gt'
+,'last_streamed_on'
+,'last_streamed_on__gt'
+,'last_streamed_on__lt'
+,'last_overhaul_date'
+,'last_overhaul_date__lt'
+,'last_overhaul_date__gt'
+,'start_time'
+,'start_time__gt'
+,'start_time__lt'
+,'stop_time'
+,'stop_time__gt'
+,'stop_time__lt'
+,'start'
+,'start__gt'
+,'start__lt'
+,'stop'
+,'stop__gt'
+,'stop__lt'
+,'last_streamed_on'
+,'last_streamed_on__gt'
+,'last_streamed_on__lt'
+}
