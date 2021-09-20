@@ -104,7 +104,7 @@ class QueryDictConverter:
         :return: Dicttionary
         """
         timestamp_fields = Constants.TIMESTAMPFIELDS
-        
+
         for param in query_param_dict.keys():
             if param in timestamp_fields:
                 try:
@@ -113,5 +113,4 @@ class QueryDictConverter:
                     """
                     support the datetime timestamps as well
                     """
-                    pass                
         return query_param_dict
