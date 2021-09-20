@@ -88,7 +88,7 @@ class GraphqlClient:
         result = urlparse(__graphql_url)
         if result.scheme and not SCHEMA_REGEX.match(__graphql_url):
             raise AttributeError(
-                f'Invalid URL {self.url}: No schema supplied. Perhaps you meant http://...?')
+                f'Invalid URL: {self.url}. Perhaps you meant `http://...` or `https://...`?')
         if not result.scheme or not result.netloc:
             raise AttributeError(f'url {self.url} is incorrect')
         return __graphql_url
