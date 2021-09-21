@@ -16,7 +16,12 @@ Classes
 
 
 
-.. class:: GraphqlClient(url: str, username: str = None, password: str = None, token: str = None, timeout: Optional[Union[aiohttp.ClientTimeout, float]] = None, verify_ssl: bool = True)
+.. data:: SCHEMA_REGEX
+   
+
+   
+
+.. class:: GraphqlClient(url: str, username: str = None, password: str = None, token: str = None, timeout: Optional[Union[(aiohttp.ClientTimeout, float)]] = None, verify_ssl: bool = True)
 
 
    Execute Query.

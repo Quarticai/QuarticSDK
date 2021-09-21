@@ -78,7 +78,10 @@ The method parameters as included in v2.0.0 are as follows:
 -  **query\_params (optional)**: User can pass a dictionary of conditions 
    and condition values to filter the Assets accordingly.
    Filter conditions can be like          
-|   ``{"created_at__gt": 162002555700, "status": 1}``
+|   ``{"created_at__gt": "2020-04-05 17:59:50.466338+00:00", "status": 1}``
+    ``{"created_at__lt": "2021-04-05 17:59:50.466338", "status": 1}``
+
+   Note : timestamps to be passed according to ISO 8610 format in query_params
 
 ::
 
@@ -131,7 +134,14 @@ The method parameters as included in v2.0.0 are as follows:
 -  **query\_params (optional)**: User can pass a dictionary of conditions 
    and condition values to filter the Assets accordingly.
    Filter conditions can be like 
-   ``{"created_at__gt": 162002555700, "connector_protocol": 206}``
+   
+   ``{"created_at__gt": "2020-04-05 17:59:50.466338+00:00", "connector_protocol": 206}``
+   
+   ``{"created_at__lt": "2020-04-05 17:59:50", "connector_protocol": 206}``
+   
+   ``{"updated_at__lt": "2020-04-05", "connector_protocol": 206}``
+
+   Note : timestamps to be passed according to ISO 8610 format in query_params
 
 ::
 
@@ -157,8 +167,8 @@ The method parameters as included in v2.0.0 are as follows:
 -  **query\_params (optional)**: User can pass a dictionary of conditions
    and condition values to filter the Products accordingly.
    Filter conditions can be like
-   ``{"created_at__gt": 162002555700}``
-
+    ``{"created_at__gt": "2020-04-05 14:19:38"}``
+   Note : timestamps to be passed according to ISO 8610 format in query_params
 ::
 
     products = client.products()
@@ -171,7 +181,8 @@ The method parameters as included in v2.0.0 are as follows:
 -  **query\_params (optional)**: User can pass a dictionary of conditions
    and condition values to filter the Products accordingly.
    Filter conditions can be like
-   ``{"created_at__gt": 162002555700}``
+    ``{"created_at__gt": "2021-04-05 14:19:38.303717+00:00"}``
+   Note : timestamps to be passed according to ISO 8610 format in query_params
 
 ::
 
@@ -263,7 +274,7 @@ The method parameters as included in v2.0.0 are as follows:
 -  **query\_params (optional)**: User can pass a dictionary of conditions 
    and condition values to filter the batches accordingly.
    Filter conditions can be like 
-|   ``{"start_time__gt": 16267600304, "stop_time__lt": 16268600304}``
+|   ``{"start__gt": "2021-04-05 14:19:38", "stop__lt": "2021-04-06 11:19:38}``
 
 .data
 ~~~~~

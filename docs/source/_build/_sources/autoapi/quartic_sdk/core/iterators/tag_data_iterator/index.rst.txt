@@ -16,7 +16,7 @@ Classes
 
 
 
-.. class:: TagDataIterator(tags, start_time, stop_time, total_count, batch_size, api_helper, granularity=0, return_type=Constants.RETURN_JSON, transformations=[])
+.. class:: TagDataIterator(tags, start_time, stop_time, total_count, batch_size, api_helper, sampling_ratio=1, return_type=Constants.RETURN_JSON, transformations=[])
 
 
    The given class is the iterator class, which will be used to iterate
@@ -50,13 +50,13 @@ Classes
       Note that the return object is inclusive of time ranges
 
 
-   .. method:: create_tag_data_iterator(cls, tags, start_time, stop_time, api_helper, granularity=0, return_type=Constants.RETURN_PANDAS, batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS, transformations=[])
+   .. method:: create_tag_data_iterator(cls, tags, start_time, stop_time, api_helper, sampling_ratio=1, return_type=Constants.RETURN_PANDAS, batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS, transformations=[])
       :classmethod:
 
       The method creates the TagDataIterator instance based upon the parameters that are passed here
       :param start_time: (epoch) Start_time for getting data
       :param stop_time: (epoch) Stop_time for getting data
-      :param granularity: Granularity of the data
+      :param sampling_ratio: sampling_ratio of the data
       :param return_type: The param decides whether the data after querying will be
           json(when value is "json") or pandas dataframe(when value is "pd"). By default,
           it takes the value as "json"

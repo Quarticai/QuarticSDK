@@ -13,6 +13,7 @@ Classes
 .. autoapisummary::
 
    quartic_sdk.utilities.utils.Rule
+   quartic_sdk.utilities.utils.QueryParamsValidator
 
 
 
@@ -47,6 +48,16 @@ Classes
    .. method:: validate_rule_raw_json(self)
 
       This is used to validate raw_json schema
+
+
+
+.. class:: QueryParamsValidator
+
+   .. method:: check_valid_datetime(cls, query_param_dict)
+      :classmethod:
+
+      Checks if the datetime strings are according ISO date format and raises exception if not
+      :param: query_param_dict: query params dictionary passed with request
 
 
 

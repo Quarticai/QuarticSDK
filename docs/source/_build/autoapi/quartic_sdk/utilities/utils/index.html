@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>quartic_sdk.utilities.utils &#8212; Quartic SDK 1.0.1 documentation</title>
     <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
@@ -31,11 +32,11 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="module-quartic_sdk.utilities.utils">
+  <section id="module-quartic_sdk.utilities.utils">
 <span id="quartic-sdk-utilities-utils"></span><h1><a class="reference internal" href="#module-quartic_sdk.utilities.utils" title="quartic_sdk.utilities.utils"><code class="xref py py-mod docutils literal notranslate"><span class="pre">quartic_sdk.utilities.utils</span></code></a><a class="headerlink" href="#module-quartic_sdk.utilities.utils" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="module-contents">
+<section id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="classes">
+<section id="classes">
 <h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
 <table class="longtable docutils align-default">
 <colgroup>
@@ -45,6 +46,9 @@
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#quartic_sdk.utilities.utils.Rule" title="quartic_sdk.utilities.utils.Rule"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Rule</span></code></a></p></td>
 <td><p>This helper class is used for creating and validating raw_json needed for creation of</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#quartic_sdk.utilities.utils.QueryParamsValidator" title="quartic_sdk.utilities.utils.QueryParamsValidator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QueryParamsValidator</span></code></a></p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
@@ -85,9 +89,21 @@ RuleDefinition schema for Procedure/ProcedureStep</p>
 
 </dd></dl>
 
-</div>
-</div>
-</div>
+<dl class="py class">
+<dt id="quartic_sdk.utilities.utils.QueryParamsValidator">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.utilities.utils.</span></code><code class="sig-name descname"><span class="pre">QueryParamsValidator</span></code><a class="headerlink" href="#quartic_sdk.utilities.utils.QueryParamsValidator" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="quartic_sdk.utilities.utils.QueryParamsValidator.check_valid_datetime">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">check_valid_datetime</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_param_dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.utilities.utils.QueryParamsValidator.check_valid_datetime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if the datetime strings are according ISO date format and raises exception if not
+:param: query_param_dict: query params dictionary passed with request</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+</section>
 
 
           </div>
@@ -106,7 +122,7 @@ RuleDefinition schema for Procedure/ProcedureStep</p>
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../quick-start.html">Quick start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../basic.html">Basic Functionality</a></li>
