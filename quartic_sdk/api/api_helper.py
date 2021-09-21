@@ -1,7 +1,7 @@
 import requests
 from quartic_sdk.utilities.configuration import Configuration
 import quartic_sdk.utilities.constants as Constants
-from quartic_sdk.utilities.utils import QueryDictConverter
+from quartic_sdk.utilities.utils import QueryParamsValidator
 
 
 class APIHelper:
@@ -48,7 +48,7 @@ class APIHelper:
         Convert epoch timestamps to datetime for timestamp params in query_params
         """
         if query_params:
-            query_params = QueryDictConverter.convert_epoch_to_datetime(query_params)
+            QueryParamsValidator.check_valid_datetime(query_params)
 
         response = http_method_function_mapping[method_type](url, path_params, query_params, body)
         response.raise_for_status()
