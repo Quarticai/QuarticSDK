@@ -74,43 +74,26 @@ class Rule:
         except HTTPError as exception:
             raise Exception(f'Exception in validating rule: {exception.response.content.decode()}')
 
-class TimeUtils:
 
-    @classmethod
-    def parse_telemetry_ts(cls, ts, time_zone='UTC'):
-        """
-        Parses as datetime.datetime, a string that represents physical
-            timestamp i.e. telemetry timestamps, or the timestamps stored in
-            database.
-        :param ts: String/Int representing time
-        :param time_zone: Timezone string
-        :return: datetime.datetime with timezone. The timezone is always in UTC
-            because that's how telemetry date format is designed to be.
-        """
-        user_tz = timezone(time_zone)
-        return pytz.utc.localize(
-            datetime.utcfromtimestamp(float(str(ts)) / 1000.)
-        ).astimezone(user_tz)
-
-class QueryDictConverter:
+                
+class QueryParamsValidator:
     
     @classmethod
-    def convert_epoch_to_datetime(cls, query_param_dict):
+    def check_valid_datetime(cls, query_param_dict):
         """
-        Converts timestamp fields in query_params to datetime if epoch timestamp is provided.
-        fields that can pass epoch timestamps are provided in set Constants.TIMESTAMPFIELDS
-
-        :param: Dictionay representing query_params from request
-        :return: Dicttionary
+        Checks if the datetime strings are according ISO date format and raises exception if not
+        :param: query_param_dict: query params dictionary passed with request
         """
         timestamp_fields = Constants.TIMESTAMPFIELDS
 
         for param in query_param_dict.keys():
             if param in timestamp_fields:
                 try:
-                    query_param_dict[param] = TimeUtils.parse_telemetry_ts(query_param_dict[param])
-                except ValueError as exception:
-                    """
-                    support the datetime timestamps as well
-                    """
-        return query_param_dict
+                    datetime.fromisoformat(query_param_dict[param])
+                except:
+                    try:
+                        datetime.fromisoformat(query_param_dict[param].replace('Z', '+00:00'))
+                    
+                    except ValueError:
+                        raise Exception(f'Invalid date,enter a valid datetime string in ISO format: {query_param_dict[param]}')    
+                                           
