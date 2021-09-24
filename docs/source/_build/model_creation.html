@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Model Creation &#8212; Quartic SDK 1.0.1 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
@@ -33,17 +34,17 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="model-creation">
+  <section id="model-creation">
 <h1>Model Creation<a class="headerlink" href="#model-creation" title="Permalink to this headline">¶</a></h1>
 <p>This article explains how to create, wrap, and deploy models to the
 Quartic AI Platform.</p>
-<div class="section" id="basequarticmodel">
+<section id="basequarticmodel">
 <h2>BaseQuarticModel<a class="headerlink" href="#basequarticmodel" title="Permalink to this headline">¶</a></h2>
 <p>BaseQuarticModel is a base class for all the ML models that can be deployed to
 the Platform. Users must extend this class and implement the predict
 method to make the ML model compatible to deploy in the Quartic AI
 Platform. The available methods are as follows:</p>
-<div class="section" id="init">
+<section id="init">
 <h3>__init__<a class="headerlink" href="#init" title="Permalink to this headline">¶</a></h3>
 <p>The method has following parameters for initialization:</p>
 <ul class="simple">
@@ -56,8 +57,8 @@ default value is <code class="docutils literal notranslate"><span class="pre">IN
 </ul>
 <div class="note"><p>Note: While implementing an instance of BaseQuarticModel, users must call
 super().<strong>init</strong> with above parameters.</p>
-</div></div>
-<div class="section" id="save">
+</div></section>
+<section id="save">
 <h3>.save<a class="headerlink" href="#save" title="Permalink to this headline">¶</a></h3>
 <p>This is a private method used to save the model to the Quartic AI
 Platform.</p>
@@ -82,8 +83,8 @@ CPU and memory utilization at the time of deployment (by default). To
 deploy a model to a particular node, specify ml_node={node_id}; for
 example, ml_node=1 . 2. The save_method takes a sample of test data
 frame to validate the model._</p>
-</div></div>
-<div class="section" id="predict">
+</div></section>
+<section id="predict">
 <h3>.predict<a class="headerlink" href="#predict" title="Permalink to this headline">¶</a></h3>
 <p>The method has the following parameters for running the predictions of a
 ML model:</p>
@@ -95,8 +96,8 @@ predictions for the model created. 2. input_df is expected to have tag
 IDs as the column names. If model is trained with tag names instead, a
 transformation step must be added and used in predict method to
 convert the tag IDs in input dataframe into tag names._</p>
-</div></div>
-<div class="section" id="example">
+</div></section>
+<section id="example">
 <h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">quartic_sdk.model</span> <span class="kn">import</span> <span class="n">BaseQuarticModel</span>
@@ -127,9 +128,9 @@ convert the tag IDs in input dataframe into tag names._</p>
 <div class="note"><p>Note: Any intermediate steps that are used for model training outside
 the wrapper must be included in wrapper for applying similar set of
 transformations during prediction.</p>
-</div></div>
-</div>
-</div>
+</div></section>
+</section>
+</section>
 
 
           </div>
@@ -148,7 +149,7 @@ transformations during prediction.</p>
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="quick-start.html">Quick start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic.html">Basic Functionality</a></li>

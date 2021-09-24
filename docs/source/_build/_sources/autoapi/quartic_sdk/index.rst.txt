@@ -120,7 +120,7 @@ Classes
 
 
 
-.. class:: GraphqlClient(url: str, username: str = None, password: str = None, token: str = None, timeout: Optional[Union[aiohttp.ClientTimeout, float]] = None, verify_ssl: bool = True)
+.. class:: GraphqlClient(url: str, username: str = None, password: str = None, token: str = None, timeout: Optional[Union[(aiohttp.ClientTimeout, float)]] = None, verify_ssl: bool = True)
 
 
    Execute Query.

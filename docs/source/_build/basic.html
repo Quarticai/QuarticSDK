@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Basic Functionality &#8212; Quartic SDK 1.0.1 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
@@ -33,11 +34,11 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="basic-functionality">
+  <section id="basic-functionality">
 <h1>Basic Functionality<a class="headerlink" href="#basic-functionality" title="Permalink to this headline">¶</a></h1>
 <p>This article explains the various classes of Quartic SDK along with their methods and
 available attributes.</p>
-<div class="section" id="apiclient">
+<section id="apiclient">
 <h2>APIClient<a class="headerlink" href="#apiclient" title="Permalink to this headline">¶</a></h2>
 <p>Class refers to the API client which is used as the interface between
 the user querying the Quartic AI Platform and their use case.</p>
@@ -57,17 +58,17 @@ verified for SSL.</p></li>
 </pre></div>
 </div>
 <p>It can be noted that the class provides two methods of authentication to the user.</p>
-<div class="section" id="the-two-methods-are-basicauthentication-and-oauth2-0">
+<section id="the-two-methods-are-basicauthentication-and-oauth2-0">
 <h3>The two methods are BasicAuthentication and OAuth2.0:<a class="headerlink" href="#the-two-methods-are-basicauthentication-and-oauth2-0" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="basicauthentication">
+<section id="basicauthentication">
 <h4>BasicAuthentication:<a class="headerlink" href="#basicauthentication" title="Permalink to this headline">¶</a></h4>
 <p>The user must pass the username and password along with the hostname in the APIClient
 to ensure all the successive API calls are authenticated via Basic Authentication</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">client</span> <span class="o">=</span> <span class="n">APIClient</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;http://test.quartic.ai&quot;</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="s2">&quot;username&quot;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s2">&quot;password&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="oauth2-0">
+</section>
+<section id="oauth2-0">
 <h4>OAuth2.0<a class="headerlink" href="#oauth2-0" title="Permalink to this headline">¶</a></h4>
 <p>The user must pass the OAuth token along with the hostname to ensure that all the
 successive API calls are authenticated via OAuth2.0. For the detailed information on fetching
@@ -75,18 +76,18 @@ tokens, please refer to the Global Settings article in the Quartic Knowledge Bas
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">client</span> <span class="o">=</span> <span class="n">APIClient</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;http://test.quartic.ai&quot;</span><span class="p">,</span> <span class="n">oauth_token</span><span class="o">=</span><span class="s2">&quot;9865c994212e495690c2db3fc6cbdfea&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="the-available-methods-are-as-follows">
+</section>
+</section>
+<section id="the-available-methods-are-as-follows">
 <h3>The available methods are as follows:<a class="headerlink" href="#the-available-methods-are-as-follows" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="version">
+<section id="version">
 <h4>.version<a class="headerlink" href="#version" title="Permalink to this headline">¶</a></h4>
 <p>This method returns the current version of the package.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">client</span><span class="o">.</span><span class="n">version</span><span class="p">()</span> <span class="c1"># Returns 0.0.0 as of the time of writing this document</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="assets">
+</section>
+<section id="assets">
 <h4>.assets<a class="headerlink" href="#assets" title="Permalink to this headline">¶</a></h4>
 <p>This method returns the list of assets that the authenticated user has
 access to. The list of assets are an object of type <code class="docutils literal notranslate"><span class="pre">EntityList</span></code>. More
@@ -98,13 +99,17 @@ and condition values to filter the Assets accordingly.
 Filter conditions can be like</p></li>
 </ul>
 <div class="line-block">
-<div class="line"><code class="docutils literal notranslate"><span class="pre">{&quot;created_at__gt&quot;:</span> <span class="pre">162002555700,</span> <span class="pre">&quot;status&quot;:</span> <span class="pre">1}</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">{&quot;created_at__gt&quot;:</span> <span class="pre">&quot;2020-04-05</span> <span class="pre">17:59:50.466338+00:00&quot;,</span> <span class="pre">&quot;status&quot;:</span> <span class="pre">1}</span></code>
+<code class="docutils literal notranslate"><span class="pre">{&quot;created_at__lt&quot;:</span> <span class="pre">&quot;2021-04-05</span> <span class="pre">17:59:50.466338&quot;,</span> <span class="pre">&quot;status&quot;:</span> <span class="pre">1}</span></code></div>
 </div>
+<blockquote>
+<div><p>Note : timestamps to be passed according to ISO 8610 format in query_params</p>
+</div></blockquote>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">client_assets</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">assets</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="context-frames">
+</section>
+<section id="context-frames">
 <h4>.context_frames<a class="headerlink" href="#context-frames" title="Permalink to this headline">¶</a></h4>
 <p>This method returns the list of context frames which are created using the assets
 that the user has access to. The list of context frames are an
@@ -119,8 +124,8 @@ Filter conditions can be like
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">client_context_frames</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">context_frames</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="tags">
+</section>
+<section id="tags">
 <h4>.tags<a class="headerlink" href="#tags" title="Permalink to this headline">¶</a></h4>
 <p>The method parameters as included in v2.0.0 are as follows:</p>
 <p><strong>asset_id (mandatory)</strong>: The asset_id of the asset whose tags are to
@@ -132,24 +137,28 @@ Filter conditions can be like
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tags_of_asset_id_1</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">tags</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="edge-connectors">
+</section>
+<section id="edge-connectors">
 <h4>.edge_connectors<a class="headerlink" href="#edge-connectors" title="Permalink to this headline">¶</a></h4>
 <p>This method returns the list of all the data sources which the user has access to.
 The list of data sources are an object of type <code class="docutils literal notranslate"><span class="pre">EntityList</span></code>. More details on the class
 are provided below.</p>
 <p>The method parameters as included in v2.0.0 are as follows:</p>
-<ul class="simple">
+<ul>
 <li><p><strong>query_params (optional)</strong>: User can pass a dictionary of conditions
 and condition values to filter the Assets accordingly.
-Filter conditions can be like
-<code class="docutils literal notranslate"><span class="pre">{&quot;created_at__gt&quot;:</span> <span class="pre">162002555700,</span> <span class="pre">&quot;connector_protocol&quot;:</span> <span class="pre">206}</span></code></p></li>
+Filter conditions can be like</p>
+<p><code class="docutils literal notranslate"><span class="pre">{&quot;created_at__gt&quot;:</span> <span class="pre">&quot;2020-04-05</span> <span class="pre">17:59:50.466338+00:00&quot;,</span> <span class="pre">&quot;connector_protocol&quot;:</span> <span class="pre">206}</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">{&quot;created_at__lt&quot;:</span> <span class="pre">&quot;2020-04-05</span> <span class="pre">17:59:50&quot;,</span> <span class="pre">&quot;connector_protocol&quot;:</span> <span class="pre">206}</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">{&quot;updated_at__lt&quot;:</span> <span class="pre">&quot;2020-04-05&quot;,</span> <span class="pre">&quot;connector_protocol&quot;:</span> <span class="pre">206}</span></code></p>
+<p>Note : timestamps to be passed according to ISO 8610 format in query_params</p>
+</li>
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">edge_connectors</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">edge_connectors</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="list-models">
+</section>
+<section id="list-models">
 <h4>.list_models<a class="headerlink" href="#list-models" title="Permalink to this headline">¶</a></h4>
 <p>This method lists the ML models and its parameters and requires the
 following parameters to be called:</p>
@@ -160,38 +169,41 @@ will list the models which are active in the Quartic AI Platform.</p></li>
 <code class="docutils literal notranslate"><span class="pre">list_models</span></code> will list all the custom models that are deployed
 into a specific ml node.</p></li>
 </ul>
-</div>
-<div class="section" id="products">
+</section>
+<section id="products">
 <h4>.products<a class="headerlink" href="#products" title="Permalink to this headline">¶</a></h4>
 <p>This method is used to fetch list of all product belongs to a particular client.
 The method parameters as included in v2.0.0 are as follows:</p>
-<ul class="simple">
+<ul>
 <li><p><strong>query_params (optional)</strong>: User can pass a dictionary of conditions
 and condition values to filter the Products accordingly.
-Filter conditions can be like
-<code class="docutils literal notranslate"><span class="pre">{&quot;created_at__gt&quot;:</span> <span class="pre">162002555700}</span></code></p></li>
+Filter conditions can be like</p>
+<p><code class="docutils literal notranslate"><span class="pre">{&quot;created_at__gt&quot;:</span> <span class="pre">&quot;2020-04-05</span> <span class="pre">14:19:38&quot;}</span></code></p>
+<p>Note : timestamps to be passed according to ISO 8610 format in query_params</p>
+</li>
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">products</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">products</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="sites">
+</section>
+<section id="sites">
 <h4>.sites<a class="headerlink" href="#sites" title="Permalink to this headline">¶</a></h4>
 <p>This method is used to fetch all sites available for a user’s client.
 The method parameters as included in v2.0.0 are as follows:</p>
-<ul class="simple">
+<ul>
 <li><p><strong>query_params (optional)</strong>: User can pass a dictionary of conditions
 and condition values to filter the Products accordingly.
-Filter conditions can be like
-<code class="docutils literal notranslate"><span class="pre">{&quot;created_at__gt&quot;:</span> <span class="pre">162002555700}</span></code></p></li>
+Filter conditions can be like</p>
+<p><code class="docutils literal notranslate"><span class="pre">{&quot;start__gt&quot;:</span> <span class="pre">&quot;2021-04-05</span> <span class="pre">14:19:38&quot;,</span> <span class="pre">&quot;stop__lt&quot;:</span> <span class="pre">&quot;2021-04-06</span> <span class="pre">11:19:38}</span></code></p>
+</li>
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sites</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">sites</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="entity">
+</section>
+</section>
+</section>
+<section id="entity">
 <h2>Entity<a class="headerlink" href="#entity" title="Permalink to this headline">¶</a></h2>
 <p>Entity is the parent term by which all the objects accessible in the SDK
 are referred to. The available methods are as follows:</p>
@@ -204,18 +216,18 @@ create the related <code class="docutils literal notranslate"><span class="pre">
 contains information about the authentication and is used for making
 API calls.</p></li>
 </ul>
-<div class="section" id="id3">
+<section id="id3">
 <h3>The available methods are as follows:<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="get">
+<section id="get">
 <h4>get<a class="headerlink" href="#get" title="Permalink to this headline">¶</a></h4>
 <p>The attribute value of the object is returned for the given name.</p>
 <ul class="simple">
 <li><p><strong>name (mandatory)</strong>: Refers to the attribute name whose value is to be returned.</p></li>
 </ul>
-</div>
-</div>
-</div>
-<div class="section" id="asset">
+</section>
+</section>
+</section>
+<section id="asset">
 <h2>Asset<a class="headerlink" href="#asset" title="Permalink to this headline">¶</a></h2>
 <p>This refers to the asset entity which contains the details of the asset.
 Asset contains all the properties of the base entity defined above.
@@ -259,9 +271,9 @@ template as <cite>Asset: {asset_name}_{asset_id}</cite>. The available attribute
 </tr>
 </tbody>
 </table>
-<div class="section" id="id4">
+<section id="id4">
 <h3>The available methods are as follows:<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="get-tags">
+<section id="get-tags">
 <h4>.get_tags<a class="headerlink" href="#get-tags" title="Permalink to this headline">¶</a></h4>
 <p>The method returns all the tags present in the given asset in the form
 of <code class="docutils literal notranslate"><span class="pre">EntityList</span></code> where each object refers to <code class="docutils literal notranslate"><span class="pre">Tag</span></code>.</p>
@@ -274,22 +286,22 @@ Filter conditions can be like</p></li>
 <div class="line-block">
 <div class="line"><code class="docutils literal notranslate"><span class="pre">{&quot;tag_type&quot;:</span> <span class="pre">1,</span> <span class="pre">&quot;edge_connector&quot;:</span> <span class="pre">674}</span></code></div>
 </div>
-</div>
-<div class="section" id="batches">
+</section>
+<section id="batches">
 <h4>.batches<a class="headerlink" href="#batches" title="Permalink to this headline">¶</a></h4>
 <p>The method returns all the batches present in the given asset in the
 form of <code class="docutils literal notranslate"><span class="pre">EntityList</span></code> where each object refers to <code class="docutils literal notranslate"><span class="pre">Batch</span></code>.</p>
 <p>The method parameters as included in v2.0.0 are as follows:</p>
-<ul class="simple">
+<ul>
 <li><p><strong>query_params (optional)</strong>: User can pass a dictionary of conditions
 and condition values to filter the batches accordingly.
-Filter conditions can be like</p></li>
+Filter conditions can be like</p>
+<p><code class="docutils literal notranslate"><span class="pre">{&quot;created_at__gt&quot;:</span> <span class="pre">&quot;2021-04-05</span> <span class="pre">14:19:38.303717+00:00&quot;}</span></code></p>
+<p>Note : timestamps to be passed according to ISO 8610 format in query_params</p>
+</li>
 </ul>
-<div class="line-block">
-<div class="line"><code class="docutils literal notranslate"><span class="pre">{&quot;start_time__gt&quot;:</span> <span class="pre">16267600304,</span> <span class="pre">&quot;stop_time__lt&quot;:</span> <span class="pre">16268600304}</span></code></div>
-</div>
-</div>
-<div class="section" id="data">
+</section>
+<section id="data">
 <h4>.data<a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h4>
 <p>The method returns the tag data iterator for all the tags present in the
 asset for the set <code class="docutils literal notranslate"><span class="pre">start_time</span></code> and <code class="docutils literal notranslate"><span class="pre">stop_time</span></code>. It can be used to
@@ -315,10 +327,10 @@ default.</p></li>
 of interpolations and aggregations here. Further details on
 transformations is provided towards the end of this documentation.</p></li>
 </ul>
-</div>
-</div>
-</div>
-<div class="section" id="tag">
+</section>
+</section>
+</section>
+<section id="tag">
 <h2>Tag<a class="headerlink" href="#tag" title="Permalink to this headline">¶</a></h2>
 <p>This refers to the tag entity which contains the details of the tag. Tag
 contains all the properties of the base Entity defined above.
@@ -453,9 +465,9 @@ template as <cite>Tag: {tag_name}_{tag_id}</cite></p>
 <li><p><strong>created_by</strong>: The user ID, who created this tag</p></li>
 <li><p><strong>value_table</strong>: The key value pair where key is the integer while the value is the string</p></li>
 </ul>
-<div class="section" id="id5">
+<section id="id5">
 <h3>The available methods are as follows:<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="id6">
+<section id="id6">
 <h4>.data<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
 <p>The method returns the tagdata iterator for the selected tag for the set
 <code class="docutils literal notranslate"><span class="pre">start_time</span></code> and <code class="docutils literal notranslate"><span class="pre">stop_time</span></code>, which can be used to iterate through
@@ -480,10 +492,10 @@ default.</p></li>
 of interpolations and aggregations here. Further details on
 transformations is provided towards the end of this documentation.</p></li>
 </ul>
-</div>
-</div>
-</div>
-<div class="section" id="batch">
+</section>
+</section>
+</section>
+<section id="batch">
 <h2>Batch<a class="headerlink" href="#batch" title="Permalink to this headline">¶</a></h2>
 <p>This refers to the batch entity which contains the details of the tag.
 Tag contains all the properties of the base Entity defined above.
@@ -498,8 +510,8 @@ template as <cite>Batch: {batch_name}_{batch_id}</cite></p>
 <li><p><strong>notes</strong>: List of notes regarding the batch</p></li>
 <li><p><strong>is_questionable</strong>: Whether the batch is questionable</p></li>
 </ul>
-</div>
-<div class="section" id="edgeconnector">
+</section>
+<section id="edgeconnector">
 <h2>EdgeConnector<a class="headerlink" href="#edgeconnector" title="Permalink to this headline">¶</a></h2>
 <p>This refers to the datasource entity which contains the details of
 the datasource. Datasource contains all the properties of the base Entity defined
@@ -591,14 +603,14 @@ template as <cite>datasource: {datasource_name}_{datasource_id}</cite></p>
 <li><p><strong>config</strong>: Configurations of the data source</p></li>
 <li><p><strong>parent</strong>: In case of query datasource, this refers to the ID of the parent datasource</p></li>
 </ul>
-<div class="section" id="id7">
+<section id="id7">
 <h3>The available methods are as follows:<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="id8">
+<section id="id8">
 <h4>.get_tags<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
 <p>The method returns all the tags present in the given datasource in the form
 of <code class="docutils literal notranslate"><span class="pre">EntityList</span></code> where each object refers to <code class="docutils literal notranslate"><span class="pre">Tag</span></code>.</p>
-</div>
-<div class="section" id="id9">
+</section>
+<section id="id9">
 <h4>.data<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
 <p>The method returns the tag data iterator for all the tags present in the
 datasource for the set <code class="docutils literal notranslate"><span class="pre">start_time</span></code> and <code class="docutils literal notranslate"><span class="pre">stop_time</span></code>. It can be used to
@@ -624,8 +636,8 @@ default.</p></li>
 of interpolations and aggregations here. Further details on
 transformations is provided towards the end of this documentation.</p></li>
 </ul>
-</div>
-<div class="section" id="historical-data">
+</section>
+<section id="historical-data">
 <h4>.historical_data<a class="headerlink" href="#historical-data" title="Permalink to this headline">¶</a></h4>
 <p>The method returns the historical tag data iterator for all the tags present in the
 datasource for the set <code class="docutils literal notranslate"><span class="pre">start_time</span></code> and <code class="docutils literal notranslate"><span class="pre">stop_time</span></code>. It can be used to iterate
@@ -648,10 +660,10 @@ will return the pandas dataframe iterator, or <code class="docutils literal notr
 return json object on return. This value takes the <code class="docutils literal notranslate"><span class="pre">pd</span></code> value as
 default.</p></li>
 </ul>
-</div>
-</div>
-</div>
-<div class="section" id="contextframe">
+</section>
+</section>
+</section>
+<section id="contextframe">
 <h2>ContextFrame<a class="headerlink" href="#contextframe" title="Permalink to this headline">¶</a></h2>
 <p>This refers to the context frame entity which contains the details of
 the tag. ContextFrame contains all the properties of the base Entity defined
@@ -665,7 +677,7 @@ template as <cite>ContextFrame: {context_frame_id}</cite></p>
 <li><p><strong>description</strong>: ContextFrame description</p></li>
 <li><p><strong>pu_or_wc</strong>: ID of the Process Unit/Work cell</p></li>
 </ul>
-<div class="section" id="id10">
+<section id="id10">
 <h3>The available methods are as follows:<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <ul>
 <li><p><strong>occurrences</strong>: The method returns all the occurrences of the given
@@ -680,9 +692,9 @@ Filter conditions can be like
 </ul>
 </li>
 </ul>
-</div>
-</div>
-<div class="section" id="contextframeoccurrence">
+</section>
+</section>
+<section id="contextframeoccurrence">
 <h2>ContextFrameOccurrence<a class="headerlink" href="#contextframeoccurrence" title="Permalink to this headline">¶</a></h2>
 <p>This refers to the context frame occurrence entity which contains the
 details of the tag. ContextFrameOccurrence contains all the properties of the base Entity
@@ -697,8 +709,8 @@ template as <code class="docutils literal notranslate"><span class="pre">Context
 <li><p><strong>is_valid</strong>: Whether the context frame occurrence is valid</p></li>
 <li><p><strong>context_frame</strong>: Context Frame ID</p></li>
 </ul>
-</div>
-<div class="section" id="model">
+</section>
+<section id="model">
 <h2>Model<a class="headerlink" href="#model" title="Permalink to this headline">¶</a></h2>
 <p>This refers to Model entity, which contains the details of the model,
 Model contains all the properties of the base Entity defined above.
@@ -712,15 +724,15 @@ template as <cite>Model: {model_name}_{model_id}</cite></p>
 <li><p><strong>output_tag</strong>: ID of the tag in which prediction results are stored</p></li>
 <li><p><strong>target_tag</strong>: ID of the tag which is used as the parent for prediction output tag</p></li>
 </ul>
-<div class="section" id="id11">
+<section id="id11">
 <h3>The available methods are as follows:<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="model-instance">
+<section id="model-instance">
 <h4>.model_instance<a class="headerlink" href="#model-instance" title="Permalink to this headline">¶</a></h4>
 <p>This method returns the Model object (created and deployed by extending model base- BaseQuarticModel).</p>
-</div>
-</div>
-</div>
-<div class="section" id="entitylist">
+</section>
+</section>
+</section>
+<section id="entitylist">
 <h2>EntityList<a class="headerlink" href="#entitylist" title="Permalink to this headline">¶</a></h2>
 <p>This class contains the list of entities, where each entity can be of
 the type <code class="docutils literal notranslate"><span class="pre">Asset</span></code>, <code class="docutils literal notranslate"><span class="pre">Tag</span></code>,
@@ -735,9 +747,9 @@ will be contained in the list. The types should match the
 <code class="docutils literal notranslate"><span class="pre">class_type</span></code> as provided. In case this is not present, it will
 default to an empty list.</p></li>
 </ul>
-<div class="section" id="id12">
+<section id="id12">
 <h3>The available methods are as follows:<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="id13">
+<section id="id13">
 <h4>.get<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
 <p>The method returns the first item in the list whose attribute <code class="docutils literal notranslate"><span class="pre">name</span></code>
 has the value <code class="docutils literal notranslate"><span class="pre">value</span></code>. It requires the following parameters:</p>
@@ -749,37 +761,37 @@ has the value <code class="docutils literal notranslate"><span class="pre">value
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">asset_with_id_1</span> <span class="o">=</span> <span class="n">client_assets</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="all">
+</section>
+<section id="all">
 <h4>.all<a class="headerlink" href="#all" title="Permalink to this headline">¶</a></h4>
 <p>The method returns all the entities present in the list.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">all_assets</span> <span class="o">=</span> <span class="n">client_assets</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="first">
+</section>
+<section id="first">
 <h4>.first<a class="headerlink" href="#first" title="Permalink to this headline">¶</a></h4>
 <p>This method returns the first element of the EntityList.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">first_asset</span> <span class="o">=</span> <span class="n">client_assets</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="last">
+</section>
+<section id="last">
 <h4>.last<a class="headerlink" href="#last" title="Permalink to this headline">¶</a></h4>
 <p>This method returns the last element of the EntityList.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">last_asset</span> <span class="o">=</span> <span class="n">client_assets</span><span class="o">.</span><span class="n">last</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="add">
+</section>
+<section id="add">
 <h4>.add<a class="headerlink" href="#add" title="Permalink to this headline">¶</a></h4>
 <p>This method adds the given object into the list. If the object already
 exists or it belongs to a different class_type, it throws an exception.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">client_assets</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">new_asset_entity</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="filter">
+</section>
+<section id="filter">
 <h4>.filter<a class="headerlink" href="#filter" title="Permalink to this headline">¶</a></h4>
 <p>This method filters the given EntityList to return an updated list that contains only those entities which satisfy all the conditions given in arguments.
 It works with all primitive attribtues of the <code class="docutils literal notranslate"><span class="pre">Entity</span></code> in the <code class="docutils literal notranslate"><span class="pre">EntityList</span></code>, if the specific operation is defined for that data type.</p>
@@ -791,8 +803,8 @@ It works with all primitive attribtues of the <code class="docutils literal notr
 <span class="n">filtered_entity_list</span> <span class="o">=</span> <span class="n">client_assets</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">country__ne</span><span class="o">=</span><span class="s1">&#39;India&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="exclude">
+</section>
+<section id="exclude">
 <h4>.exclude<a class="headerlink" href="#exclude" title="Permalink to this headline">¶</a></h4>
 <p>This method filters the given EntityList to return an updated list that
 doesn’t contain entities which satisfy any of the conditions given in arguments.</p>
@@ -801,8 +813,8 @@ doesn’t contain entities which satisfy any of the conditions given in argument
 <span class="n">updated_entity_list</span> <span class="o">=</span> <span class="n">client_assets</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="n">created_at__lt</span><span class="o">=</span><span class="n">first_asset</span><span class="o">.</span><span class="n">created_at</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id14">
+</section>
+<section id="id14">
 <h4>.data<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h4>
 <p>This method is present only for the <code class="docutils literal notranslate"><span class="pre">Tag</span></code> type EntityList, and it
 returns the data present in the given tags. It returns a TagDataIterator
@@ -826,10 +838,10 @@ default.</p></li>
 of interpolations and aggregations here. Further details on
 transformations is provided towards the end of this documentation.</p></li>
 </ul>
-</div>
-</div>
-</div>
-<div class="section" id="tagdataiterator">
+</section>
+</section>
+</section>
+<section id="tagdataiterator">
 <h2>TagDataIterator<a class="headerlink" href="#tagdataiterator" title="Permalink to this headline">¶</a></h2>
 <p>Querying data for any set of tags in any given duration returns an
 instance of <code class="docutils literal notranslate"><span class="pre">TagDataIterator</span></code>, which can be used to iterate between
@@ -838,16 +850,16 @@ method divides the complete interval between <code class="docutils literal notra
 <code class="docutils literal notranslate"><span class="pre">stop_time</span></code> into different time_ranges, with each range containing up
 to 200,000 data points for all the tags. The user can loop through this
 interval to get all the data points.</p>
-</div>
-<div class="section" id="historicaltagdataiterator">
+</section>
+<section id="historicaltagdataiterator">
 <h2>HistoricalTagDataIterator<a class="headerlink" href="#historicaltagdataiterator" title="Permalink to this headline">¶</a></h2>
 <p>Querying historical data for any set of tags in any given duration returns
 an instance of <code class="docutils literal notranslate"><span class="pre">HistoricalTagDataIterator</span></code>, which can be used to iterate
 between the given time range. When the <code class="docutils literal notranslate"><span class="pre">.historical_data</span></code> of data source
 is called, the class queries via cursor, based upon the entered <code class="docutils literal notranslate"><span class="pre">batch_size</span></code></p>
-<div class="section" id="id15">
+<section id="id15">
 <h3>The available methods are as follows:<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="get-complete-data-in-range">
+<section id="get-complete-data-in-range">
 <h4>.get_complete_data_in_range<a class="headerlink" href="#get-complete-data-in-range" title="Permalink to this headline">¶</a></h4>
 <p>The method loops through the complete range and returns the final data frame
 which is required. Note that this is meant to be used only for pandas return
@@ -856,15 +868,15 @@ of historical data and not for json return. The method has the following paramet
 <li><p><strong>historical_data_iterator (mandatory)</strong> This is the historicaldataiterator
 object whose complete data is to be returned</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="transformations">
+</section>
+</section>
+<section id="transformations">
 <h3>Transformations:<a class="headerlink" href="#transformations" title="Permalink to this headline">¶</a></h3>
 <p>The tag data iterator is created based upon the multiple transformations
 that a user might need. The transformations is a list of dictionaries
 where each dictionary contains the details of interpolation/aggregation
 to be performed on the data. The different transformations are:</p>
-<div class="section" id="interpolation">
+<section id="interpolation">
 <h4>Interpolation:<a class="headerlink" href="#interpolation" title="Permalink to this headline">¶</a></h4>
 <p>Interpolation requires the following keys to be present:</p>
 <ul class="simple">
@@ -879,8 +891,8 @@ is required for all methods except <code class="docutils literal notranslate"><s
 <li><p><strong>limit_direction (optional)</strong>: Refers to the direction in which the
 interpolation takes place. The default value is <code class="docutils literal notranslate"><span class="pre">forward</span></code>.</p></li>
 </ul>
-</div>
-<div class="section" id="aggregation">
+</section>
+<section id="aggregation">
 <h4>Aggregation:<a class="headerlink" href="#aggregation" title="Permalink to this headline">¶</a></h4>
 <p>Aggregation requires the following keys to be present:</p>
 <ul class="simple">
@@ -892,10 +904,10 @@ aggregated.</p></li>
 methods on which the different columns in the dataset are to be
 aggregated.</p></li>
 </ul>
-</div>
-</div>
-</div>
-<div class="section" id="procedure">
+</section>
+</section>
+</section>
+<section id="procedure">
 <h2>Procedure<a class="headerlink" href="#procedure" title="Permalink to this headline">¶</a></h2>
 <p>This refers to the product (Product Harbour) procedures. Procedures are present/created within the Product</p>
 <p>The available attributes in this class are:</p>
@@ -911,7 +923,7 @@ aggregated.</p></li>
 <li><p><strong>stop_batch_tag</strong>: Tag represents the stop batch state</p></li>
 <li><p><strong>product</strong>: ID of the Product under which that procedure gets created</p></li>
 </ul>
-<div class="section" id="id16">
+<section id="id16">
 <h3>The available methods are as follows:<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
 <ul>
 <li><p><strong>fetch_unit_procedures</strong>: The method returns all the UnitProcedures of the given
@@ -937,9 +949,9 @@ and returns the <code class="docutils literal notranslate"><span class="pre">Uni
 </ul>
 </li>
 </ul>
-</div>
-</div>
-<div class="section" id="procedurestep">
+</section>
+</section>
+<section id="procedurestep">
 <h2>ProcedureStep<a class="headerlink" href="#procedurestep" title="Permalink to this headline">¶</a></h2>
 <p>This refers to the Node/Child(UnitProcedure/Operation/Phase/PhaseStep) added in Procedure Node in the hierarchy.</p>
 <p>The available attributes in this class are:</p>
@@ -956,7 +968,7 @@ and returns the <code class="docutils literal notranslate"><span class="pre">Uni
 <li><p><strong>procedure</strong>: ID of the Procedure under which that procedure step gets created</p></li>
 <li><p><strong>assets</strong>: List of asset ids</p></li>
 </ul>
-<div class="section" id="id17">
+<section id="id17">
 <h3>The available methods are as follows:<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
 <ul>
 <li><p><strong>fetch_substep_details</strong>: The method returns all the ProcedureStep details like Operation/Phase/PhaseStep in the
@@ -982,9 +994,9 @@ and returns the <code class="docutils literal notranslate"><span class="pre">Pro
 </ul>
 </li>
 </ul>
-</div>
-</div>
-<div class="section" id="product">
+</section>
+</section>
+<section id="product">
 <h2>Product<a class="headerlink" href="#product" title="Permalink to this headline">¶</a></h2>
 <p>This refers to the Product under which all the Procedure and Procedure Step hierarchy is present or created.
 This is the root node of the entire hierarchy.</p>
@@ -995,7 +1007,7 @@ This is the root node of the entire hierarchy.</p>
 <li><p><strong>client</strong>: Client id under which procedure gets created</p></li>
 <li><p><strong>description</strong>: This contains description of the product</p></li>
 </ul>
-<div class="section" id="id18">
+<section id="id18">
 <h3>The available methods are as follows:<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
 <ul>
 <li><p><strong>get_procedures</strong>: The method returns all the Procedures of the given
@@ -1021,9 +1033,9 @@ and returns the <code class="docutils literal notranslate"><span class="pre">Pro
 </ul>
 </li>
 </ul>
-</div>
-</div>
-<div class="section" id="site">
+</section>
+</section>
+<section id="site">
 <h2>Site<a class="headerlink" href="#site" title="Permalink to this headline">¶</a></h2>
 <p>This refers to the User’s Client Site.</p>
 <p>The available attributes in this class are:</p>
@@ -1039,8 +1051,8 @@ and returns the <code class="docutils literal notranslate"><span class="pre">Pro
 <li><p><strong>state</strong>: State Id site belongs to</p></li>
 <li><p><strong>client</strong>: Client Id site belongs to</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -1059,7 +1071,7 @@ and returns the <code class="docutils literal notranslate"><span class="pre">Pro
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="quick-start.html">Quick start</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Basic Functionality</a><ul>
