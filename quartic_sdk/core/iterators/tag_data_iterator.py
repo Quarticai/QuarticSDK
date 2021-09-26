@@ -2,7 +2,7 @@
 import json
 import pandas as pd
 import quartic_sdk.utilities.constants as Constants
-from quartic_sdk.utilities.exceptions import IncorrectTransformationException
+from quartic_sdk.utilities.exceptions import IncorrectTransformationException, IncorrectWavelengthParamException
 
 
 class TagDataIterator:
@@ -21,6 +21,7 @@ class TagDataIterator:
             api_helper,
             sampling_ratio=1,
             return_type=Constants.RETURN_JSON,
+            wavelengths = {},
             transformations=[]):
         """
         We initialize the iterator with the given parameters
@@ -66,7 +67,7 @@ class TagDataIterator:
         self.api_helper = api_helper
         self.sampling_ratio = sampling_ratio
         self.return_type = return_type
-
+        self.wavelengths = wavelengths
         self._transformations = transformations
         self._cursor = None
         self._data_call_state = 0
@@ -107,6 +108,24 @@ class TagDataIterator:
                 raise IncorrectTransformationException(
                     "Invalid transformations : transformation_type is invalid")
 
+    @staticmethod
+    def raise_exception_for_wavelegths(wavelengths):
+        """
+        Validate wavelengths passed for a spectral tag. Schema as following
+        {"wavelengths" : ['1460000.0','1460001.0]}
+        :param wavelengths: dict containing key as 'wavelengths' and value as list of wavelengths
+        """
+        assert isinstance(wavelengths, dict), "Wavelengths must be a dict"
+        
+        if not wavelengths.get('wavelengths'):
+            raise IncorrectWavelengthParamException(
+                'Invalid Wavelengths: "wavelengths" key required in dict'
+            )
+        elif not isinstance(wavelengths.get("wavelengths"), list):
+            raise IncorrectWavelengthParamException(
+                'Invalid Wavelengths: Wavelength values must be passed in a list '
+            )
+
     def create_post_data(self):
         """
         We create the required post data which will be used for making the POST call
@@ -116,6 +135,7 @@ class TagDataIterator:
             "start_time": self.start_time,
             "stop_time": self.stop_time,
             "sampling_ratio": self.sampling_ratio,
+            "wavelengths" : self.wavelengths,
             "transformations": self._transformations,
             "batch_size": self.batch_size
         }
@@ -169,6 +189,7 @@ class TagDataIterator:
             sampling_ratio=1,
             return_type=Constants.RETURN_PANDAS,
             batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS,
+            wavelengths = {},
             transformations=[]):
         """
         The method creates the TagDataIterator instance based upon the parameters that are passed here
@@ -178,6 +199,10 @@ class TagDataIterator:
         :param return_type: The param decides whether the data after querying will be
             json(when value is "json") or pandas dataframe(when value is "pd"). By default,
             it takes the value as "json"
+        :param wavelengths: dict containing list of wavelengths(string) as value with key "wavelengths"
+            Used for getting data for a spectral tag for specified wavelengths. 
+            An example value here is:
+            {"wavelengths:['1460000.0','1460001.0']}                                
         :param transformations: Refers to the list of transformations. It supports either
             interpolation or aggregation, depending upon which, we pass the value of this
             dictionary. If `transformation_type` is "aggregation", an optional key can be
@@ -201,11 +226,14 @@ class TagDataIterator:
 
         TagDataIterator.raise_exception_for_transformation_schema(
             transformations, tags)
+        if wavelengths:
+            TagDataIterator.raise_exception_for_wavelegths(wavelengths)    
         body_json = {
             "tags": [tag.id for tag in tags.all()],
             "start_time": start_time,
             "stop_time": stop_time,
             "sampling_ratio": sampling_ratio,
+            "wavelengths": wavelengths,
             "transformations": transformations,
             "batch_size": batch_size
         }
@@ -224,4 +252,5 @@ class TagDataIterator:
             batch_size=batch_size,
             sampling_ratio=sampling_ratio,
             return_type=return_type,
+            wavelengths = wavelengths,
             transformations=transformations)
