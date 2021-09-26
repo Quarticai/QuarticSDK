@@ -340,7 +340,7 @@ template as <cite>Tag: {tag_name}_{tag_id}</cite></p>
 <ul class="simple">
 <li><p><strong>id</strong>: Tag ID</p></li>
 <li><p><strong>name</strong>: Tag Name</p></li>
-<li><p><strong>tag_type</strong>: The tag types:- 1.Raw, 2.Soft, 3.Aggregation, 4.Bitwise, 5.Writeback</p></li>
+<li><p><strong>tag_type</strong>: The tag types:- 1.Raw, 2.Soft, 3.Aggregation, 4.Bitwise, 5.Writeback, 6.Spectral</p></li>
 <li><p><strong>tag_data_type</strong>: The tag data types. They are given by</p></li>
 </ul>
 <table class="colwidths-given docutils align-default" id="id20">
@@ -488,6 +488,12 @@ The default granularity is Raw.</p></li>
 will return the pandas dataframe iterator, or <code class="docutils literal notranslate"><span class="pre">json</span></code> which will
 return json object on return. This value takes the <code class="docutils literal notranslate"><span class="pre">pd</span></code> value as
 default.</p></li>
+<li><p><strong>wavelengths (optional)</strong>: This parameter is only valid for spectral
+type tags.User can pass a dict with key as “wavelengths” and value as
+the list of wavelength values for which user wants to fetch the data.
+By default for a given spectral tag, data for all of its available
+wavelengths will be fetched. By passing this paramter user can choose
+to fetch for the specified wavelengths.</p></li>
 <li><p><strong>transformations (optional)</strong>: The user is supposed to pass the list
 of interpolations and aggregations here. Further details on
 transformations is provided towards the end of this documentation.</p></li>
