@@ -69,7 +69,7 @@ tag object returned from the API</p>
 
 <dl class="py method">
 <dt id="quartic_sdk.core.entities.tag.Tag.data">
-<code class="sig-name descname"><span class="pre">data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Constants.RETURN_PANDAS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Constants.DEFAULT_PAGE_LIMIT_ROWS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wavelengths</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.tag.Tag.data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Constants.RETURN_PANDAS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Constants.DEFAULT_PAGE_LIMIT_ROWS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.tag.Tag.data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the data for the given tag between the start_time and the stop_time
 for the given sampling_ratio
 :param start_time: (epoch) Start_time for getting data
@@ -82,12 +82,7 @@ it takes the value as “json”</p>
 </div></blockquote>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>wavelengths</strong> – dict containing list of wavelengths(string) as value with key “wavelengths”
-Used for getting data for a spectral tag for specified wavelengths.
-An example value here is:
-{“wavelengths:[‘1460000.0’,’1460001.0’]}</p></li>
-<li><p><strong>transformations</strong> – <p>Refers to the list of transformations. It supports either
+<dd class="field-odd"><p><strong>transformations</strong> – <p>Refers to the list of transformations. It supports either
 interpolation or aggregation, depending upon which, we pass the value of this
 dictionary. If <cite>transformation_type</cite> is “aggregation”, an optional key can be
 passed called <cite>aggregation_timestamp</cite>, which determines how the timestamp information
@@ -108,8 +103,7 @@ An example value here is:
 </dd>
 </dl>
 <p>}]</p>
-</p></li>
-</ul>
+</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>(DataIterator) DataIterator object which can be iterated to get the data

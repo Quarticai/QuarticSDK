@@ -98,52 +98,52 @@ Module Contents
    
 
 .. data:: GET_ASSETS
-   :annotation: = /asset/
+   :annotation: = /api/v1/asset/
 
    
 
 .. data:: GET_CONTEXT_FRAME_DEFINITIONS
-   :annotation: = /context_frame_definitions/
+   :annotation: = /api/v1/context_frame_definitions/
 
    
 
 .. data:: GET_EDGE_CONNECTORS
-   :annotation: = /edge_connector/
+   :annotation: = /api/v1/edge_connector/
 
    
 
 .. data:: GET_TAGS
-   :annotation: = /tags/
+   :annotation: = /api/v1/tags/
 
    
 
 .. data:: RETURN_TAG_DATA
-   :annotation: = /tag_data/
+   :annotation: = /api/v1/tag_data/
 
    
 
 .. data:: GET_CONTEXT_FRAME_OCCURRENCES
-   :annotation: = /context_frame_occurrences/
+   :annotation: = /api/v1/context_frame_occurrences/
 
    
 
 .. data:: GET_BATCHES
-   :annotation: = /batches/
+   :annotation: = /api/v1/batches/
 
    
 
 .. data:: GET_EVENT_FRAMES
-   :annotation: = /event_frame/
+   :annotation: = /api/v1/event_frame/
 
    
 
 .. data:: GET_EVENT_FRAME_OCCURRENCES
-   :annotation: = /ef_occurrence/
+   :annotation: = /api/v1/ef_occurrence/
 
    
 
 .. data:: POST_OPCUA_DATA
-   :annotation: = /historical_tag_data/
+   :annotation: = /api/v1/historical_tag_data/
 
    
 
@@ -153,27 +153,27 @@ Module Contents
    
 
 .. data:: GET_SITES
-   :annotation: = /site/
+   :annotation: = /api/v1/site/
 
    
 
 .. data:: GET_PRODUCTS
-   :annotation: = /product/
+   :annotation: = /api/v1/product/
 
    
 
 .. data:: PROCEDURES
-   :annotation: = /procedure/
+   :annotation: = /api/v1/procedure/
 
    
 
 .. data:: PROCEDURE_STEPS
-   :annotation: = /procedure_step/
+   :annotation: = /api/v1/procedure_step/
 
    
 
 .. data:: POST_RULE_VALIDATE_JSON
-   :annotation: = /rule_validate_json/
+   :annotation: = /api/v1/rule_validate_json/
 
    
 
