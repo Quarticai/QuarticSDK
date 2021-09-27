@@ -2,7 +2,7 @@
 import json
 import pandas as pd
 import quartic_sdk.utilities.constants as Constants
-from quartic_sdk.utilities.exceptions import IncorrectTransformationException, IncorrectWavelengthParamException
+from quartic_sdk.utilities.exceptions import IncorrectTransformationException
 
 
 class TagDataIterator:
@@ -108,24 +108,6 @@ class TagDataIterator:
                 raise IncorrectTransformationException(
                     "Invalid transformations : transformation_type is invalid")
 
-    @staticmethod
-    def raise_exception_for_wavelegths(wavelengths):
-        """
-        Validate wavelengths passed for a spectral tag. Schema as following
-        {"wavelengths" : ['1460000.0','1460001.0]}
-        :param wavelengths: dict containing key as 'wavelengths' and value as list of wavelengths
-        """
-        assert isinstance(wavelengths, dict), "Wavelengths must be a dict"
-        
-        if not wavelengths.get('wavelengths'):
-            raise IncorrectWavelengthParamException(
-                'Invalid Wavelengths: "wavelengths" key required in dict'
-            )
-        elif not isinstance(wavelengths.get("wavelengths"), list):
-            raise IncorrectWavelengthParamException(
-                'Invalid Wavelengths: Wavelength values must be passed in a list '
-            )
-
     def create_post_data(self):
         """
         We create the required post data which will be used for making the POST call
@@ -226,8 +208,6 @@ class TagDataIterator:
 
         TagDataIterator.raise_exception_for_transformation_schema(
             transformations, tags)
-        if wavelengths:
-            TagDataIterator.raise_exception_for_wavelegths(wavelengths)    
         body_json = {
             "tags": [tag.id for tag in tags.all()],
             "start_time": start_time,
