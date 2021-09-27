@@ -34,14 +34,6 @@ Classes
       :return: (None) Does not return anything, raises exception if validation fails
 
 
-   .. method:: raise_exception_for_wavelegths(wavelengths)
-      :staticmethod:
-
-      Validate wavelengths passed for a spectral tag. Schema as following
-      {"wavelengths" : ['1460000.0','1460001.0]}
-      :param wavelengths: dict containing key as 'wavelengths' and value as list of wavelengths
-
-
    .. method:: create_post_data(self)
 
       We create the required post data which will be used for making the POST call
