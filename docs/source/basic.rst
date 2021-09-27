@@ -419,6 +419,12 @@ the data in batches of 200,000 datapoints. More details under the
    will return the pandas dataframe iterator, or ``json`` which will
    return json object on return. This value takes the ``pd`` value as
    default.
+-  **wavelengths (optional)**: This parameter is only valid for spectral 
+   type tags.User can pass a dict with key as "wavelengths" and value as 
+   the list of wavelength values for which user wants to fetch the data. 
+   By default for a given spectral tag, data for all of its available
+   wavelengths will be fetched. By passing this paramter user can choose 
+   to fetch for the specified wavelengths.
 -  **transformations (optional)**: The user is supposed to pass the list
    of interpolations and aggregations here. Further details on
    transformations is provided towards the end of this documentation.
