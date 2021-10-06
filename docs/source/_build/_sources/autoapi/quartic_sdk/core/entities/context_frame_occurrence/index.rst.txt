@@ -21,8 +21,7 @@ Classes
 
 
 
-.. class:: ContextFrameOccurrence(body_json, api_helper)
-
+.. class:: ContextFrameOccurrence
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 

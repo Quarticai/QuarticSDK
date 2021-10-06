@@ -51,8 +51,7 @@ Classes
 
 
 
-.. class:: Asset(body_json, api_helper)
-
+.. class:: Asset
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -128,8 +127,7 @@ Classes
 
 
 
-.. class:: Batch(body_json, api_helper)
-
+.. class:: Batch
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -142,8 +140,7 @@ Classes
 
 
 
-.. class:: ContextFrame(body_json, api_helper)
-
+.. class:: ContextFrame
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -162,8 +159,7 @@ Classes
 
 
 
-.. class:: ContextFrameOccurrence(body_json, api_helper)
-
+.. class:: ContextFrameOccurrence
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -338,8 +334,7 @@ Classes
 
 
 
-.. class:: EventFrame(body_json, api_helper)
-
+.. class:: EventFrame
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -374,8 +369,7 @@ Classes
 
 
 
-.. class:: Site(body_json, api_helper)
-
+.. class:: Site
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -400,8 +394,7 @@ Classes
 
 
 
-.. class:: Procedure(body_json, api_helper)
-
+.. class:: Procedure
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -440,8 +433,7 @@ Classes
 
 
 
-.. class:: Product(body_json, api_helper)
-
+.. class:: Product
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -475,8 +467,7 @@ Classes
 
 
 
-.. class:: ProcedureStep(body_json, api_helper)
-
+.. class:: ProcedureStep
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
