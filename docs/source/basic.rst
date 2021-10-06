@@ -631,6 +631,7 @@ The available attributes in this class are:
 -  **feature_tags**: IDs of tags used as Feature
 -  **output_tag**: ID of the tag in which prediction results are stored
 -  **target_tag**: ID of the tag which is used as the parent for prediction output tag
+-  **is_spectral_model**: Boolean if the model is spectral or not
 
 The available methods are as follows:
 *************************************

@@ -71,11 +71,13 @@ Classes
       :return: (EntityList) List of Event Frames belonging to the asset
 
 
-   .. method:: list_models(self, is_active: bool = None, ml_node: int = None, query_params={})
+   .. method:: list_models(self, is_active: bool = None, ml_node: int = None, model_type: int = Constants.MODEL_TYPE_TELEMETRY, query_params={})
 
       List models and its parameters accessible by user
+
       :param is_active: Boolean Indicator if list should contain active nodes or not
       :param ml_node:   Ml Node id to filter models deployed to particular node
+      :param model_type: Ml model type. 0 - All models , 1 - Telemetry models (Default) , 2 - Spectral models
       :param query_params: Dictionary of filter conditions
       :return:          list of dictionary
 

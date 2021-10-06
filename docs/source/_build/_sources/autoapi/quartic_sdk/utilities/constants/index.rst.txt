@@ -67,6 +67,26 @@ Module Contents
 
    
 
+.. data:: MODEL_TYPE_ALL
+   :annotation: = 0
+
+   
+
+.. data:: MODEL_TYPE_TELEMETRY
+   :annotation: = 1
+
+   
+
+.. data:: MODEL_TYPE_SPECTRAL
+   :annotation: = 2
+
+   
+
+.. data:: MODEL_TYPE
+   
+
+   
+
 .. data:: METHOD_TYPES
    :annotation: = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
 

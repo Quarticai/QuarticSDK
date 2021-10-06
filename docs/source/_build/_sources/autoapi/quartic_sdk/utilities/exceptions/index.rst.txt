@@ -31,3 +31,11 @@ Module Contents
    Common base class for all non-exit exceptions.
 
 
+.. exception:: IncorrectParameterException
+
+
+   Bases: :class:`Exception`
+
+   Common base class for all non-exit exceptions.
+
+

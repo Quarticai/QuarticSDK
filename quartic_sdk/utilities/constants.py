@@ -14,6 +14,17 @@ TARGET_TAG_ID = "target_tag_id"
 TEST_DATA = "test_data"
 ML_NODE_ID = "ml_node_id"
 
+# Model Type Integer Constants and their mapping
+MODEL_TYPE_ALL = 0
+MODEL_TYPE_TELEMETRY = 1
+MODEL_TYPE_SPECTRAL = 2
+
+MODEL_TYPE = {
+    MODEL_TYPE_ALL: "All",
+    MODEL_TYPE_TELEMETRY: "Telemetry",
+    MODEL_TYPE_SPECTRAL: "Spectral"
+}
+
 # API method types
 METHOD_TYPES = ["GET", "POST", "PUT", "PATCH", "DELETE"]
 API_GET = "GET"
