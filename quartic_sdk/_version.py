@@ -2,4 +2,4 @@
 Refers to the version of the package
 """
 
-__version__ = '2.5.dev1380'
+__version__ = '2.0.dev1380'
