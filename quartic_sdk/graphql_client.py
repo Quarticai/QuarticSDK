@@ -36,7 +36,7 @@ class GraphqlClient:
             raise AttributeError('Need to provide password')
         if password and not username:
             raise AttributeError('Need to provide username')
-        if not password and not username and not token:
+        if not password and not token:
             raise AttributeError(
                 'Need to provide either username and password or oauth token')
         self.url = url
@@ -142,7 +142,7 @@ class GraphqlClient:
         :return: new GraphqlCleint instance initiated with existing APIHelper configuration. 
         """
         configuration = api_helper.configuration
-        graphql_url = GRAPHQL_URL if GRAPHQL_URL else configuration.host
+        graphql_url = GRAPHQL_URL or configuration.host
         if configuration.auth_type == OAUTH:
             return GraphqlClient(url=graphql_url,
             token=configuration.oauth_token,
