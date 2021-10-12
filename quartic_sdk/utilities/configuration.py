@@ -31,7 +31,7 @@ class Configuration:
 
         self.verify_ssl = verify_ssl
         self.cert_path = cert_path
-        self.__local_dev = True if 'localhost' in self.host else False
+        self.__local_dev = 'localhost' in self.host
 
     def get_basic_auth_token(self):
         """

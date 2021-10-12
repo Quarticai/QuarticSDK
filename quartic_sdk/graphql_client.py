@@ -37,7 +37,7 @@ class GraphqlClient:
             raise AttributeError('Need to provide password')
         if password and not username:
             raise AttributeError('Need to provide username')
-        if not password and not username and not token:
+        if not password and not token:
             raise AttributeError(
                 'Need to provide either username and password or oauth token')
         self.url = url
