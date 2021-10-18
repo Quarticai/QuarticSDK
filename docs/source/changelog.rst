@@ -25,3 +25,13 @@ Changes
 - `@shubham-quartic <https://github.com/shubham-quartic/>`_: Added ability to retain timestamp after aggregation (`#115 <https://github.com/Quarticai/QuarticSDK/pull/115/>`_)
 - `@shivinquartic <https://github.com/shivinquartic/>`_: Added implementation for GraphQL Client (`#125 <https://github.com/Quarticai/QuarticSDK/pull/125/>`_)
 ~~~~~~~~~~~~~
+
+**Version 2.5.0**
+-----------------
+Changes
+``````````
+- `@niharp2 <https://github.com/niharp2/>`_: Changes to pass query_params dict in api calls for edge_connectors.(`#140 <https://github.com/Quarticai/QuarticSDK/pull/140>`_)
+- `@niharp2 <https://github.com/niharp2/>`_: Added query_params in request to support filterig from edge_connectors and event_frames(`#140 <https://github.com/Quarticai/QuarticSDK/pull/141>`_)
+- `@niharp2 <https://github.com/niharp2/>`_: Updated Tag.data() to pass wavelengths for spectral tags (`#153 <https://github.com/Quarticai/QuarticSDK/pull/153>`_)
+- `@niharp2 <https://github.com/niharp2/>`_: Added Implementation for BaseSpectralModel (`#160 <https://github.com/Quarticai/QuarticSDK/pull/160>`_)
+~~~~~~~~~~~~~
