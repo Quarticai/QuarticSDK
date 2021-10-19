@@ -26,6 +26,7 @@ Submodules
    api_client/index.rst
    exceptions/index.rst
    graphql_client/index.rst
+   spec/index.rst
 
 
 Package Contents
@@ -41,7 +42,7 @@ Classes
 
 
 
-.. class:: APIClient(host, username=None, password=None, oauth_token=None, cert_path=None, verify_ssl=True)
+.. class:: APIClient(host, username=None, password=None, oauth_token=None, cert_path=None, verify_ssl=True, gql_host=None)
 
 
    .. method:: version()

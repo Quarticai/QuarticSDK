@@ -16,7 +16,7 @@ Classes
 
 
 
-.. class:: APIHelper(host, username=None, password=None, oauth_token=None, cert_path=None, verify_ssl=None)
+.. class:: APIHelper(host, username=None, password=None, oauth_token=None, cert_path=None, verify_ssl=None, gql_host=None)
 
 
    The class is the helper class which will be used for making the API calls

@@ -602,8 +602,3 @@ Module Contents
 
    
 
-.. data:: GRAPHQL_URL
-   :annotation: = 
-
-   
-

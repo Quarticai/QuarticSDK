@@ -36,14 +36,20 @@
             
   <section id="model-creation">
 <h1>Model Creation<a class="headerlink" href="#model-creation" title="Permalink to this headline">¶</a></h1>
-<p>This article explains how to create, wrap, and deploy models to the
+<p>QuarticSDK allows the users to deploy two types of models via the
+Quartic AI platform. It allows deployment of normal tag-based Machine
+Learning models, that use the tags as the feature variables, as well
+as the deployment of wavelength based models for spectral tags that use
+spectral tag wavelengths as the feature variables.
+This article explains how to create, wrap, and deploy both kinds of models to the
 Quartic AI Platform.</p>
 <section id="basequarticmodel">
 <h2>BaseQuarticModel<a class="headerlink" href="#basequarticmodel" title="Permalink to this headline">¶</a></h2>
 <p>BaseQuarticModel is a base class for all the ML models that can be deployed to
-the Platform. Users must extend this class and implement the predict
-method to make the ML model compatible to deploy in the Quartic AI
-Platform. The available methods are as follows:</p>
+the Platform, which use the tags as features for the deployed ML model. Users
+must extend this class and implement the predict method to make the ML model
+compatible to deploy in the Quartic AI Platform.
+The available methods are as follows:</p>
 <section id="init">
 <h3>__init__<a class="headerlink" href="#init" title="Permalink to this headline">¶</a></h3>
 <p>The method has following parameters for initialization:</p>
@@ -130,6 +136,100 @@ the wrapper must be included in wrapper for applying similar set of
 transformations during prediction.</p>
 </div></section>
 </section>
+<section id="basespectralmodel">
+<h2>BaseSpectralModel<a class="headerlink" href="#basespectralmodel" title="Permalink to this headline">¶</a></h2>
+<p>BaseSpectralModel is a base class for all the ML models that can be deployed to
+the Platform, which use the spectral tag wavelengths as features for the deployed
+ML model. Users must extend this class and implement the predict method to make
+the ML model compatible to deploy in the Quartic AI Platform.
+The available methods are as follows:</p>
+<section id="id1">
+<h3>__init__<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>The method has following parameters for initialization:</p>
+<ul class="simple">
+<li><p><strong>name (mandatory)</strong>: Enter a unique name for the model</p></li>
+<li><p><strong>description (optional)</strong>: Describe the model. The default value for
+the field is <code class="docutils literal notranslate"><span class="pre">''</span></code></p></li>
+<li><p><strong>log_level (optional)</strong>: Select one of the log level for the model:
+<code class="docutils literal notranslate"><span class="pre">'CRITICAL',</span> <span class="pre">'ERROR',</span> <span class="pre">'WARNING',</span> <span class="pre">'INFO',</span> <span class="pre">'DEBUG',</span> <span class="pre">'NOTSET'</span></code>. The
+default value is <code class="docutils literal notranslate"><span class="pre">INFO</span></code>.</p></li>
+</ul>
+<div class="note"><p>Note: While implementing an instance of BaseSpectralModel, users must call
+super().<strong>init</strong> with above parameters.</p>
+</div></section>
+<section id="id2">
+<h3>.save<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>This is a private method used to save the model to the Quartic AI
+Platform.</p>
+<div class="note"><p>Note: While implementing an instance of BaseSpectralModel, users must call
+super().<strong>init</strong> with above parameters.</p>
+</div><div class="note-warning"><p>Warning: Do not override this method.</p>
+</div><ul class="simple">
+<li><p><strong>client (mandatory)</strong>: Refers to an instance of APIClient</p></li>
+<li><p><strong>output_tag_name (mandatory)</strong>: Refers to a unique name for the
+prediction results</p></li>
+<li><p><strong>feature_wavelengths (mandatory)</strong>: Refers to a list of spectral tag wavelengths that are
+as features in the model</p></li>
+<li><p><strong>spectral_tag (mandatory)</strong>: Refers to the spectral tag whose wavelengths are used for deploying the model</p></li>
+<li><p><strong>target_tag (mandatory)</strong>: Refers to the tag that has been assigned to an asset the ML model will use this asset as a parent of the current
+prediction output</p></li>
+<li><p><strong>test_df (mandatory)</strong>: Refers to the test dataframe that validates the model prediction
+results and ensures compatibility with the Quartic AI Platform</p></li>
+<li><p><strong>ml_node (optional)</strong>: Refers to the Ml Node ID for deploying model
+to a particular node.</p></li>
+</ul>
+<div class="note"><p>Note:  1. The Quartic AI Platform selects the best ML node depending on
+CPU and memory utilization at the time of deployment (by default). To
+deploy a model to a particular node, specify ml_node={node_id}; for
+example, ml_node=1 . 2. The save_method takes a sample of test data
+frame to validate the model._</p>
+</div></section>
+<section id="id3">
+<h3>.predict<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>The method has the following parameters for running the predictions of a
+ML model:</p>
+<ul class="simple">
+<li><p><strong>input_df (mandatory)</strong>: Refers to the dataframe on which the model is being evaluated</p></li>
+</ul>
+<div class="note"><p>Note:  1. Users must override this method to transform and run
+predictions for the model created. 2. input_df is expected to have tag
+IDs as the column names. If model is trained with tag names instead, a
+transformation step must be added and used in predict method to
+convert the tag IDs in input dataframe into tag names._</p>
+</div></section>
+<section id="id4">
+<h3>Example<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">quartic_sdk.model</span> <span class="kn">import</span> <span class="n">BaseSpectralModel</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="k">class</span> <span class="nc">ExampleModel</span><span class="p">(</span><span class="n">BaseSpectralModel</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;Sample Model&quot;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;This is a simple model to give a quick introduction on creating and deploying models to the Quartic AI Platform.&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_df</span><span class="p">):</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">input_df</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">predictions</span><span class="p">)</span>
+
+<span class="n">quartic_model</span> <span class="o">=</span> <span class="n">ExampleModel</span><span class="p">()</span>
+<span class="n">quartic_model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span> <span class="c1"># Training data extracted from data loaded from the Quartic AI Platform</span>
+<span class="n">quartic_model</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">client</span><span class="o">=</span><span class="n">api_client</span><span class="p">,</span> <span class="n">output_tag_name</span><span class="o">=</span><span class="s2">&quot;Prediction Result&quot;</span><span class="p">,</span>
+                   <span class="n">feature_tags</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="c1"># tags that are used in the X variable or features, for example 1,2,3</span>
+                   <span class="n">target_tag</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="c1"># tag that specifies a relationship for prediction, for example, 3</span>
+                   <span class="n">test_df</span> <span class="o">=</span> <span class="n">X_train</span>
+                   <span class="p">)</span>
+</pre></div>
+</div>
+<div class="note"><p>Note: Any intermediate steps that are used for model training outside
+the wrapper must be included in wrapper for applying similar set of
+transformations during prediction.</p>
+</div></section>
+</section>
 </section>
 
 
@@ -155,6 +255,7 @@ transformations during prediction.</p>
 <li class="toctree-l1"><a class="reference internal" href="basic.html">Basic Functionality</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Model Creation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#basequarticmodel">BaseQuarticModel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#basespectralmodel">BaseSpectralModel</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>

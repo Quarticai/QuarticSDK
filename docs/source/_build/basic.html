@@ -499,6 +499,19 @@ of interpolations and aggregations here. Further details on
 transformations is provided towards the end of this documentation.</p></li>
 </ul>
 </section>
+<section id="wavelengths">
+<h4>.wavelengths<a class="headerlink" href="#wavelengths" title="Permalink to this headline">¶</a></h4>
+<p>The method returns the list of all the wavelengths for the given spectral
+tag entity, and throws an error otherwise. The method parameters are as follows:</p>
+<ul class="simple">
+<li><p><strong>start_time (optional)</strong>: (epoch) Refers to the <code class="docutils literal notranslate"><span class="pre">start_time</span></code> for evaluating
+the wavelengths for the spectral tag. In case this is not provided, this defaults
+to the time, when the given spectral tag is created at.</p></li>
+<li><p><strong>stop_time (optional)</strong>: (epoch) Refers to the <code class="docutils literal notranslate"><span class="pre">stop_time</span></code> for evaluating
+the wavelengths for the spectral tag. In case this is not provided, this defaults
+to the current datetime value</p></li>
+</ul>
+</section>
 </section>
 </section>
 <section id="batch">

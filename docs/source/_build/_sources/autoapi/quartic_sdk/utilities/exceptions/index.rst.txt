@@ -39,3 +39,19 @@ Module Contents
    Common base class for all non-exit exceptions.
 
 
+.. exception:: IncorrectAuthTypeException
+
+
+   Bases: :class:`Exception`
+
+   Common base class for all non-exit exceptions.
+
+
+.. exception:: InvalidTagAttributeException
+
+
+   Bases: :class:`Exception`
+
+   Common base class for all non-exit exceptions.
+
+

@@ -75,9 +75,9 @@ details on the class is provided below.
 
 The method parameters as included in v2.0.0 are as follows:
 
--  **query\_params (optional)**: User can pass a dictionary of conditions 
+-  **query\_params (optional)**: User can pass a dictionary of conditions
    and condition values to filter the Assets accordingly.
-   Filter conditions can be like          
+   Filter conditions can be like
 |   ``{"created_at__gt": "2020-04-05 17:59:50.466338+00:00", "status": 1}``
     ``{"created_at__lt": "2021-04-05 17:59:50.466338", "status": 1}``
 
@@ -95,9 +95,9 @@ object of type ``EntityList``. More details on the class is provided below.
 
 The method parameters as included in v2.0.0 are as follows:
 
--  **query\_params (optional)**: User can pass a dictionary of conditions 
+-  **query\_params (optional)**: User can pass a dictionary of conditions
    and condition values to filter the ContextFrame Occurrences accordingly.
-   Filter conditions can be like 
+   Filter conditions can be like
    ``{"start_ef_occurrence": "A3412", "stop_ef_occurrence": "C7415"}``
 
 ::
@@ -112,9 +112,9 @@ The method parameters as included in v2.0.0 are as follows:
 **asset\_id (mandatory)**: The asset\_id of the asset whose tags are to
 be returned.
 
-**query\_params (optional)**: User can pass a dictionary of conditions 
+**query\_params (optional)**: User can pass a dictionary of conditions
 and condition values to filter the tags accordingly.
-Filter conditions can be like 
+Filter conditions can be like
 |``{"tag_type": 1, "edge_connector": 674}``
 
 ::
@@ -130,14 +130,14 @@ are provided below.
 
 The method parameters as included in v2.0.0 are as follows:
 
--  **query\_params (optional)**: User can pass a dictionary of conditions 
+-  **query\_params (optional)**: User can pass a dictionary of conditions
    and condition values to filter the Assets accordingly.
-   Filter conditions can be like 
-   
+   Filter conditions can be like
+
    ``{"created_at__gt": "2020-04-05 17:59:50.466338+00:00", "connector_protocol": 206}``
-   
+
    ``{"created_at__lt": "2020-04-05 17:59:50", "connector_protocol": 206}``
-   
+
    ``{"updated_at__lt": "2020-04-05", "connector_protocol": 206}``
 
    Note : timestamps to be passed according to ISO 8610 format in query_params
@@ -166,9 +166,9 @@ The method parameters as included in v2.0.0 are as follows:
 -  **query\_params (optional)**: User can pass a dictionary of conditions
    and condition values to filter the Products accordingly.
    Filter conditions can be like
-   
+
    ``{"created_at__gt": "2020-04-05 14:19:38"}``
-   
+
    Note : timestamps to be passed according to ISO 8610 format in query_params
 
 ::
@@ -183,7 +183,7 @@ The method parameters as included in v2.0.0 are as follows:
 -  **query\_params (optional)**: User can pass a dictionary of conditions
    and condition values to filter the Products accordingly.
    Filter conditions can be like
-   
+
    ``{"start__gt": "2021-04-05 14:19:38", "stop__lt": "2021-04-06 11:19:38}``
 
 ::
@@ -260,9 +260,9 @@ of ``EntityList`` where each object refers to ``Tag``.
 
 The method parameters as included in v2.0.0 are as follows:
 
--  **query\_params (optional)**: User can pass a dictionary of conditions 
+-  **query\_params (optional)**: User can pass a dictionary of conditions
    and condition values to filter the tags accordingly.
-   Filter conditions can be like 
+   Filter conditions can be like
 |   ``{"tag_type": 1, "edge_connector": 674}``
 
 .batches
@@ -273,12 +273,12 @@ form of ``EntityList`` where each object refers to ``Batch``.
 
 The method parameters as included in v2.0.0 are as follows:
 
--  **query\_params (optional)**: User can pass a dictionary of conditions 
+-  **query\_params (optional)**: User can pass a dictionary of conditions
    and condition values to filter the batches accordingly.
-   Filter conditions can be like 
-   
+   Filter conditions can be like
+
    ``{"created_at__gt": "2021-04-05 14:19:38.303717+00:00"}``
-   
+
    Note : timestamps to be passed according to ISO 8610 format in query_params
 
 .data
@@ -419,15 +419,28 @@ the data in batches of 200,000 datapoints. More details under the
    will return the pandas dataframe iterator, or ``json`` which will
    return json object on return. This value takes the ``pd`` value as
    default.
--  **wavelengths (optional)**: This parameter is only valid for spectral 
-   type tags.User can pass a dict with key as "wavelengths" and value as 
-   the list of wavelength values for which user wants to fetch the data. 
+-  **wavelengths (optional)**: This parameter is only valid for spectral
+   type tags.User can pass a dict with key as "wavelengths" and value as
+   the list of wavelength values for which user wants to fetch the data.
    By default for a given spectral tag, data for all of its available
-   wavelengths will be fetched. By passing this paramter user can choose 
+   wavelengths will be fetched. By passing this paramter user can choose
    to fetch for the specified wavelengths.
 -  **transformations (optional)**: The user is supposed to pass the list
    of interpolations and aggregations here. Further details on
    transformations is provided towards the end of this documentation.
+
+.wavelengths
+~~~~~~~~~~~~
+
+The method returns the list of all the wavelengths for the given spectral
+tag entity, and throws an error otherwise. The method parameters are as follows:
+
+- **start\_time (optional)**: (epoch) Refers to the ``start_time`` for evaluating
+  the wavelengths for the spectral tag. In case this is not provided, this defaults
+  to the time, when the given spectral tag is created at.
+- **stop\_time (optional)**: (epoch) Refers to the ``stop_time`` for evaluating
+  the wavelengths for the spectral tag. In case this is not provided, this defaults
+  to the current datetime value
 
 Batch
 --------
@@ -594,9 +607,9 @@ The available methods are as follows:
 
    The method parameters as included in v2.0.0 are as follows:
 
-   -  **query\_params (optional)**: User can pass a dictionary of conditions 
+   -  **query\_params (optional)**: User can pass a dictionary of conditions
       and condition values to filter the ContextFrame Occurrences accordingly.
-      Filter conditions can be like 
+      Filter conditions can be like
       ``{"start_ef_occurrence": "A3412", "stop_ef_occurrence": "C7415"}``
 
 ContextFrameOccurrence
@@ -713,7 +726,7 @@ exists or it belongs to a different class\_type, it throws an exception.
 
     client_assets.add(new_asset_entity)
 
-.filter 
+.filter
 ~~~~~~~~
 This method filters the given EntityList to return an updated list that contains only those entities which satisfy all the conditions given in arguments.
 It works with all primitive attribtues of the ``Entity`` in the ``EntityList``, if the specific operation is defined for that data type.
