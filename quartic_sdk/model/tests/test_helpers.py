@@ -1,10 +1,12 @@
 import sys
 from unittest import TestCase
+from unittest.mock import patch
 import pandas as pd
 import numpy as np
 from quartic_sdk.exceptions import InvalidPredictionException
 from quartic_sdk.model.helpers import ModelUtils, Validation
 from quartic_sdk.model.tests import ModelThatReturnsString, SlowModel, SpectralModelThatReturnsString, SlowSpectralModel
+from quartic_sdk.utilities import constants
 
 
 class TestModelValidations(TestCase):
@@ -35,10 +37,14 @@ class TestModelValidations(TestCase):
         with self.assertRaises(InvalidPredictionException):
             data = {'wavenum_1': ['1460000.0','1460001.0'], 'wavenum_2': ['1490004.0','1490005.0']}
             Validation.validate_model(SpectralModelThatReturnsString(), pd.DataFrame(data=data))   
-
-        with self.assertRaises(InvalidPredictionException):
+        
+        with patch.object(Validation,"get_model_prediction_and_time") as MockPredictionAndTiming:
             data = {'wavenum_1': ['1460000.0','1460001.0'], 'wavenum_2': ['1490004.0','1490005.0']}
-            Validation.validate_model(SlowSpectralModel(), pd.DataFrame(data=data))        
+            prediction = pd.Series([i for i in range(pd.DataFrame(data=data).shape[0])])
+            MockPredictionAndTiming.return_value = prediction , constants.MAX_PREDICTION_PROCESSING_TIME + 1
+            
+            with self.assertRaises(InvalidPredictionException):
+                Validation.validate_model(SlowSpectralModel(), pd.DataFrame(data=data))        
 
     def test_pickle_model(self):
         model_byte_array = ModelUtils.get_pickled_object("test model object")

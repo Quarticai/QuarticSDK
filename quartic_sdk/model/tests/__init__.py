@@ -5,7 +5,7 @@ import time
 
 from quartic_sdk.model.BaseQuarticModel import BaseQuarticModel
 from quartic_sdk.utilities import constants
-from quartic_sdk.model.BaseSpectralModel import BaseSpectralModel
+from quartic_sdk.model import BaseSpectralModel
 
 class SupportedModel(BaseQuarticModel):
     """
