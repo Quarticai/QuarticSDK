@@ -18,3 +18,6 @@ class IncorrectAuthTypeException(Exception):
 
 class InvalidTagAttributeException(Exception):
     pass
+
+class InvalidWindowDuration(Exception):
+    pass
