@@ -8,12 +8,14 @@ from requests import HTTPError
 
 from quartic_sdk.model.helpers import ModelUtils, Validation
 from quartic_sdk.utilities import constants
+from functools import wraps
+from quartic_sdk.utilities.exceptions import InvalidWindowDuration
 
 
 class BaseQuarticModel(metaclass=abc.ABCMeta):
     """
     A Base Class Model for Wrapping User Models into Quartic Deployments.
-    User need to Inherit this class and override the predict method with all the post model training steps like,
+    User need to Inherdatait this class and override the predict method with all the post model training steps like,
     preprocessing, prediction, postprocessing the pandas dataframe passed to :func: `predict` during real time
     prediction.
 
@@ -70,6 +72,8 @@ class BaseQuarticModel(metaclass=abc.ABCMeta):
         self.log_level = log_level
         self.log = logging.getLogger(name)
         self.log.setLevel(log_level)
+        self.__window_support = False
+        self.__window_duration = None
 
     def save(self, client, output_tag_name: str,
              feature_tags: List[int],
@@ -123,3 +127,23 @@ class BaseQuarticModel(metaclass=abc.ABCMeta):
         :return:    Returns pd
         """
         pass
+    
+    def with_window(duration):
+        """
+        This is decorator method for window support
+        User can decorate predict method with this decorator for window support
+        :param duration: window duration in sec
+        :return:    None
+        """
+        def inner_decorator(func):
+            @wraps(func)
+            def wrapper(*args, **kwargs):
+                self = args[0]
+                if not isinstance(duration, int):
+                    raise InvalidWindowDuration(f'Invalid duration value passed for with_window decorator')
+                self.__window_support = True
+                self.__window_duration = duration
+                self.log.info(f"window support enabled for model with duration: {duration}")
+                return func(*args, **kwargs)
+            return wrapper
+        return inner_decorator
