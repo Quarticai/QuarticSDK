@@ -15,7 +15,7 @@ from quartic_sdk.utilities.exceptions import InvalidWindowDuration
 class BaseQuarticModel(metaclass=abc.ABCMeta):
     """
     A Base Class Model for Wrapping User Models into Quartic Deployments.
-    User need to Inherdatait this class and override the predict method with all the post model training steps like,
+    User need to Inherit this class and override the predict method with all the post model training steps like,
     preprocessing, prediction, postprocessing the pandas dataframe passed to :func: `predict` during real time
     prediction.
 
