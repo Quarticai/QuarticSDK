@@ -140,7 +140,10 @@ class BaseQuarticModel(metaclass=abc.ABCMeta):
             def wrapper(*args, **kwargs):
                 self = args[0]
                 if not isinstance(duration, int):
-                    raise InvalidWindowDuration(f'Invalid duration value passed for with_window decorator')
+                    raise InvalidWindowDuration(
+                        'Invalid duration value passed for with_window decorator'
+                    )
+
                 self.__window_support = True
                 self.__window_duration = duration
                 self.log.info(f"window support enabled for model with duration: {duration}")
