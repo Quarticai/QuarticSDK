@@ -2,6 +2,7 @@ import logging
 
 import pandas as pd
 import time
+from quartic_sdk.core.entities.base import Base
 
 from quartic_sdk.model.BaseQuarticModel import BaseQuarticModel
 from quartic_sdk.utilities import constants
@@ -104,6 +105,29 @@ class ModelWithLog(BaseQuarticModel):
         self.log.debug("This is a debug Log for Testing the logger")
         self.log.error("This is an error log")
         return pd.Series([i for i in range(input_df.shape[0])])
+
+class ModelWithValidWindow(BaseQuarticModel):
+    def __init__(self):
+        super().__init__("test_model")
+    
+    @BaseQuarticModel.with_window(duration=1* 60 * 60)
+    def predict(self, input_df: pd.DataFrame) -> pd.Series:
+        """
+            sample prediction
+        """
+        return pd.Series([i for i in range(input_df.shape[0])])
+        
+
+class ModelWithInValidWindow(BaseQuarticModel):
+    def __init__(self):
+        super().__init__("test_model")
+    
+    @BaseQuarticModel.with_window(duration="54662")
+    def predict(self, input_df: pd.DataFrame) -> pd.Series:
+        """
+            sample prediction
+        """
+        return pd.Series([i for i in range(input_df.shape[0])]) 
 
 
 class MockLoggingHandler(logging.Handler):

@@ -4,8 +4,10 @@ from unittest.mock import patch
 import pandas as pd
 import numpy as np
 from quartic_sdk.exceptions import InvalidPredictionException
+from quartic_sdk.utilities.exceptions import InvalidWindowDuration
 from quartic_sdk.model.helpers import ModelUtils, Validation
-from quartic_sdk.model.tests import ModelThatReturnsString, SlowModel, SpectralModelThatReturnsString, SlowSpectralModel
+from quartic_sdk.model.tests import ModelThatReturnsString, ModelWithValidWindow, SlowModel,\
+     SpectralModelThatReturnsString, SlowSpectralModel, ModelWithInValidWindow
 from quartic_sdk.utilities import constants
 
 
@@ -32,6 +34,17 @@ class TestModelValidations(TestCase):
         with self.assertRaises(InvalidPredictionException):
             data = {'col_A': [1, 2], 'col_B': [3, 4]}
             Validation.validate_model(SlowModel(), pd.DataFrame(data=data))
+               
+    def test_validate_model_with_window(self):
+        with self.assertRaises(InvalidWindowDuration):
+            data = {'col_A': [1, 2], 'col_B': [3, 4]}
+            Validation.validate_model(ModelWithInValidWindow(), pd.DataFrame(data=data))
+    
+    def test_validate_model_window_vars(self):
+        model  = ModelWithValidWindow()
+        data = {'col_A': [1, 2], 'col_B': [3, 4]}
+        model.predict(pd.DataFrame(data=data))
+        self.assertEquals(model._BaseQuarticModel__window_duration, 3600)      
 
     def test_validate_spectral_model(self):
         with self.assertRaises(InvalidPredictionException):
