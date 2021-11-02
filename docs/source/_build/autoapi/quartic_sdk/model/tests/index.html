@@ -129,18 +129,18 @@ of specific types</p>
 <dt id="quartic_sdk.model.tests.BaseQuarticModel">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.model.tests.</span></code><code class="sig-name descname"><span class="pre">BaseQuarticModel</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_level</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'INFO'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.model.tests.BaseQuarticModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>A Base Class Model for Wrapping User Models into Quartic Deployments.
-User need to Inherit this class and override the predict method with all the post model training steps like,
+User needs to inherit this class and override the predict method with all the post model training steps such as,
 preprocessing, prediction, postprocessing the pandas dataframe passed to :func: <cite>predict</cite> during real time
 prediction.</p>
-<p>Note: Please do not overwrite method :func: <cite>save</cite> as it contains utilities to validate and deploy model to Quartic</p>
-<p>name : Name of the model to be saved in Quartic
+<p>Note: Please do not overwrite method :func: <cite>save</cite> as it contains utilities to validate and deploy model to the Quartic AI Platform</p>
+<p>name : Name of the model to be saved in Quartic AI Platform
 description : Description of the current model
 log_level : Log Level for logs created/executed during run time i.e. during real time predictions</p>
-<p>name : Name of the model to be saved in Quartic
+<p>name : Name of the model to be saved in Quartic AI Platform
 description : description of model
 log_level : Log level
 log : Logger instance which can be used to set run time logs ex: self.log.info(“Example Log”)</p>
-<p>save    :   private save method to save deploy model to quartic
+<p>save    :   private save method to save deploy model to the Quartic AI Platform
 predict :   abstract predict method which needs to overridden</p>
 <dl class="simple">
 <dt>class MyModel(BaseQuarticModel):</dt><dd><dl class="simple">
@@ -176,12 +176,12 @@ my_model.save(‘my_model_output’, [Tag(‘A’), Tag(‘B’)], Tag(‘C’),
 <li><p><strong>feature_tags</strong> – Feature Tag ids used in the model</p></li>
 <li><p><strong>target_tag</strong> – Target tag id to specify the parent of current soft tag</p></li>
 <li><p><strong>test_df</strong> – Test input dataframe to validate input and
-prediction output in agreement with Quartic Platform</p></li>
+prediction output in agreement with Quartic AI Platform</p></li>
 <li><p><strong>ml_node</strong> – Optional - Ml Node Id if deployment of model needs to be done to specific node</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None on successfully storing the model to Quartic Platform</p>
+<dd class="field-even"><p>None on successfully storing the model to the Quartic AI Platform</p>
 </dd>
 </dl>
 </dd></dl>
@@ -313,18 +313,18 @@ This is a invalid model whose predict function takes longer processing time than
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.model.tests.</span></code><code class="sig-name descname"><span class="pre">ModelWithValidWindow</span></code><a class="headerlink" href="#quartic_sdk.model.tests.ModelWithValidWindow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../BaseQuarticModel/index.html#quartic_sdk.model.BaseQuarticModel.BaseQuarticModel" title="quartic_sdk.model.BaseQuarticModel.BaseQuarticModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">quartic_sdk.model.BaseQuarticModel.BaseQuarticModel</span></code></a></p>
 <p>A Base Class Model for Wrapping User Models into Quartic Deployments.
-User need to Inherit this class and override the predict method with all the post model training steps like,
+User needs to inherit this class and override the predict method with all the post model training steps such as,
 preprocessing, prediction, postprocessing the pandas dataframe passed to :func: <cite>predict</cite> during real time
 prediction.</p>
-<p>Note: Please do not overwrite method :func: <cite>save</cite> as it contains utilities to validate and deploy model to Quartic</p>
-<p>name : Name of the model to be saved in Quartic
+<p>Note: Please do not overwrite method :func: <cite>save</cite> as it contains utilities to validate and deploy model to the Quartic AI Platform</p>
+<p>name : Name of the model to be saved in Quartic AI Platform
 description : Description of the current model
 log_level : Log Level for logs created/executed during run time i.e. during real time predictions</p>
-<p>name : Name of the model to be saved in Quartic
+<p>name : Name of the model to be saved in Quartic AI Platform
 description : description of model
 log_level : Log level
 log : Logger instance which can be used to set run time logs ex: self.log.info(“Example Log”)</p>
-<p>save    :   private save method to save deploy model to quartic
+<p>save    :   private save method to save deploy model to the Quartic AI Platform
 predict :   abstract predict method which needs to overridden</p>
 <dl class="simple">
 <dt>class MyModel(BaseQuarticModel):</dt><dd><dl class="simple">
@@ -362,18 +362,18 @@ my_model.save(‘my_model_output’, [Tag(‘A’), Tag(‘B’)], Tag(‘C’),
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.model.tests.</span></code><code class="sig-name descname"><span class="pre">ModelWithInValidWindow</span></code><a class="headerlink" href="#quartic_sdk.model.tests.ModelWithInValidWindow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../BaseQuarticModel/index.html#quartic_sdk.model.BaseQuarticModel.BaseQuarticModel" title="quartic_sdk.model.BaseQuarticModel.BaseQuarticModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">quartic_sdk.model.BaseQuarticModel.BaseQuarticModel</span></code></a></p>
 <p>A Base Class Model for Wrapping User Models into Quartic Deployments.
-User need to Inherit this class and override the predict method with all the post model training steps like,
+User needs to inherit this class and override the predict method with all the post model training steps such as,
 preprocessing, prediction, postprocessing the pandas dataframe passed to :func: <cite>predict</cite> during real time
 prediction.</p>
-<p>Note: Please do not overwrite method :func: <cite>save</cite> as it contains utilities to validate and deploy model to Quartic</p>
-<p>name : Name of the model to be saved in Quartic
+<p>Note: Please do not overwrite method :func: <cite>save</cite> as it contains utilities to validate and deploy model to the Quartic AI Platform</p>
+<p>name : Name of the model to be saved in Quartic AI Platform
 description : Description of the current model
 log_level : Log Level for logs created/executed during run time i.e. during real time predictions</p>
-<p>name : Name of the model to be saved in Quartic
+<p>name : Name of the model to be saved in Quartic AI Platform
 description : description of model
 log_level : Log level
 log : Logger instance which can be used to set run time logs ex: self.log.info(“Example Log”)</p>
-<p>save    :   private save method to save deploy model to quartic
+<p>save    :   private save method to save deploy model to the Quartic AI Platform
 predict :   abstract predict method which needs to overridden</p>
 <dl class="simple">
 <dt>class MyModel(BaseQuarticModel):</dt><dd><dl class="simple">
@@ -431,7 +431,7 @@ raises a NotImplementedError.</p>
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.model.tests.</span></code><code class="sig-name descname"><span class="pre">SupportedSpectralModel</span></code><a class="headerlink" href="#quartic_sdk.model.tests.SupportedSpectralModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../index.html#quartic_sdk.model.BaseSpectralModel" title="quartic_sdk.model.BaseSpectralModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">quartic_sdk.model.BaseSpectralModel</span></code></a></p>
 <p>Example Model used for testing spectral model
-This is a valid spectral model that can be save to quartic platform</p>
+This is a valid spectral model that can be saved to the Quartic AI Platform</p>
 <dl class="py method">
 <dt id="quartic_sdk.model.tests.SupportedSpectralModel.predict">
 <code class="sig-name descname"><span class="pre">predict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_df</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.DataFrame</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.Series</span><a class="headerlink" href="#quartic_sdk.model.tests.SupportedSpectralModel.predict" title="Permalink to this definition">¶</a></dt>
@@ -468,7 +468,7 @@ This is a invalid spectral model whose predict function returns data of type str
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.model.tests.</span></code><code class="sig-name descname"><span class="pre">SlowSpectralModel</span></code><a class="headerlink" href="#quartic_sdk.model.tests.SlowSpectralModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../index.html#quartic_sdk.model.BaseSpectralModel" title="quartic_sdk.model.BaseSpectralModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">quartic_sdk.model.BaseSpectralModel</span></code></a></p>
 <p>Example Model used for testing spectral model
-This is a invalid spectral model whose predict function takes longer processing time than that is supported by Quartic</p>
+This is a invalid spectral model whose predict function takes longer processing time than that is supported by the Quartic AI Platform</p>
 <dl class="py method">
 <dt id="quartic_sdk.model.tests.SlowSpectralModel.pre_transform">
 <code class="sig-name descname"><span class="pre">pre_transform</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.model.tests.SlowSpectralModel.pre_transform" title="Permalink to this definition">¶</a></dt>
