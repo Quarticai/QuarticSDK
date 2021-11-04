@@ -74,6 +74,7 @@ class BaseQuarticModel(metaclass=abc.ABCMeta):
         self.log.setLevel(log_level)
         self.__window_support = False
         self.__window_duration = None
+        self.prev_df = None
 
     def save(self, client, output_tag_name: str,
              feature_tags: List[int],
