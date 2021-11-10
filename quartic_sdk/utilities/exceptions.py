@@ -21,3 +21,6 @@ class InvalidTagAttributeException(Exception):
 
 class InvalidWindowDuration(Exception):
     pass
+
+class MovingWindowException(Exception):
+    pass

@@ -9,7 +9,7 @@ from requests import HTTPError
 from quartic_sdk.model.helpers import ModelUtils, Validation
 from quartic_sdk.utilities import constants
 from functools import wraps
-from quartic_sdk.utilities.exceptions import InvalidWindowDuration
+from quartic_sdk.utilities.exceptions import InvalidWindowDuration,MovingWindowException
 
 
 class BaseQuarticModel(metaclass=abc.ABCMeta):
@@ -74,7 +74,6 @@ class BaseQuarticModel(metaclass=abc.ABCMeta):
         self.log.setLevel(log_level)
         self.__window_support = False
         self.__window_duration = None
-        self.prev_df = None
 
     def save(self, client, output_tag_name: str,
              feature_tags: List[int],
@@ -150,3 +149,29 @@ class BaseQuarticModel(metaclass=abc.ABCMeta):
                 return func(*args, **kwargs)
             return wrapper
         return inner_decorator
+    
+    def moving_window_predict(self, input_df: pd.DataFrame, previous_df: pd.DataFrame):
+        """
+        This method calls predict for with window model along with respective window data for each row in input_df.
+        :param input_df: input dataframe
+        :param previous_df: previous dataframe for with window model
+        :return: pandas series of predictions along with timestamps respective to input_df records
+        """
+        if input_df.empty:
+            raise MovingWindowException("input_df must not be empty")
+        window_df = pd.concat([previous_df, input_df])
+        predictions = pd.Series()
+        if not hasattr(self.predict,'__wrapped__'):
+            raise MovingWindowException("only callable for models with window support")
+        if not self.__window_duration:
+            raise MovingWindowException("Predict must be called atleast once before calling moving window predict")
+       
+        for index, row in input_df.iterrows():
+            start_ts = int(index) - self.__window_duration * 1000
+            df_to_predict = window_df.loc[(window_df.index >= start_ts) & (window_df.index <= int(index))]
+            prediction = self.predict(df_to_predict)
+            if prediction:
+                predictions.loc[index] = prediction
+
+        predictions.index = input_df.index
+        return predictions
