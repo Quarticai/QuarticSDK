@@ -26,7 +26,6 @@ Submodules
    api_client/index.rst
    exceptions/index.rst
    graphql_client/index.rst
-   spec/index.rst
 
 
 Package Contents

@@ -15,7 +15,8 @@ BaseQuarticModel
 BaseQuarticModel is a base class for all the ML models that can be deployed to
 the Platform, which use the tags as features for the deployed ML model. Users
 must extend this class and implement the predict method to make the ML model
-compatible to deploy in the Quartic AI Platform.
+compatible to deploy in the Quartic AI Platform. BaseQuarticModel supports 
+predctions over longer time ranges with the use of with_window decorator.
 The available methods are as follows:
 
 __init__
@@ -159,6 +160,65 @@ transformations during prediction.
    </div>
 
 
+@BaseQuarticModel.with\_window
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The with\_window decorator enables predictions over longer time ranges.
+Users can decorate predict method with the @BaseQuarticModel.with_window, passing the window duration,
+once the model is deployed the input\_df received by predict will contain the data for specified
+duration.  
+
+The decorator has the following parameters:
+
+-  **duration (mandatory)**: Refers to the window duration in seconds for which the data is required
+
+.. raw:: html
+
+   <div class="note">
+
+
+Example
+~~~~~~~
+
+.. code:: python
+
+    import pandas as pd
+    from quartic_sdk.model import BaseQuarticModel
+    from sklearn.ensemble import RandomForestRegressor
+    from sklearn.model_selection import train_test_split
+
+    class ExampleModel(BaseQuarticModel):
+        def __init__(self):
+            self.model = RandomForestRegressor()
+            super().__init__("Sample Model", description='This is a simple model to give a quick introduction on creating and deploying models to the Quartic AI Platform.')
+
+        def train(self, X, y):
+            self.model.fit(X, y)
+        
+        @BaseQuarticModel.with_window(duration=1800)
+        def predict(self, input_df):
+            predictions = self.model.predict(input_df)
+            return pd.Series(predictions)
+
+    quartic_model = ExampleModel()
+    quartic_model.train(X_train, y_train) # Training data extracted from data loaded from the Quartic AI Platform
+    quartic_model.save(client=api_client, output_tag_name="Prediction Result",
+                       feature_tags=[1,2,3], # tags that are used in the X variable or features, for example 1,2,3
+                       target_tag = 3, # tag that specifies a relationship for prediction, for example, 3
+                       test_df = X_train
+                       )
+
+.. raw:: html
+
+   <div class="note">
+
+Note: 1. The model is expected to do the cleanup for the missing data in the window.
+2. Users are expected to pass data for window duration while experimenting, it is when once
+the model is deployed the window data will be fetched automatically.
+
+.. raw:: html
+
+   </div>
 BaseSpectralModel
 ----------------
 

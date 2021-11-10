@@ -15,28 +15,28 @@ from quartic_sdk.utilities.exceptions import InvalidWindowDuration
 class BaseQuarticModel(metaclass=abc.ABCMeta):
     """
     A Base Class Model for Wrapping User Models into Quartic Deployments.
-    User need to Inherit this class and override the predict method with all the post model training steps like,
+    User needs to inherit this class and override the predict method with all the post model training steps such as,
     preprocessing, prediction, postprocessing the pandas dataframe passed to :func: `predict` during real time
     prediction.
 
-    Note: Please do not overwrite method :func: `save` as it contains utilities to validate and deploy model to Quartic
+    Note: Please do not overwrite method :func: `save` as it contains utilities to validate and deploy model to the Quartic AI Platform
 
     Parameters
     ----------
-    name : Name of the model to be saved in Quartic
+    name : Name of the model to be saved in Quartic AI Platform
     description : Description of the current model
     log_level : Log Level for logs created/executed during run time i.e. during real time predictions
 
     Attributes
     ----------
-    name : Name of the model to be saved in Quartic
+    name : Name of the model to be saved in Quartic AI Platform
     description : description of model
     log_level : Log level
     log : Logger instance which can be used to set run time logs ex: self.log.info("Example Log")
 
     Methods
     -------
-    save    :   private save method to save deploy model to quartic
+    save    :   private save method to save deploy model to the Quartic AI Platform
     predict :   abstract predict method which needs to overridden
 
     Examples
@@ -88,9 +88,9 @@ class BaseQuarticModel(metaclass=abc.ABCMeta):
         :param feature_tags:    Feature Tag ids used in the model
         :param target_tag:      Target tag id to specify the parent of current soft tag
         :param test_df:         Test input dataframe to validate input and
-                                prediction output in agreement with Quartic Platform
+                                prediction output in agreement with Quartic AI Platform
         :param ml_node:         Optional - Ml Node Id if deployment of model needs to be done to specific node
-        :return:                None on successfully storing the model to Quartic Platform
+        :return:                None on successfully storing the model to the Quartic AI Platform
         """
         from quartic_sdk import APIClient
         assert isinstance(client, APIClient)

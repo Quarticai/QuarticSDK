@@ -58,3 +58,4 @@ zipp==3.4.0
 aiogqlc==2.2.0
 validators==0.18.2
 coloredlogs==15.0.1
+nest-asyncio==1.5.1

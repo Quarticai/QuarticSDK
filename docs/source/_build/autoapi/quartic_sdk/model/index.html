@@ -68,24 +68,27 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#quartic_sdk.model.BaseQuarticModel" title="quartic_sdk.model.BaseQuarticModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseQuarticModel</span></code></a></p></td>
 <td><p>A Base Class Model for Wrapping User Models into Quartic Deployments.</p></td>
 </tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#quartic_sdk.model.BaseSpectralModel" title="quartic_sdk.model.BaseSpectralModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseSpectralModel</span></code></a></p></td>
+<td><p>A Base Class Model for Wrapping Spectral Models into Quartic Deployments.</p></td>
+</tr>
 </tbody>
 </table>
 <dl class="py class">
 <dt id="quartic_sdk.model.BaseQuarticModel">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.model.</span></code><code class="sig-name descname"><span class="pre">BaseQuarticModel</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_level</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'INFO'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.model.BaseQuarticModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>A Base Class Model for Wrapping User Models into Quartic Deployments.
-User need to Inherit this class and override the predict method with all the post model training steps like,
+User needs to inherit this class and override the predict method with all the post model training steps such as,
 preprocessing, prediction, postprocessing the pandas dataframe passed to :func: <cite>predict</cite> during real time
 prediction.</p>
-<p>Note: Please do not overwrite method :func: <cite>save</cite> as it contains utilities to validate and deploy model to Quartic</p>
-<p>name : Name of the model to be saved in Quartic
+<p>Note: Please do not overwrite method :func: <cite>save</cite> as it contains utilities to validate and deploy model to the Quartic AI Platform</p>
+<p>name : Name of the model to be saved in Quartic AI Platform
 description : Description of the current model
 log_level : Log Level for logs created/executed during run time i.e. during real time predictions</p>
-<p>name : Name of the model to be saved in Quartic
+<p>name : Name of the model to be saved in Quartic AI Platform
 description : description of model
 log_level : Log level
 log : Logger instance which can be used to set run time logs ex: self.log.info(“Example Log”)</p>
-<p>save    :   private save method to save deploy model to quartic
+<p>save    :   private save method to save deploy model to the Quartic AI Platform
 predict :   abstract predict method which needs to overridden</p>
 <dl class="simple">
 <dt>class MyModel(BaseQuarticModel):</dt><dd><dl class="simple">
@@ -121,12 +124,12 @@ my_model.save(‘my_model_output’, [Tag(‘A’), Tag(‘B’)], Tag(‘C’),
 <li><p><strong>feature_tags</strong> – Feature Tag ids used in the model</p></li>
 <li><p><strong>target_tag</strong> – Target tag id to specify the parent of current soft tag</p></li>
 <li><p><strong>test_df</strong> – Test input dataframe to validate input and
-prediction output in agreement with Quartic Platform</p></li>
+prediction output in agreement with Quartic AI Platform</p></li>
 <li><p><strong>ml_node</strong> – Optional - Ml Node Id if deployment of model needs to be done to specific node</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None on successfully storing the model to Quartic Platform</p>
+<dd class="field-even"><p>None on successfully storing the model to the Quartic AI Platform</p>
 </dd>
 </dl>
 </dd></dl>
@@ -134,6 +137,90 @@ prediction output in agreement with Quartic Platform</p></li>
 <dl class="py method">
 <dt id="quartic_sdk.model.BaseQuarticModel.predict">
 <em class="property"><span class="pre">abstract</span> </em><code class="sig-name descname"><span class="pre">predict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_df</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.DataFrame</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.Series</span><a class="headerlink" href="#quartic_sdk.model.BaseQuarticModel.predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract method for custom predict method
+:param input_df: Input Data frame for prediction
+:return:    Returns pd</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="quartic_sdk.model.BaseQuarticModel.with_window">
+<code class="sig-name descname"><span class="pre">with_window</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">duration</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.model.BaseQuarticModel.with_window" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is decorator method for window support
+User can decorate predict method with this decorator for window support
+:param duration: window duration in sec
+:return:    None</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="quartic_sdk.model.BaseSpectralModel">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.model.</span></code><code class="sig-name descname"><span class="pre">BaseSpectralModel</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_level</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'INFO'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.model.BaseSpectralModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Base Class Model for Wrapping Spectral Models into Quartic Deployments.
+User needs to inherit this class and override the predict method with all the post model training steps such as,
+preprocessing, prediction, postprocessing the pandas dataframe passed to :func: <cite>predict</cite> during real time
+prediction.</p>
+<p>Note: Please do not overwrite method :func: <cite>save</cite> as it contains utilities to validate and deploy models to the Quartic AI Platform</p>
+<p>name : Name of the model to be saved in Quartic AI Platform
+description : Description of the current model
+log_level : Log Level for logs created/executed during run time i.e. during real time predictions</p>
+<p>name : Name of the model to be saved in Quartic AI Platform
+description : description of model
+log_level : Log level
+log : Logger instance which can be used to set run time logs ex: self.log.info(“Example Log”)</p>
+<p>save    :   private save method to save deploy model to the Quartic AI Platform
+predict :   abstract predict method which needs to overridden</p>
+<dl class="simple">
+<dt>class MyModel(BaseSpectralModel):</dt><dd><dl class="simple">
+<dt>def __init__(self, model):</dt><dd><p>self.model = model
+super().__init__(‘MyModel’, ‘model description’, ‘INFO’)</p>
+</dd>
+<dt>def preprocess(self, input_df):</dt><dd><p>transformed_df = custom_transform(input_df)
+return transformed_df</p>
+</dd>
+<dt>def postprocess(self, input_df):</dt><dd><p>transformed_df = custom_transform_post(input_df)
+return transformed_df</p>
+</dd>
+<dt>def predict(self, input_df):</dt><dd><p>pre_transformed_df = self.preprocess(input_df)
+prediction_df = self.model.predict(pre_transformed_df)
+self.log.info(“Test Log”)
+return postprocess(prediction_df)[‘output_column’] # pandas Series</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>lr = LinearRegression()
+lr.train(input_data)
+my_model = MyModel(lr)
+my_model.save(client, ‘my_spectralmodel_output’, [‘1460000.0’,’1460001.0’,’1460002.0’], Tag(‘Spectral’), Tag(‘Target’), input_data, None, 12)</p>
+<dl class="py method">
+<dt id="quartic_sdk.model.BaseSpectralModel.save">
+<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_tag_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_wavelengths</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spectral_tag</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_tag</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_df</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ml_node</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">future_window</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.model.BaseSpectralModel.save" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>client</strong> – Quartic APIClient</p></li>
+<li><p><strong>output_tag_name</strong> – name for Prediction output tag</p></li>
+<li><p><strong>feature_wavelengths</strong> – Feature wavelengths of spectral_tag used in model</p></li>
+<li><p><strong>spectral_tag</strong> – Spectral tag_id</p></li>
+<li><p><strong>target_tag</strong> – Target tag id to specify the parent of current soft tag</p></li>
+<li><p><strong>test_df</strong> – Test input dataframe to validate input and
+prediction output in agreement with Quartic AI Platform</p></li>
+<li><p><strong>ml_node</strong> – Optional - ML Node ID if deployment of model needs to be done to specific node</p></li>
+</ul>
+</dd>
+<dt class="field-even">Future_window</dt>
+<dd class="field-even"><p>Optional - time in ms(int)</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None on successfully storing the model to the Quartic AI Platform</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="quartic_sdk.model.BaseSpectralModel.predict">
+<em class="property"><span class="pre">abstract</span> </em><code class="sig-name descname"><span class="pre">predict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_df</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.DataFrame</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.Series</span><a class="headerlink" href="#quartic_sdk.model.BaseSpectralModel.predict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Abstract method for custom predict method
 :param input_df: Input Data frame for prediction
 :return:    Returns pd</p>

@@ -58,6 +58,15 @@ Classes
    .. method:: test_validate_model(self)
 
 
+   .. method:: test_validate_model_with_window(self)
+
+
+   .. method:: test_validate_model_window_vars(self)
+
+
+   .. method:: test_validate_spectral_model(self)
+
+
    .. method:: test_pickle_model(self)
 
 

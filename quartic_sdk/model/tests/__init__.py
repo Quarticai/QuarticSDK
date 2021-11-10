@@ -153,7 +153,7 @@ class MockLoggingHandler(logging.Handler):
 class SupportedSpectralModel(BaseSpectralModel):
     """
     Example Model used for testing spectral model
-    This is a valid spectral model that can be save to quartic platform
+    This is a valid spectral model that can be saved to the Quartic AI Platform
     """
     def __init__(self):
         super().__init__("test_spectral_model")
@@ -181,7 +181,7 @@ class SpectralModelThatReturnsString(BaseSpectralModel):
 class SlowSpectralModel(BaseSpectralModel):
     """
     Example Model used for testing spectral model
-    This is a invalid spectral model whose predict function takes longer processing time than that is supported by Quartic
+    This is a invalid spectral model whose predict function takes longer processing time than that is supported by the Quartic AI Platform
     """
 
     def __init__(self):

@@ -13,7 +13,7 @@ Module Contents
 ---------------
 
 .. data:: __version__
-   :annotation: = 2.1.dev1378
+   :annotation: = 2.2.dev2
 
    
 

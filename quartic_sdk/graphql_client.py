@@ -1,6 +1,7 @@
 import aiohttp
 from aiogqlc import GraphQLClient as AioGraphQLClient
 import asyncio
+import nest_asyncio
 import logging
 import coloredlogs
 from quartic_sdk._version import __version__
@@ -49,6 +50,7 @@ class GraphqlClient:
         self.__graphql_url = self._get_graphql_url()
         self.logger = logging.getLogger()
         coloredlogs.install(level='DEBUG', logger=self.logger)
+        nest_asyncio.apply()
 
     @staticmethod
     def version():
