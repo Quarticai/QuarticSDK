@@ -169,9 +169,9 @@ class BaseQuarticModel(metaclass=abc.ABCMeta):
         for index, row in input_df.iterrows():
             start_ts = int(index) - self.__window_duration * 1000
             df_to_predict = window_df.loc[(window_df.index >= start_ts) & (window_df.index <= int(index))]
-            prediction = self.predict(df_to_predict)
+            prediction = self.predict.__wrapped__(self, df_to_predict)
             if prediction:
                 predictions.loc[index] = prediction
 
-        predictions.index = input_df.index
+        
         return predictions
