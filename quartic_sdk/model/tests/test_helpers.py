@@ -4,10 +4,10 @@ from unittest.mock import patch
 import pandas as pd
 import numpy as np
 from quartic_sdk.exceptions import InvalidPredictionException
-from quartic_sdk.utilities.exceptions import InvalidWindowDuration
+from quartic_sdk.utilities.exceptions import InvalidWindowDuration,MovingWindowException
 from quartic_sdk.model.helpers import ModelUtils, Validation
 from quartic_sdk.model.tests import ModelThatReturnsString, ModelWithValidWindow, SlowModel,\
-     SpectralModelThatReturnsString, SlowSpectralModel, ModelWithInValidWindow
+     SpectralModelThatReturnsString, SlowSpectralModel, ModelWithInValidWindow,SupportedModel
 from quartic_sdk.utilities import constants
 
 
@@ -44,7 +44,24 @@ class TestModelValidations(TestCase):
         model  = ModelWithValidWindow()
         data = {'col_A': [1, 2], 'col_B': [3, 4]}
         model.predict(pd.DataFrame(data=data))
-        self.assertEquals(model._BaseQuarticModel__window_duration, 3600)      
+        self.assertEquals(model._BaseQuarticModel__window_duration, 3)      
+
+    def test_validate_moving_window_prediction(self):
+        model  = ModelWithValidWindow()
+        input_df = pd.DataFrame(data={'col_A': [1, 2], 'col_B': [3, 4]}, index=[1586160870000,1586160871000])
+        prev_df = pd.DataFrame(data={'col_A': [1, 2], 'col_B': [3, 4]}, index=[1586160872000,1586160873000])
+        model.predict(input_df)
+        predictions = model.moving_window_predict(input_df, prev_df)
+        self.assertEquals(predictions.size , input_df.shape[0])  
+    
+    def test_validate_moving_window_prediction_with_non_window_model(self):
+        with self.assertRaises(MovingWindowException):
+            model  = SupportedModel()
+            input_df = pd.DataFrame(data={'col_A': [1, 2], 'col_B': [3, 4]}, index=[1586160870000,1586160871000])
+            prev_df = pd.DataFrame(data={'col_A': [1, 2], 'col_B': [3, 4]}, index=[1586160872000,1586160873000])
+            model.predict(input_df)
+            model.moving_window_predict(input_df, prev_df)
+                  
 
     def test_validate_spectral_model(self):
         with self.assertRaises(InvalidPredictionException):

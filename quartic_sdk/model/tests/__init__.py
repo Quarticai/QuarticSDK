@@ -110,12 +110,12 @@ class ModelWithValidWindow(BaseQuarticModel):
     def __init__(self):
         super().__init__("test_model")
     
-    @BaseQuarticModel.with_window(duration=1* 60 * 60)
+    @BaseQuarticModel.with_window(duration=3)
     def predict(self, input_df: pd.DataFrame) -> pd.Series:
         """
             sample prediction
         """
-        return pd.Series([i for i in range(input_df.shape[0])])
+        return 2.3
         
 
 class ModelWithInValidWindow(BaseQuarticModel):
