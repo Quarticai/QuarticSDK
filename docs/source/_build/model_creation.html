@@ -178,11 +178,11 @@ duration.</p>
 </div>
 <div class="note"><p>Note: 1. The predict function from model with window should return only one prediction at a time,
 considering that the input_df will only contain data for one datapoint with its respective previous data points for the specified duration.
-predict can return none, in case if there is any missing previous data.
-2. The window duration will be validated on the basis of the available resources in the provided ML_Node or best ML_Node.
-3. Users are expected to pass data for one datapoint along with its respective previous data in input_df while experimenting, it is when once
-the model is deployed the previous data will be fetched automatically for the streaming datapoints.
-4. Batch predictions can be made using ‘moving_window_predict’ method, more details are provided below</p>
+The predict function can return none, in case of missing previous data for a datapoint.
+2. The window duration will be validated on the basis of the available resources in the provided ML_Node or best ML_Node and provided test_df.
+3. Users are expected to pass data for one datapoint along with its respective previous data in input_df while experimenting, once
+the model is deployed to the Quartic AI Platform, the previous data will be fetched automatically for the streaming datapoints.
+4. Batch predictions can be made using ‘moving_window_predict’ method, more details are provided below.</p>
 </div></section>
 <section id="moving-window-predict">
 <h3>moving_window_predict<a class="headerlink" href="#moving-window-predict" title="Permalink to this headline">¶</a></h3>
