@@ -151,6 +151,15 @@ User can decorate predict method with this decorator for window support
 :return:    None</p>
 </dd></dl>
 
+<dl class="py method">
+<dt id="quartic_sdk.model.BaseQuarticModel.moving_window_predict">
+<code class="sig-name descname"><span class="pre">moving_window_predict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_df</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">previous_df</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.DataFrame</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.model.BaseQuarticModel.moving_window_predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method calls predict for with window model along with respective window data for each row in input_df.
+:param input_df: input dataframe
+:param previous_df: previous dataframe for with window model
+:return: pandas series of predictions along with timestamps respective to input_df records</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">

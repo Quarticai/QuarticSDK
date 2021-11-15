@@ -64,6 +64,12 @@ Classes
    .. method:: test_validate_model_window_vars(self)
 
 
+   .. method:: test_validate_moving_window_prediction(self)
+
+
+   .. method:: test_validate_moving_window_prediction_with_non_window_model(self)
+
+
    .. method:: test_validate_spectral_model(self)
 
 
