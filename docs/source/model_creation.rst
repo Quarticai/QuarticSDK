@@ -197,8 +197,8 @@ Example
         
         @BaseQuarticModel.with_window(duration=1800)
         def predict(self, input_df):
-            predictions = self.model.predict(input_df)
-            return pd.Series(predictions)
+            prediction = self.model.predict(input_df)
+            return prediction
 
     quartic_model = ExampleModel()
     quartic_model.train(X_train, y_train) # Training data extracted from data loaded from the Quartic AI Platform
@@ -212,9 +212,76 @@ Example
 
    <div class="note">
 
-Note: 1. The model is expected to do the cleanup for the missing data in the window.
-2. Users are expected to pass data for window duration while experimenting, it is when once
-the model is deployed the window data will be fetched automatically.
+Note: 1. The predict function from model with window should return only one prediction at a time,
+considering that the input_df will only contain data for one datapoint with its respective previous data points for the specified duration.
+The predict function can return none, in case of missing previous data for a datapoint.
+2. The window duration will be validated on the basis of the available resources in the provided ML_Node or best ML_Node and provided test_df.
+3. Users are expected to pass data for one datapoint along with its respective previous data in input_df while experimenting, once
+the model is deployed to the Quartic AI Platform, the previous data will be fetched automatically for the streaming datapoints.
+4. Batch predictions can be made using 'moving_window_predict' method, more details are provided below.
+
+.. raw:: html
+
+   </div>
+
+
+moving\_window\_predict
+~~~~~~~~~~~~~~~~~~~~~
+
+The moving\_window\_predict functions enables predictions in batches for with window models.
+Users can pass input\_df which has datapoints for which the batch predictions to be made along with previous\_df which contains previous data for the window specified.
+
+The method has the following parameters:
+
+-  **input\_df (mandatory)**: Refers to input dataframe which contains batch of datapoints for which the predictions are to be made.
+-  **previous\_df (mandatory)**: Refers to prevous dataframe which contains the previous data for the duration specified with_window decorator.
+
+
+.. raw:: html
+
+   <div class="note">
+
+
+Example
+~~~~~~~
+
+.. code:: python
+
+    import pandas as pd
+    from quartic_sdk.model import BaseQuarticModel
+    from sklearn.ensemble import RandomForestRegressor
+    from sklearn.model_selection import train_test_split
+
+    class ExampleModel(BaseQuarticModel):
+        def __init__(self):
+            self.model = RandomForestRegressor()
+            super().__init__("Sample Model", description='This is a simple model to give a quick introduction on creating and deploying models to the Quartic AI Platform.')
+
+        def train(self, X, y):
+            self.model.fit(X, y)
+        
+        @BaseQuarticModel.with_window(duration=5)
+        def predict(self, input_df):
+            prediction = self.model.predict(input_df)
+            return prediction
+
+    quartic_model = ExampleModel()
+    quartic_model.train(X_train, y_train) # Training data extracted from data loaded from the Quartic AI Platform
+    
+    previous_df = pd.DataFrame(np.array([[1, 2, 3, 4, 5], [6, 7, 8, 9, 10], [11, 12, 13, 14, 15]]),
+                   columns=['tag1', 'tag2', 'tag3'], index = [1586140271000 ,1586140271000, 1586140272000, 1586140273000, 1586140274000])
+    
+    input_df = pd.DataFrame(np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]),
+                   columns=['tag1', 'tag2', 'tag3'], index = [1586140275000, 1586140276000, 1586140277000])
+    quartic_model.predict(input_df)
+    quartic_model.moving_window_predict(input_df, previous_df)
+.. raw:: html
+
+   <div class="note">
+
+Note: 1. predict function must be called before calling moving_window_predict.
+2. moving_window_predict returns pandas series along with its respective timestamps from input_df.
+
 
 .. raw:: html
 

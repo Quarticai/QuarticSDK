@@ -98,4 +98,12 @@ Classes
       :return:    None
 
 
+   .. method:: moving_window_predict(self, input_df: pandas.DataFrame, previous_df: pandas.DataFrame)
+
+      This method calls predict for with window model along with respective window data for each row in input_df.
+      :param input_df: input dataframe
+      :param previous_df: previous dataframe for with window model
+      :return: pandas series of predictions along with timestamps respective to input_df records
+
+
 
