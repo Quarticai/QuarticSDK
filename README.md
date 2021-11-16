@@ -27,13 +27,14 @@ Comprehensive documentation is available at https://quarticsdk.readthedocs.io/en
 Here's an example on how the Quartic SDK can be used:
 
 #### Getting the assets, tags, batches from the server
-```
-# Assuming that the Quartic.ai server is at `https://test.quartic.ai/`, with the login
-# and the username and password is `username` and `password.`
+```python
+# Assuming that the Quartic.ai server is hosted at `https://test.quartic.ai/`, 
+# with the login credentials as username and password is "testuser" and `testpassword respectively, 
+# then use APIClient in the following format.
 
 from quartic_sdk import APIClient
 
-client = APIClient("https://test.quartic.ai/", username="username", password="password")
+client = APIClient("https://test.quartic.ai/", username="testuser", password="testpassword")
 user_assets = client.assets() # Get the list of all assets that the user has access to
 
 asset = user_assets.get("name","Test Asset") # Get a specific asset with the name "Test Asset"
@@ -43,6 +44,80 @@ first_tag=asset_tags.first() # Returns the first in the list of tags
 first_tag_data_iterator=first_tag.data(start_time=1000000,stop_time=2000000) # Returns the data present in the first tag for the time range of 1000000 to 2000000
 
 ```
+
+```python
+
+# Assuming that the Quartic.ai server is hosted at `https://test.quartic.ai/`, 
+# with the login credentials as username and password is "testuser" and `testpassword respectively, 
+# then use GraphqlClient in the following format.
+
+from quartic_sdk import GraphqlClient
+
+client = GraphqlClient(url='https://test.quartic.ai/', username='testuser', password='testpassword')
+
+# Executing Query by:
+
+query='''
+query MyQuery {
+  Site {
+    id
+    name
+  }
+}
+'''
+
+result = client.execute_query(query=query)
+
+# To execute query asynchronously use the function below.
+
+#You should see the following result:
+
+{'data': {'Site': [{'id': '1', 'name': 'quartic'}, {'id': '8', 'name': 'ABC site 1'}, {'id': '12', 'name': 'XYZ 123'}]}
+
+async def execute_graphql_query():
+    query='''
+        query MyQuery {
+          Site {
+            id
+            name
+          }
+        }
+        '''
+    resp = await client.execute_async_query(query=query)
+    return resp
+
+# Note: The above function will return a coroutine object.
+
+# Example to upload a file.
+
+query = '''
+    mutation($file: Upload!, $edge_connector: Int!, $date_format: DateTime!) {
+        uploadTelemetryCsv(
+            file: $file,
+            fileName: "123",
+            edgeConnector: $edge_connector,
+            dateFormat: $date_format
+            )
+            {
+            taskId
+            status
+        }
+    }
+'''
+
+
+variables = {
+    'file': open('<path/to/file>', 'rb'),
+    'edge_connector': 'edgeConnector Id',
+    'date_format': 'DatTime format'
+}
+
+response = client.execute_query(query=query, variables=variables)
+
+
+```
+
+
 
 ## Documentation
 ---
