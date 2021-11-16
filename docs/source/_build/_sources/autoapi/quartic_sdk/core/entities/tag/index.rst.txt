@@ -34,21 +34,33 @@ Classes
 
       
 
+   .. method:: raise_exception_for_wavelegths(wavelengths)
+      :staticmethod:
+
+      Validate wavelengths passed for a spectral tag. Schema as following
+      {"wavelengths" : ['1460000.0','1460001.0]}
+      :param wavelengths: dict containing key as 'wavelengths' and value as list of wavelengths
+
+
    .. method:: __repr__(self)
 
       Override the method to return the tag name
 
 
-   .. method:: data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_PANDAS, batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS, transformations=[])
+   .. method:: data(self, start_time, stop_time, sampling_ratio=1, return_type=Constants.RETURN_PANDAS, batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS, wavelengths={}, transformations=[])
 
       Get the data for the given tag between the start_time and the stop_time
-      for the given granularity
+      for the given sampling_ratio
       :param start_time: (epoch) Start_time for getting data
       :param stop_time: (epoch) Stop_time for getting data
-      :param granularity: Granularity of the data
+      :param sampling_ratio: sampling_ratio of the data
       :param return_type: The param decides whether the data after querying will be
           json(when value is "json") or pandas dataframe(when value is "pd"). By default,
           it takes the value as "json"
+      :param wavelengths: dict containing list of wavelengths(string) as value with key "wavelengths"
+          Used for getting data for a spectral tag for specified wavelengths. 
+          An example value here is:
+          {"wavelengths:['1460000.0','1460001.0']}   
       :param transformations: Refers to the list of transformations. It supports either
           interpolation or aggregation, depending upon which, we pass the value of this
           dictionary. If `transformation_type` is "aggregation", an optional key can be
@@ -68,6 +80,16 @@ Classes
           }]
       :return: (DataIterator) DataIterator object which can be iterated to get the data
           between the given duration
+
+
+   .. method:: wavelengths(self, start_time=None, stop_time=None)
+
+      This method is used to get the list of wavelengths of a spectral tag within
+      the provided start and stop times. if start, stop times are not provided, by 
+      default it will fetch all available wavelengths.
+      :param: start_time(epoch): Optional 
+      :param: stop_time(epoch): Optional
+      :return: dict containing list of wavelengths or error message and status from server
 
 
    .. method:: __getattribute__(self, name)

@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>quartic_sdk.core.entities &#8212; Quartic SDK 1.0.1 documentation</title>
     <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
@@ -31,9 +32,9 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="module-quartic_sdk.core.entities">
+  <section id="module-quartic_sdk.core.entities">
 <span id="quartic-sdk-core-entities"></span><h1><a class="reference internal" href="#module-quartic_sdk.core.entities" title="quartic_sdk.core.entities"><code class="xref py py-mod docutils literal notranslate"><span class="pre">quartic_sdk.core.entities</span></code></a><a class="headerlink" href="#module-quartic_sdk.core.entities" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="submodules">
+<section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
@@ -54,10 +55,10 @@
 <li class="toctree-l1"><a class="reference internal" href="type_mapping/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">quartic_sdk.core.entities.type_mapping</span></code></a></li>
 </ul>
 </div>
-</div>
-<div class="section" id="package-contents">
+</section>
+<section id="package-contents">
 <h2>Package Contents<a class="headerlink" href="#package-contents" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="classes">
+<section id="classes">
 <h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
 <table class="longtable docutils align-default">
 <colgroup>
@@ -146,12 +147,12 @@ asset object returned from the API</p>
 
 <dl class="py method">
 <dt id="quartic_sdk.core.entities.Asset.data">
-<code class="sig-name descname"><span class="pre">data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">granularity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Constants.RETURN_PANDAS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Constants.DEFAULT_PAGE_LIMIT_ROWS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.Asset.data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Constants.RETURN_PANDAS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Constants.DEFAULT_PAGE_LIMIT_ROWS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.Asset.data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the data of all tags in the asset between the given start_time and
-stop_time for the given granularity
+stop_time for the given sampling_ratio
 :param start_time: (epoch) Start_time for getting data
 :param stop_time: (epoch) Stop_time for getting data
-:param granularity: Granularity of the data
+:param sampling_ratio: sampling_ratio of the data
 :param return_type: The param decides whether the data after querying will be</p>
 <blockquote>
 <div><p>json(when value is “json”) or pandas dataframe(when value is “pd”). By default,
@@ -282,12 +283,12 @@ data source object returned from the API</p>
 
 <dl class="py method">
 <dt id="quartic_sdk.core.entities.EdgeConnector.data">
-<code class="sig-name descname"><span class="pre">data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">granularity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Constants.RETURN_PANDAS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Constants.DEFAULT_PAGE_LIMIT_ROWS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.EdgeConnector.data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Constants.RETURN_PANDAS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Constants.DEFAULT_PAGE_LIMIT_ROWS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.EdgeConnector.data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the data of all tags in the edge connector between the given start_time and
-stop_time for the given granularity
+stop_time for the given sampling_ratio
 :param start_time: (epoch) Start_time for getting data
 :param stop_time: (epoch) Stop_time for getting data
-:param granularity: Granularity of the data
+:param sampling_ratio: sampling_ratio of the data
 :param return_type: The param decides whether the data after querying will be</p>
 <blockquote>
 <div><p>json(when value is “json”) or pandas dataframe(when value is “pd”). By default,
@@ -349,6 +350,14 @@ tag object returned from the API</p>
 <dd></dd></dl>
 
 <dl class="py method">
+<dt id="quartic_sdk.core.entities.Tag.raise_exception_for_wavelegths">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">raise_exception_for_wavelegths</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wavelengths</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.Tag.raise_exception_for_wavelegths" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate wavelengths passed for a spectral tag. Schema as following
+{“wavelengths” : [‘1460000.0’,’1460001.0]}
+:param wavelengths: dict containing key as ‘wavelengths’ and value as list of wavelengths</p>
+</dd></dl>
+
+<dl class="py method">
 <dt id="quartic_sdk.core.entities.Tag.__repr__">
 <code class="sig-name descname"><span class="pre">__repr__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.Tag.__repr__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override the method to return the tag name</p>
@@ -356,12 +365,12 @@ tag object returned from the API</p>
 
 <dl class="py method">
 <dt id="quartic_sdk.core.entities.Tag.data">
-<code class="sig-name descname"><span class="pre">data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">granularity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Constants.RETURN_PANDAS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Constants.DEFAULT_PAGE_LIMIT_ROWS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.Tag.data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Constants.RETURN_PANDAS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Constants.DEFAULT_PAGE_LIMIT_ROWS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wavelengths</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.Tag.data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the data for the given tag between the start_time and the stop_time
-for the given granularity
+for the given sampling_ratio
 :param start_time: (epoch) Start_time for getting data
 :param stop_time: (epoch) Stop_time for getting data
-:param granularity: Granularity of the data
+:param sampling_ratio: sampling_ratio of the data
 :param return_type: The param decides whether the data after querying will be</p>
 <blockquote>
 <div><p>json(when value is “json”) or pandas dataframe(when value is “pd”). By default,
@@ -369,7 +378,12 @@ it takes the value as “json”</p>
 </div></blockquote>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>transformations</strong> – <p>Refers to the list of transformations. It supports either
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wavelengths</strong> – dict containing list of wavelengths(string) as value with key “wavelengths”
+Used for getting data for a spectral tag for specified wavelengths.
+An example value here is:
+{“wavelengths:[‘1460000.0’,’1460001.0’]}</p></li>
+<li><p><strong>transformations</strong> – <p>Refers to the list of transformations. It supports either
 interpolation or aggregation, depending upon which, we pass the value of this
 dictionary. If <cite>transformation_type</cite> is “aggregation”, an optional key can be
 passed called <cite>aggregation_timestamp</cite>, which determines how the timestamp information
@@ -390,13 +404,25 @@ An example value here is:
 </dd>
 </dl>
 <p>}]</p>
-</p>
+</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>(DataIterator) DataIterator object which can be iterated to get the data
 between the given duration</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="quartic_sdk.core.entities.Tag.wavelengths">
+<code class="sig-name descname"><span class="pre">wavelengths</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.Tag.wavelengths" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is used to get the list of wavelengths of a spectral tag within
+the provided start and stop times. if start, stop times are not provided, by
+default it will fetch all available wavelengths.
+:param: start_time(epoch): Optional
+:param: stop_time(epoch): Optional
+:return: dict containing list of wavelengths or error message and status from server</p>
 </dd></dl>
 
 <dl class="py method">
@@ -612,9 +638,9 @@ procedure step response returned by the API</p>
 
 </dd></dl>
 
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           </div>
@@ -633,7 +659,7 @@ procedure step response returned by the API</p>
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../quick-start.html">Quick start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../basic.html">Basic Functionality</a></li>

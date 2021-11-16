@@ -1,0 +1,85 @@
+:mod:`quartic_sdk.spec`
+=======================
+
+.. py:module:: quartic_sdk.spec
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   quartic_sdk.spec.ExampleModel
+
+
+
+.. class:: ExampleModel(name)
+
+
+   Bases: :class:`quartic_sdk.model.BaseSpectralModel.BaseSpectralModel`
+
+   A Base Class Model for Wrapping Spectral Models into Quartic Deployments.
+   User need to Inherit this class and override the predict method with all the post model training steps like,
+   preprocessing, prediction, postprocessing the pandas dataframe passed to :func: `predict` during real time
+   prediction.
+
+   Note: Please do not overwrite method :func: `save` as it contains utilities to validate and deploy model to Quartic
+
+   Parameters
+   ----------
+   name : Name of the model to be saved in Quartic
+   description : Description of the current model
+   log_level : Log Level for logs created/executed during run time i.e. during real time predictions
+
+   Attributes
+   ----------
+   name : Name of the model to be saved in Quartic
+   description : description of model
+   log_level : Log level
+   log : Logger instance which can be used to set run time logs ex: self.log.info("Example Log")
+
+   Methods
+   -------
+   save    :   private save method to save deploy model to quartic
+   predict :   abstract predict method which needs to overridden
+
+   Examples
+   --------
+   class MyModel(BaseSpectralModel):
+       def __init__(self, model):
+           self.model = model
+           super().__init__('MyModel', 'model description', 'INFO')
+
+       def preprocess(self, input_df):
+           transformed_df = custom_transform(input_df)
+           return transformed_df
+
+       def postprocess(self, input_df):
+           transformed_df = custom_transform_post(input_df)
+           return transformed_df
+
+       def predict(self, input_df):
+           pre_transformed_df = self.preprocess(input_df)
+           prediction_df = self.model.predict(pre_transformed_df)
+           self.log.info("Test Log")
+           return postprocess(prediction_df)['output_column'] # pandas Series
+
+   lr = LinearRegression()
+   lr.train(input_data)
+   my_model = MyModel(lr)
+   my_model.save(client, 'my_spectralmodel_output', ['1460000.0','1460001.0','1460002.0'], Tag('Spectral'), Tag('Target'), input_data, None, 12)
+
+   .. method:: train(self, filtered_data)
+
+
+   .. method:: predict(self, input_df)
+
+      Abstract method for custom predict method
+      :param input_df: Input Data frame for prediction
+      :return:    Returns pd
+
+
+

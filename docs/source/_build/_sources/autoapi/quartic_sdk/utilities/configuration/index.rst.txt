@@ -22,7 +22,7 @@ Classes
 
 
 
-.. class:: Configuration(host, username=None, password=None, oauth_token=None, cert_path=None, verify_ssl=True)
+.. class:: Configuration(host, username=None, password=None, oauth_token=None, cert_path=None, verify_ssl=True, gql_host=None)
 
 
    .. method:: get_basic_auth_token(self)
@@ -32,7 +32,7 @@ Classes
       :return: The token for basic HTTP authentication.
 
 
-   .. method:: get_configuration(cls, host, username=None, password=None, oauth_token=None, cert_path=None, verify_ssl=True)
+   .. method:: get_configuration(cls, host, username=None, password=None, oauth_token=None, cert_path=None, verify_ssl=True, gql_host=None)
       :classmethod:
 
       The method gets all the required params and returns the configuration details
@@ -43,6 +43,7 @@ Classes
       :param oauth_token: oauth token for authenticating requests
       :param cert_path: path of certificate
       :param verify_ssl: boolean value
+      :param gql_host: graphql server url
       :return: Configuration object
 
 

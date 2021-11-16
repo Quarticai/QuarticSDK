@@ -4,8 +4,6 @@ from os.path import dirname
 
 from setuptools import find_packages, setup
 
-__version__ = None
-exec(open("./quartic_sdk/_version.py", "r").read())
 
 def get_file_contents(filename):
     with open(os.path.join(dirname(__file__), filename)) as fp:
@@ -25,7 +23,6 @@ def get_install_requires(requirement_file):
 
 setup(
     name="quartic-sdk",
-    version=__version__,
     description="QuarticSDK is the SDK package which exposes the APIs to the user",
     long_description=get_file_contents('README.md'),
     long_description_content_type='text/markdown',

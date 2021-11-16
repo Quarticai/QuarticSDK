@@ -1,10 +1,14 @@
 import sys
 from unittest import TestCase
+from unittest.mock import patch
 import pandas as pd
 import numpy as np
 from quartic_sdk.exceptions import InvalidPredictionException
+from quartic_sdk.utilities.exceptions import InvalidWindowDuration,MovingWindowException
 from quartic_sdk.model.helpers import ModelUtils, Validation
-from quartic_sdk.model.tests import ModelThatReturnsString, SlowModel
+from quartic_sdk.model.tests import ModelThatReturnsString, ModelWithValidWindow, SlowModel,\
+     SpectralModelThatReturnsString, SlowSpectralModel, ModelWithInValidWindow,SupportedModel
+from quartic_sdk.utilities import constants
 
 
 class TestModelValidations(TestCase):
@@ -30,6 +34,47 @@ class TestModelValidations(TestCase):
         with self.assertRaises(InvalidPredictionException):
             data = {'col_A': [1, 2], 'col_B': [3, 4]}
             Validation.validate_model(SlowModel(), pd.DataFrame(data=data))
+               
+    def test_validate_model_with_window(self):
+        with self.assertRaises(InvalidWindowDuration):
+            data = {'col_A': [1, 2], 'col_B': [3, 4]}
+            Validation.validate_model(ModelWithInValidWindow(), pd.DataFrame(data=data))
+    
+    def test_validate_model_window_vars(self):
+        model  = ModelWithValidWindow()
+        data = {'col_A': [1, 2], 'col_B': [3, 4]}
+        model.predict(pd.DataFrame(data=data))
+        self.assertEquals(model._BaseQuarticModel__window_duration, 3)      
+
+    def test_validate_moving_window_prediction(self):
+        model  = ModelWithValidWindow()
+        input_df = pd.DataFrame(data={'col_A': [1, 2], 'col_B': [3, 4]}, index=[1586160870000,1586160871000])
+        prev_df = pd.DataFrame(data={'col_A': [1, 2], 'col_B': [3, 4]}, index=[1586160872000,1586160873000])
+        model.predict(input_df)
+        predictions = model.moving_window_predict(input_df, prev_df)
+        self.assertEquals(predictions.size , input_df.shape[0])  
+    
+    def test_validate_moving_window_prediction_with_non_window_model(self):
+        with self.assertRaises(MovingWindowException):
+            model  = SupportedModel()
+            input_df = pd.DataFrame(data={'col_A': [1, 2], 'col_B': [3, 4]}, index=[1586160870000,1586160871000])
+            prev_df = pd.DataFrame(data={'col_A': [1, 2], 'col_B': [3, 4]}, index=[1586160872000,1586160873000])
+            model.predict(input_df)
+            model.moving_window_predict(input_df, prev_df)
+                  
+
+    def test_validate_spectral_model(self):
+        with self.assertRaises(InvalidPredictionException):
+            data = {'wavenum_1': ['1460000.0','1460001.0'], 'wavenum_2': ['1490004.0','1490005.0']}
+            Validation.validate_model(SpectralModelThatReturnsString(), pd.DataFrame(data=data))   
+        
+        with patch.object(Validation,"get_model_prediction_and_time") as MockPredictionAndTiming:
+            data = {'wavenum_1': ['1460000.0','1460001.0'], 'wavenum_2': ['1490004.0','1490005.0']}
+            prediction = pd.Series([i for i in range(pd.DataFrame(data=data).shape[0])])
+            MockPredictionAndTiming.return_value = prediction , constants.MAX_PREDICTION_PROCESSING_TIME + 1
+            
+            with self.assertRaises(InvalidPredictionException):
+                Validation.validate_model(SlowSpectralModel(), pd.DataFrame(data=data))        
 
     def test_pickle_model(self):
         model_byte_array = ModelUtils.get_pickled_object("test model object")

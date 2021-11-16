@@ -8,12 +8,12 @@ class APIHelper:
     The class is the helper class which will be used for making the API calls
     """
 
-    def __init__(self, host, username=None, password=None, oauth_token=None, cert_path=None, verify_ssl=None):
+    def __init__(self, host, username=None, password=None, oauth_token=None, cert_path=None, verify_ssl=None, gql_host=None):
         """
         Create API Client
         """
         self.configuration = Configuration.get_configuration(
-            host, username, password, oauth_token, cert_path, verify_ssl)
+            host, username, password, oauth_token, cert_path, verify_ssl, gql_host)
 
     def can_verify_ssl_certificate(self):
         """

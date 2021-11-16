@@ -51,7 +51,11 @@ class Validation(object):
         """
         performance_test_df = ModelUtils.get_performance_test_df(test_df)
         prediction_result, processing_time = cls.get_model_prediction_and_time(model, performance_test_df)
-        cls.validate_prediction_output(prediction_result)
+
+        if not hasattr(model,'_BaseQuarticModel__window_duration') or \
+            not model._BaseQuarticModel__window_duration or \
+            not  hasattr(model.predict, '__wrapped__'):
+            cls.validate_prediction_output(prediction_result)
         if processing_time > MAX_PREDICTION_PROCESSING_TIME:
             raise InvalidPredictionException("Prediction takes longer than expected..., Cannot be deployed.")
 

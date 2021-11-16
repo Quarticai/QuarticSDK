@@ -41,7 +41,7 @@ Classes
 
 
 
-.. class:: APIClient(host, username=None, password=None, oauth_token=None, cert_path=None, verify_ssl=True)
+.. class:: APIClient(host, username=None, password=None, oauth_token=None, cert_path=None, verify_ssl=True, gql_host=None)
 
 
    .. method:: version()
@@ -96,11 +96,13 @@ Classes
       :return: (EntityList) List of Event Frames belonging to the asset
 
 
-   .. method:: list_models(self, is_active: bool = None, ml_node: int = None, query_params={})
+   .. method:: list_models(self, is_active: bool = None, ml_node: int = None, model_type: int = Constants.MODEL_TYPE_TELEMETRY, query_params={})
 
       List models and its parameters accessible by user
+
       :param is_active: Boolean Indicator if list should contain active nodes or not
       :param ml_node:   Ml Node id to filter models deployed to particular node
+      :param model_type: Ml model type. 0 - All models , 1 - Telemetry models (Default) , 2 - Spectral models
       :param query_params: Dictionary of filter conditions
       :return:          list of dictionary
 
@@ -131,25 +133,63 @@ Classes
       Return the SDK version
 
 
+<<<<<<< HEAD
    .. method:: _get_client(self)
       :async:
 
+=======
+   .. method:: _get_client(self) -> aiohttp.ClientSession
+      :async:
+
+      Get aiohttp client session object.
+
+>>>>>>> 6afca4b61c293c30559e1d8551bfa9a498e60f1d
 
    .. method:: _get_graphql_url(self) -> str
 
       Generates the graphql endpoint.
 
 
+<<<<<<< HEAD
    .. method:: __execute__query(self, query: str)
+=======
+   .. method:: __execute__query(self, query: str, variables: dict = None)
+>>>>>>> 6afca4b61c293c30559e1d8551bfa9a498e60f1d
       :async:
 
       Execute query
 
 
+<<<<<<< HEAD
    .. method:: execute_query(self, query: str)
 
       Execute query with query param.
       :param query: Query that needs to be executed
+=======
+   .. method:: execute_query(self, query: str, variables: dict = None)
+
+      Execute query with query param.
+      :param query: Query that needs to be executed
+      :param variables: Dictionary of variables that are used inside the query.
+
+
+   .. method:: execute_async_query(self, query: str, variables: dict = None)
+      :async:
+
+      Execute query asynchronously.
+      :param query: Query that needs to be executed
+      :param variables: Dictionary of variables that are used inside the query.
+      :return:
+
+
+   .. method:: get_graphql_client_from_apihelper(api_helper: quartic_sdk.api.api_helper.APIHelper)
+      :staticmethod:
+
+      Returns an instance of GraphqlClient from provided
+      api_helper instance.
+      :param api_helper: APIHelper instace whose configurations will be used to initialte GraphqlClient
+      :return: new GraphqlCleint instance initiated with existing APIHelper configuration. 
+>>>>>>> 6afca4b61c293c30559e1d8551bfa9a498e60f1d
 
 
 

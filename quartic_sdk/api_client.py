@@ -1,10 +1,8 @@
-from typing import List, Dict
-
-
 import quartic_sdk.utilities.constants as Constants
 from quartic_sdk.api.api_helper import APIHelper
 from quartic_sdk.core.entity_helpers.entity_factory import EntityFactory
 from quartic_sdk._version import __version__
+from quartic_sdk.utilities.exceptions import IncorrectParameterException
 
 
 class APIClient:
@@ -16,12 +14,13 @@ class APIClient:
             password=None,
             oauth_token=None,
             cert_path=None,
-            verify_ssl=True):
+            verify_ssl=True,
+            gql_host=None):
         """
         Create the API Client
         """
         self.api_helper = APIHelper(
-            host, username, password, oauth_token, cert_path, verify_ssl)
+            host, username, password, oauth_token, cert_path, verify_ssl, gql_host)
 
     @staticmethod
     def version():
@@ -60,8 +59,10 @@ class APIClient:
         Get the edge connectors method
         :param query_params: Dictionary of filter conditions
         """
+
+        query_params['parent__isnull'] = True
         return_json = self.api_helper.call_api(
-            Constants.GET_EDGE_CONNECTORS, Constants.API_GET, query_params={"parent__isnull": True}).json()
+            Constants.GET_EDGE_CONNECTORS, Constants.API_GET, query_params=query_params).json()
         return EntityFactory(Constants.EDGE_CONNECTOR_ENTITY, return_json, self.api_helper)
 
     def process_units(self):
@@ -98,31 +99,40 @@ class APIClient:
         :return: (EntityList) List of Event Frames belonging to the asset
         """
         return_json = self.api_helper.call_api(
-            Constants.GET_EVENT_FRAMES, Constants.API_GET).json()
+            Constants.GET_EVENT_FRAMES, Constants.API_GET, query_params=query_params).json()
         return EntityFactory(Constants.EVENT_FRAME_ENTITY, return_json, self.api_helper)
 
     def list_models(
             self,
             is_active: bool = None,
             ml_node: int = None,
+            model_type: int = Constants.MODEL_TYPE_TELEMETRY,
             query_params={}):
         """
         List models and its parameters accessible by user
+
         :param is_active: Boolean Indicator if list should contain active nodes or not
         :param ml_node:   Ml Node id to filter models deployed to particular node
+        :param model_type: Ml model type. 0 - All models , 1 - Telemetry models (Default) , 2 - Spectral models
         :param query_params: Dictionary of filter conditions
         :return:          list of dictionary
         """
+        if model_type not in Constants.MODEL_TYPE.keys():
+            raise IncorrectParameterException(f"Valid model_type values are {Constants.MODEL_TYPE.keys()}. "
+                                              f"InValid value supplied - {model_type}")
         if is_active is not None:
             query_params['is_active'] = is_active
         if ml_node:
             query_params['ml_node'] = ml_node
+        query_params['model_type'] = model_type
+
         response = self.api_helper.call_api(
             Constants.CMD_MODEL_ENDPOINT,
-            method_type='GET',
+            method_type=Constants.API_GET,
             path_params=[],
             query_params=query_params,
             body={})
+
         response.raise_for_status()
         return EntityFactory(
             Constants.MODEL_ENTITY,

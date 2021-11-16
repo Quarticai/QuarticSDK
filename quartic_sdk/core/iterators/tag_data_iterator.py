@@ -19,8 +19,9 @@ class TagDataIterator:
             total_count,
             batch_size,
             api_helper,
-            granularity=0,
+            sampling_ratio=1,
             return_type=Constants.RETURN_JSON,
+            wavelengths = {},
             transformations=[]):
         """
         We initialize the iterator with the given parameters
@@ -32,7 +33,7 @@ class TagDataIterator:
                 containing 200,000 points
         :param api_helper: (APIHelper) APIHelper class object
         :param cursor: Pagination cursor string
-        :param granularity: The granularity at which the tag data is queried
+        :param sampling_ratio: The sampling_ratio at which the tag data is queried
         :param return_type: The param decides whether the data after querying will be
             json(when value is "json") or pandas dataframe(when value is "pd"). By default,
             it takes the value as "json"
@@ -64,9 +65,9 @@ class TagDataIterator:
         self.start_time = start_time
         self.stop_time = stop_time
         self.api_helper = api_helper
-        self.granularity = granularity
+        self.sampling_ratio = sampling_ratio
         self.return_type = return_type
-
+        self.wavelengths = wavelengths
         self._transformations = transformations
         self._cursor = None
         self._data_call_state = 0
@@ -115,7 +116,8 @@ class TagDataIterator:
             "tags": [tag.id for tag in self.tags.all()],
             "start_time": self.start_time,
             "stop_time": self.stop_time,
-            "granularity": self.granularity,
+            "sampling_ratio": self.sampling_ratio,
+            "wavelengths" : self.wavelengths,
             "transformations": self._transformations,
             "batch_size": self.batch_size
         }
@@ -166,18 +168,23 @@ class TagDataIterator:
             start_time,
             stop_time,
             api_helper,
-            granularity=0,
+            sampling_ratio=1,
             return_type=Constants.RETURN_PANDAS,
             batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS,
+            wavelengths = {},
             transformations=[]):
         """
         The method creates the TagDataIterator instance based upon the parameters that are passed here
         :param start_time: (epoch) Start_time for getting data
         :param stop_time: (epoch) Stop_time for getting data
-        :param granularity: Granularity of the data
+        :param sampling_ratio: sampling_ratio of the data
         :param return_type: The param decides whether the data after querying will be
             json(when value is "json") or pandas dataframe(when value is "pd"). By default,
             it takes the value as "json"
+        :param wavelengths: dict containing list of wavelengths(string) as value with key "wavelengths"
+            Used for getting data for a spectral tag for specified wavelengths. 
+            An example value here is:
+            {"wavelengths:['1460000.0','1460001.0']}                                
         :param transformations: Refers to the list of transformations. It supports either
             interpolation or aggregation, depending upon which, we pass the value of this
             dictionary. If `transformation_type` is "aggregation", an optional key can be
@@ -205,7 +212,8 @@ class TagDataIterator:
             "tags": [tag.id for tag in tags.all()],
             "start_time": start_time,
             "stop_time": stop_time,
-            "granularity": granularity,
+            "sampling_ratio": sampling_ratio,
+            "wavelengths": wavelengths,
             "transformations": transformations,
             "batch_size": batch_size
         }
@@ -222,6 +230,7 @@ class TagDataIterator:
             total_count=tag_data_response["total_count"],
             api_helper=api_helper,
             batch_size=batch_size,
-            granularity=granularity,
+            sampling_ratio=sampling_ratio,
             return_type=return_type,
+            wavelengths = wavelengths,
             transformations=transformations)

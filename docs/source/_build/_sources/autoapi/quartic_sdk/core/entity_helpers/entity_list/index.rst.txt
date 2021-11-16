@@ -109,13 +109,13 @@ Classes
       Override to get the bool value of the class if required
 
 
-   .. method:: data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_PANDAS, batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS, transformations=[])
+   .. method:: data(self, start_time, stop_time, sampling_ratio=1, return_type=Constants.RETURN_PANDAS, batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS, transformations=[])
 
       Get the data of all tags in the list between the given start_time and
-      stop_time for the given granularity
+      stop_time for the given sampling_ratio
       :param start_time: (epoch) Start_time for getting data
       :param stop_time: (epoch) Stop_time for getting data
-      :param granularity: Granularity of the data
+      :param sampling_ratio: sampling_ratio of the data
       :param return_type: The param decides whether the data after querying will be
           json(when value is "json") or pandas dataframe(when value is "pd"). By default,
           it takes the value as "json"

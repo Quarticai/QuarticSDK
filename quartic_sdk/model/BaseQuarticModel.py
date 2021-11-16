@@ -8,33 +8,35 @@ from requests import HTTPError
 
 from quartic_sdk.model.helpers import ModelUtils, Validation
 from quartic_sdk.utilities import constants
+from functools import wraps
+from quartic_sdk.utilities.exceptions import InvalidWindowDuration,MovingWindowException
 
 
 class BaseQuarticModel(metaclass=abc.ABCMeta):
     """
     A Base Class Model for Wrapping User Models into Quartic Deployments.
-    User need to Inherit this class and override the predict method with all the post model training steps like,
+    User needs to inherit this class and override the predict method with all the post model training steps such as,
     preprocessing, prediction, postprocessing the pandas dataframe passed to :func: `predict` during real time
     prediction.
 
-    Note: Please do not overwrite method :func: `save` as it contains utilities to validate and deploy model to Quartic
+    Note: Please do not overwrite method :func: `save` as it contains utilities to validate and deploy model to the Quartic AI Platform
 
     Parameters
     ----------
-    name : Name of the model to be saved in Quartic
+    name : Name of the model to be saved in Quartic AI Platform
     description : Description of the current model
     log_level : Log Level for logs created/executed during run time i.e. during real time predictions
 
     Attributes
     ----------
-    name : Name of the model to be saved in Quartic
+    name : Name of the model to be saved in Quartic AI Platform
     description : description of model
     log_level : Log level
     log : Logger instance which can be used to set run time logs ex: self.log.info("Example Log")
 
     Methods
     -------
-    save    :   private save method to save deploy model to quartic
+    save    :   private save method to save deploy model to the Quartic AI Platform
     predict :   abstract predict method which needs to overridden
 
     Examples
@@ -70,6 +72,8 @@ class BaseQuarticModel(metaclass=abc.ABCMeta):
         self.log_level = log_level
         self.log = logging.getLogger(name)
         self.log.setLevel(log_level)
+        self.__window_support = False
+        self.__window_duration = None
 
     def save(self, client, output_tag_name: str,
              feature_tags: List[int],
@@ -83,9 +87,9 @@ class BaseQuarticModel(metaclass=abc.ABCMeta):
         :param feature_tags:    Feature Tag ids used in the model
         :param target_tag:      Target tag id to specify the parent of current soft tag
         :param test_df:         Test input dataframe to validate input and
-                                prediction output in agreement with Quartic Platform
+                                prediction output in agreement with Quartic AI Platform
         :param ml_node:         Optional - Ml Node Id if deployment of model needs to be done to specific node
-        :return:                None on successfully storing the model to Quartic Platform
+        :return:                None on successfully storing the model to the Quartic AI Platform
         """
         from quartic_sdk import APIClient
         assert isinstance(client, APIClient)
@@ -123,3 +127,51 @@ class BaseQuarticModel(metaclass=abc.ABCMeta):
         :return:    Returns pd
         """
         pass
+    
+    def with_window(duration):
+        """
+        This is decorator method for window support
+        User can decorate predict method with this decorator for window support
+        :param duration: window duration in sec
+        :return:    None
+        """
+        def inner_decorator(func):
+            @wraps(func)
+            def wrapper(*args, **kwargs):
+                self = args[0]
+                if not isinstance(duration, int):
+                    raise InvalidWindowDuration(
+                        'Invalid duration value passed for @BaseQuarticModel.with_window decorator'
+                        )
+                self.__window_support = True
+                self.__window_duration = duration
+                self.log.info(f"window support enabled for model with duration: {duration}")
+                return func(*args, **kwargs)
+            return wrapper
+        return inner_decorator
+    
+    def moving_window_predict(self, input_df: pd.DataFrame, previous_df: pd.DataFrame):
+        """
+        This method calls predict for with window model along with respective window data for each row in input_df.
+        :param input_df: input dataframe
+        :param previous_df: previous dataframe for with window model
+        :return: pandas series of predictions along with timestamps respective to input_df records
+        """
+        if input_df.empty:
+            raise MovingWindowException("input_df must not be empty")
+        window_df = pd.concat([previous_df, input_df])
+        predictions = pd.Series()
+        if not hasattr(self.predict,'__wrapped__'):
+            raise MovingWindowException("only callable for models with window support")
+        if not self.__window_duration:
+            raise MovingWindowException("Predict must be called atleast once before calling moving window predict")
+       
+        for index, row in input_df.iterrows():
+            start_ts = int(index) - self.__window_duration * 1000
+            df_to_predict = window_df.loc[(window_df.index >= start_ts) & (window_df.index <= int(index))]
+            prediction = self.predict.__wrapped__(self, df_to_predict)
+            if prediction:
+                predictions.loc[index] = prediction
+
+        
+        return predictions

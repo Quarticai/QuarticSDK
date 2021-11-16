@@ -1,11 +1,18 @@
 import aiohttp
 from aiogqlc import GraphQLClient as AioGraphQLClient
 import asyncio
+import nest_asyncio
 import logging
 import coloredlogs
 from quartic_sdk._version import __version__
 from typing import Optional, Union
-import validators
+from urllib.parse import urlparse
+import re
+from quartic_sdk.api.api_helper import APIHelper
+from quartic_sdk.utilities.constants import OAUTH, BASIC
+from quartic_sdk.utilities.exceptions import IncorrectAuthTypeException
+
+SCHEMA_REGEX = re.compile(r"(?:(?:https?)://)")
 
 
 class GraphqlClient:
@@ -32,7 +39,8 @@ class GraphqlClient:
         if password and not username:
             raise AttributeError('Need to provide username')
         if not password and not username and not token:
-            raise AttributeError('Need to provide either username and password or oauth token')
+            raise AttributeError(
+                'Need to provide either username and password or oauth token')
         self.url = url
         self.username = username
         self.password = password
@@ -42,6 +50,7 @@ class GraphqlClient:
         self.__graphql_url = self._get_graphql_url()
         self.logger = logging.getLogger()
         coloredlogs.install(level='DEBUG', logger=self.logger)
+        nest_asyncio.apply()
 
     @staticmethod
     def version():
@@ -71,7 +80,8 @@ class GraphqlClient:
             if isinstance(self.timeout, aiohttp.ClientTimeout):
                 _client_opts.update(timeout=self.timeout)
             else:
-                _client_opts.update(timeout=aiohttp.ClientTimeout(total=self.timeout))
+                _client_opts.update(
+                    timeout=aiohttp.ClientTimeout(total=self.timeout))
         _client_opts['connector'] = aiohttp.TCPConnector(ssl=self.verify_ssl)
         return aiohttp.ClientSession(**_client_opts)
 
@@ -80,9 +90,13 @@ class GraphqlClient:
         Generates the graphql endpoint.
         """
         __graphql_url = f'{self.url}/graphql/'
-        if not validators.url(__graphql_url):
-            raise AttributeError(f'url entered is not correct = {self.url}')
-        return f'{self.url}/graphql/'
+        result = urlparse(__graphql_url)
+        if result.scheme and not SCHEMA_REGEX.match(__graphql_url):
+            raise AttributeError(
+                f'Invalid URL: {self.url}. Perhaps you meant `http://...` or `https://...`?')
+        if not result.scheme or not result.netloc:
+            raise AttributeError(f'url {self.url} is incorrect')
+        return __graphql_url
 
     async def __execute__query(self, query: str, variables: dict = None):
         """
@@ -90,7 +104,8 @@ class GraphqlClient:
         """
         _client = await self._get_client()
         async with _client as session:
-            graphql_client = AioGraphQLClient(self.__graphql_url, session=session)
+            graphql_client = AioGraphQLClient(
+                self.__graphql_url, session=session)
             _response = await graphql_client.execute(query, variables=variables)
             response = await _response.json()
         return response
@@ -120,3 +135,25 @@ class GraphqlClient:
             return await self.__execute__query(query, variables)
         except (RuntimeError, Exception) as e:
             self.logger.error(f"Error occurred = {e}")
+
+    @staticmethod
+    def get_graphql_client_from_apihelper(api_helper: APIHelper):
+        """
+        Returns an instance of GraphqlClient from provided
+        api_helper instance.
+        :param api_helper: APIHelper instace whose configurations will be used to initialte GraphqlClient
+        :return: new GraphqlCleint instance initiated with existing APIHelper configuration. 
+        """
+        configuration = api_helper.configuration
+        if configuration.auth_type == OAUTH:
+            return GraphqlClient(url=configuration.gql_host,
+            token=configuration.oauth_token,
+            verify_ssl=configuration.verify_ssl)
+
+        elif configuration.auth_type == BASIC:
+            return GraphqlClient(url=configuration.gql_host,
+            username=configuration.username,
+            password=configuration.password,
+            verify_ssl=configuration.verify_ssl)    
+        else:
+            raise IncorrectAuthTypeException('Only OAUTH and BASIC auth_types are supported')
