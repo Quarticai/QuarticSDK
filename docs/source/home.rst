@@ -50,7 +50,7 @@ GraphQLClient
 
     # You should see the following result:
 
-    {'data': {'Site': [{'id': '1', 'name': 'quartic'}, {'id': '8', 'name': 'AB inbev site 1'}, {'id': '12', 'name': 'Test 123'}]}
+    {'data': {'Site': [{'id': '1', 'name': 'quartic'}, {'id': '8', 'name': 'ABC site 1'}, {'id': '12', 'name': 'XYC 123'}]}
 
     async def execute_graphql_query():
         query='''
