@@ -7,6 +7,7 @@ import pandas as pd
 import numpy as np
 
 from time import time
+from typing import Union
 from quartic_sdk.exceptions import InvalidPredictionException
 from quartic_sdk.utilities.constants import NUM_ROW_PER_PREDICTION, MAX_PREDICTION_PROCESSING_TIME
 
@@ -41,6 +42,13 @@ class Validation(object):
                                              " Please verify the model")
         if not np.array_equal(result.fillna(0), result.fillna(0).astype(np.float64)):
             raise InvalidPredictionException("Prediction result of type other than int/float/double are not supported")
+    @classmethod
+    def validate_window_prediction_output(cls, result: Union[int, float, None]):
+        """
+        Validates if the prediction for window model is returning a single value or None (allowed - int/float/None)
+        """
+        if not isinstance(result, (int, float)) and result is not None: 
+            raise InvalidPredictionException("Prediction result for with window model must be int/float/None")
 
     @classmethod
     def validate_model(cls, model, test_df):
@@ -56,6 +64,8 @@ class Validation(object):
             not model._BaseQuarticModel__window_duration or \
             not  hasattr(model.predict, '__wrapped__'):
             cls.validate_prediction_output(prediction_result)
+        else:
+            cls.validate_window_prediction_output(prediction_result)    
         if processing_time > MAX_PREDICTION_PROCESSING_TIME:
             raise InvalidPredictionException("Prediction takes longer than expected..., Cannot be deployed.")
 
