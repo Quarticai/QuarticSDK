@@ -11,6 +11,8 @@ echo "$BRANCH_NAME"
 export PUBLISH_PYPI=true
 export GITHUB_TOKEN="$GIT_TOKEN"
 
+apt-get install libcurl4-gnutls-dev -y
+
 pip install -U pip
 pip install pip-tools
 
