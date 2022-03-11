@@ -23,7 +23,7 @@ clean-cache:
 clean: clean-dist clean-cache
 
 test:
-	pip install -r requirements.txt && pytest -s && aloe
+	 pytest -s && aloe
 
 build: clean
 	python setup.py sdist bdist_wheel
