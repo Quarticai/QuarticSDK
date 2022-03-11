@@ -18,3 +18,4 @@ coloredlogs==15.0.1
 nest-asyncio==1.5.1
 numpy==1.19.5
 six==1.15.0
+certifi==2021.5.30
