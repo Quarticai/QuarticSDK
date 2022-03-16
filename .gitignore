@@ -6,3 +6,4 @@ quartic_sdk.egg-info/
 __pycache__/
 .idea/
 venv/
+requirements.txt

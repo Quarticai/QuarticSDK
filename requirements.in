@@ -11,7 +11,6 @@ requests==2.25.1
 Sphinx==3.5.1
 sphinx-autoapi==1.7.0
 typed-ast==1.4.2
-typing-extensions==3.7.4.3
 aiogqlc==2.2.0
 validators==0.18.2
 coloredlogs==15.0.1
@@ -29,4 +28,3 @@ pyparsing==2.4.7
 pytz==2021.1
 pyyaml==5.4.1
 urllib3==1.26.6
-typing-extensions==3.7.4.3
