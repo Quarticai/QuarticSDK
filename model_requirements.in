@@ -30,3 +30,4 @@ pyparsing==2.4.7
 pillow==8.1.1
 six==1.15.0
 certifi==2021.5.30
+requests==2.27.1
