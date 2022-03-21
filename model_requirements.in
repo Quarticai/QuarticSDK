@@ -27,3 +27,4 @@ umap-learn==0.4.1
 xgboost==0.81
 idna==3.3
 pyparsing==2.4.7
+pillow==8.1.1
