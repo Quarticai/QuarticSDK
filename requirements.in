@@ -4,7 +4,7 @@ cloudpickle==1.6.0
 importlib-metadata==4.11.2
 livereload==2.6.3
 lunr==0.5.8
-nltk==3.5
+nltk==3.6.6
 pandas==1.2.5
 pytest==6.2.2
 requests==2.25.1
