@@ -26,3 +26,4 @@ torch==1.7.1+cpu
 umap-learn==0.4.1
 xgboost==0.81
 idna==2.10
+pandas==1.2.5
