@@ -1,7 +1,7 @@
 aloe==0.2.0
 astroid==2.5.1
 cloudpickle==1.6.0
-importlib-metadata==4.11.2
+importlib-metadata==1.7.0
 livereload==2.6.3
 lunr==0.5.8
 nltk==3.5
