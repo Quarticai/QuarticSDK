@@ -21,4 +21,4 @@ bash ./jenkins_scripts/update_dependency.sh $BRANCH_NAME
 
 cat requirements.txt
 pip install -r requirements.txt
-
+pip install importlib-metadata
