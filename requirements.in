@@ -13,7 +13,7 @@ typed-ast==1.4.2
 aiogqlc==2.2.0
 validators==0.18.2
 coloredlogs==15.0.1
-numpy==1.19.3
+numpy==1.22.0
 nest-asyncio==1.5.4
 six==1.15.0
 certifi==2021.5.30
@@ -22,7 +22,7 @@ click==7.1.2
 jinja2==3.0.3
 markupsafe==2.0.1
 packaging==20.9
-pillow==8.1.1
+pillow==9.0.1
 pyparsing==2.4.7
 pytz==2022.1
 pyyaml==5.4.1
