@@ -10,7 +10,7 @@ set -ex
 rand=$(shuf -i 1000000000-9999999999 -n 1)
 
 apt-get install libcurl4-gnutls-dev -y
-pip install -U pip
+pip install -U pip==22.0.4
 pip install pip-tools
 
 echo "creating requirements"
