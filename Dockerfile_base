@@ -1,4 +1,4 @@
 FROM quarticai/python:3.9.5-slim-base
 COPY requirements.txt .
-RUN pip install pip==20.2.3 && \
+RUN pip install pip==22.0.4 && \
     pip install -r requirements.txt
