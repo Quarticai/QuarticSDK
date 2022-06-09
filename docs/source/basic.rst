@@ -70,7 +70,7 @@ This method returns the current version of the package.
 
     client.version() # Returns 2.1.0 as of the time of writing this document
 
-.execute
+.execute_query
 ~~~~~~~~
 
 This method executes the GraphQL query.
@@ -115,7 +115,7 @@ This method executes the GraphQL query.
 
 ::
 
-    client.execute(query, variables) # Returns a json response on a success.
+    client.execute_query(query, variables) # Returns a json response on a success.
 
 
 ===============
