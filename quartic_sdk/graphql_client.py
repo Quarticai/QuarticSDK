@@ -50,6 +50,8 @@ class GraphqlClient:
         self.__graphql_url = self._get_graphql_url()
         self.logger = logging.getLogger()
         coloredlogs.install(level='DEBUG', logger=self.logger)
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
         nest_asyncio.apply()
 
     @staticmethod
