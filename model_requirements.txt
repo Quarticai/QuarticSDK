@@ -30,7 +30,7 @@ astunparse==1.6.3
     # via tensorflow
 async-timeout==4.0.2
     # via aiohttp
-attrs==22.1.0
+attrs>=22.1.0
     # via
     #   -r model_requirements.in
     #   aiohttp
