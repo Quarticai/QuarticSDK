@@ -419,7 +419,7 @@ wrapt==1.12.1
     #   tensorflow
 xgboost==0.81
     # via -r model_requirements.in
-yarl==1.7.2
+yarl==1.8.1
     # via aiohttp
 zipp==3.8.0
     # via importlib-metadata

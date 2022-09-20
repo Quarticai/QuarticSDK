@@ -190,5 +190,5 @@ validators==0.18.2
     # via -r requirements.in
 wrapt==1.12.1
     # via astroid
-yarl==1.7.2
+yarl==1.8.1
     # via aiohttp
