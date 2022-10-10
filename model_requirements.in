@@ -58,5 +58,5 @@ pytz>=2022.2.1
 urllib3==1.26.6
 pluggy==0.13.1
 protobuf==3.20.1
-typing-extensions==4.3.0
+typing-extensions==4.4.0
 attrs>=22.1.0
