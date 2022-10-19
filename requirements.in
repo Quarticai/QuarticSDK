@@ -6,7 +6,7 @@ lunr==0.5.8
 nltk==3.6.6
 pandas==1.2.5
 pytest==6.2.2
-requests==2.25.1
+requests==2.26.0
 Sphinx==3.5.1
 sphinx-autoapi==1.7.0
 typed-ast==1.4.2
@@ -21,7 +21,7 @@ aiohttp==3.8.1
 charset-normalizer>=2.1.1
 click==8.0.2
 jinja2==3.0.3
-markupsafe==2.0.1
+markupsafe>=2.1.1
 packaging==20.9
 pillow==9.0.1
 pyparsing==2.4.7
