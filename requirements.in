@@ -21,7 +21,7 @@ aiohttp==3.8.1
 charset-normalizer>=2.1.1
 click==8.0.2
 jinja2==3.0.3
-markupsafe>=2.1.1
+markupsafe==2.1.1
 packaging==20.9
 pillow==9.0.1
 pyparsing==2.4.7
