@@ -9,11 +9,13 @@ and OAuth2.0. In Basic Authentication, the user must pass the parameters
 of username and password; and in OAuth2.0, the client token.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
+   
 
    quick-start.rst
    basic.rst
+   gql.rst
    model_creation.rst
    changelog.rst
 
