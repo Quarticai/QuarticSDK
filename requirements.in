@@ -17,7 +17,7 @@ coloredlogs==15.0.1
 numpy==1.22.0
 nest-asyncio==1.5.4
 six==1.15.0
-certifi==2021.5.30
+certifi==2022.12.7
 aiohttp==3.8.1
 charset-normalizer==2.0.12
 click==8.0.2
