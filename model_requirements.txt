@@ -62,4 +62,5 @@ urllib3==1.26.6
 pluggy==0.13.1
 protobuf==3.19.6
 typing-extensions==4.4.0
-attrs>=22.1.0
+attrs==22.2.0
+cachetools==5.2.0
