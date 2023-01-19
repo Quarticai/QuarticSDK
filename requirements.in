@@ -36,3 +36,4 @@ google-auth==2.15.0
 multidict==6.0.3
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
+tornado==6.1
