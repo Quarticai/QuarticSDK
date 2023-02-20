@@ -20,7 +20,7 @@ six==1.15.0
 certifi==2022.12.7
 aiohttp==3.8.1
 charset-normalizer==2.0.12
-click==8.0.2
+click==8.0.3
 jinja2==3.0.3
 markupsafe==2.1.1
 packaging==20.9
