@@ -22,3 +22,4 @@ bash ./jenkins_scripts/update_dependency.sh $BRANCH_NAME
 cat requirements.txt
 
 pip install importlib-metadata==3.7.0
+
