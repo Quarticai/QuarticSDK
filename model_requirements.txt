@@ -67,3 +67,4 @@ cachetools==5.2.0
 google-auth==2.15.0
 multidict==6.0.3
 tornado==6.1
+pygments==2.15.0
