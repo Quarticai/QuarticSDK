@@ -67,4 +67,4 @@ multidict==6.0.3
 tornado==6.1
 pygments==2.15.1
 sphinx-toolbox==3.0.0
-sphinx-prompt==1.0.0
+sphinx-prompt==1.1.0
