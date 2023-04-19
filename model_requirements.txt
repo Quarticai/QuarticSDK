@@ -68,9 +68,8 @@ google-auth==2.15.0
 multidict==6.0.3
 tornado==6.1
 pygments==2.15.1
-sphinx-toolbox==3.4.0
+sphinx-toolbox==3.0.0
 sphinx-prompt==1.1.0
 sphinx-autodoc-typehints==1.11.1
 autodocsumm>=0.2.0
 cachecontrol[filecache]==0.12.6
-docutils==0.19
