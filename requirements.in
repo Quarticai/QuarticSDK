@@ -44,4 +44,4 @@ sphinx-autodoc-typehints==1.11.1
 autodocsumm>=0.2.0
 cachecontrol[filecache]==0.12.6
 docutils==0.17.1
-astroid==2.15.3
+msgpack==1.0.2
