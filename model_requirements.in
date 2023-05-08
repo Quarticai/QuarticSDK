@@ -69,7 +69,7 @@ pygments==2.15.1
 sphinx-toolbox==3.0.0
 sphinx-prompt==1.1.0
 sphinx-autodoc-typehints==1.11.1
-autodocsumm>=0.2.0
+autodocsumm==0.2.10
 cachecontrol[filecache]==0.12.6
 docutils==0.17.1
 msgpack==1.0.2
