@@ -6,6 +6,7 @@ import logging
 import coloredlogs
 from quartic_sdk._version import __version__
 from typing import Optional, Union
+from urllib.parse import urljoin
 from urllib.parse import urlparse
 import re
 from quartic_sdk.api.api_helper import APIHelper
@@ -91,7 +92,7 @@ class GraphqlClient:
         """
         Generates the graphql endpoint.
         """
-        __graphql_url = f'{self.url}/graphql/'
+        __graphql_url = urljoin(self.url, "/graphql/")
         result = urlparse(__graphql_url)
         if result.scheme and not SCHEMA_REGEX.match(__graphql_url):
             raise AttributeError(
