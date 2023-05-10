@@ -981,14 +981,14 @@ The available attributes in this class are:
 
 - **id**: Procedure ID
 - **name**: Procedure name
-- **start_rule**: Start Rule created for while creating a Procedure
-- **stop_rule**: Stop Rule created for while creating a Procedure
 - **additional_attributes**: This field contains additional information and fields of Procedure like receipe_type, formula and receipe_version
-- **is_deployed**: This field represents the state whether model is being saved or deployed.
+- **procedure_state**: state among 5 values
+- **test_results**: 
 - **site**: Site id under which procedure gets created
-- **start_batch_tag**: Tag represents the start batch state
-- **stop_batch_tag**: Tag represents the stop batch state
 - **product**: ID of the Product under which that procedure gets created
+- **created_by**: The user ID, who created this procedure
+- **created_at**: created at date time
+- **updated_at**: updated at date time
 
 
 The available methods are as follows:
@@ -1003,19 +1003,6 @@ The available methods are as follows:
    -  **query\_params (optional)**: User can pass a dictionary of conditions
       and condition values to filter the UnitProcedures accordingly.
 
--  **create_unit_procedure**: This method is used to create UnitProcedure inside a particular Procedure
-   and returns the ``UnitProcedure`` Entity.
-
-   The method parameters as included in v2.0.0 are as follows:
-
-   -  **name**: UnitProcedure Name
-   -  **start_batch_tag**: Tag Entity/Object represents the start batch of UnitProcedure
-   -  **stop_batch_tag**: Tag Entity/Object represents the stop batch of UnitProcedure
-   -  **order**: Sequence in which we want to add child nodes(UnitProcedure) inside parent(Procedure) node
-   -  **start_rule**: Rule Class instance
-   -  **stop_rule**: Rule Class instance
-   -  **asset_list**: List of asset ids
-
 ProcedureStep
 ---------------
 
@@ -1025,15 +1012,13 @@ The available attributes in this class are:
 
 - **id**: ProcedureStep ID
 - **name**: ProcedureStep name
-- **start_rule**: Start Rule created for while creating a ProcedureStep
-- **stop_rule**: Stop Rule created for while creating a ProcedureStep
 - **step_type**: Integer Field denoted the type of node(UnitProcedure/Operation/Phase/PhaseStep) at each step
 - **order**: Sequence in which we want to add child nodes inside parent(ProcedureStep) node
-- **start_batch_tag**: Tag represents the start batch state
-- **stop_batch_tag**: Tag represents the stop batch state
 - **parent**: ID of the parent ProcedureStep Node under which that procedure step gets created
 - **procedure**: ID of the Procedure under which that procedure step gets created
-- **assets**: List of asset ids
+- **step_components**: list of components involved
+- **created_at**: created at date time
+- **updated_at**: updated at date time
 
 
 The available methods are as follows:
@@ -1047,20 +1032,6 @@ The available methods are as follows:
    -  **query\_params (optional)**: User can pass a dictionary of conditions
       and condition values to filter the ProcedureStep accordingly.
 
--  **create_procedure_step**: This method is used to create ProcedureStep inside a particular procedure step node
-   and returns the ``ProcedureStep`` Entity.
-
-   The method parameters as included in v2.0.0 are as follows:
-
-   -  **name**: ProcedureStep Name
-   -  **start_batch_tag**: Tag Entity/Object represents the start batch of UnitProcedure
-   -  **stop_batch_tag**: Tag Entity/Object represents the stop batch of UnitProcedure
-   -  **procedure**: Procedure Entity/Object under which that procedure step gets created
-   -  **order**: Sequence in which we want to add child nodes inside parent(ProcedureStep) node
-   -  **start_rule**: Rule Class instance
-   -  **stop_rule**: Rule Class instance
-   -  **asset_list**: List of asset ids
-
 Product
 -------
 
@@ -1073,6 +1044,10 @@ The available attributes in this class are:
 - **name**: Product name
 - **client**: Client id under which procedure gets created
 - **description**: This contains description of the product
+- **created_by**: The user ID, who created this product
+- **created_by_name**: The user name, who created this product
+- **created_at**: created at date time
+- **updated_at**: updated at date time
 
 
 The available methods are as follows:
@@ -1086,19 +1061,6 @@ The available methods are as follows:
 
    -  **query\_params (optional)**: User can pass a dictionary of conditions
       and condition values to filter the Procedures accordingly.
-
--  **create_procedure**: This method is used to create Procedure inside a particular Product
-   and returns the ``Procedure`` Entity.
-
-   The method parameters as included in v2.0.0 are as follows:
-
-   -  **name**: UnitProcedure Name
-   -  **site**: Site Class instance
-   -  **start_batch_tag**: Tag Entity/Object represents the start batch of Procedure
-   -  **stop_batch_tag**: Tag Entity/Object represents the stop batch of Procedure
-   -  **start_rule**: Rule Class instance
-   -  **stop_rule**: Rule Class instance
-   -  **additional_attributes**: This field contains additional information and fields of Procedure like receipe_type, formula and receipe_version
 
 Site
 ----
