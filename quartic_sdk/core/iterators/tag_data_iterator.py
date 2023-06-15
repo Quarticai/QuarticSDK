@@ -144,10 +144,9 @@ class TagDataIterator:
             self._data_call_state = 1
         else:
             tag_data_return = self.api_helper.call_api(
-                url=Constants.RETURN_TAG_DATA,
-                method_type=Constants.API_GET,
-                query_params={
-                    "cursor": self._cursor}).json()
+                url=Constants.RETURN_TAG_DATA_CURSOR,
+                method_type=Constants.API_POST,
+                body={"cursor": self._cursor}).json()
 
         self._cursor = tag_data_return["cursor"]
 
