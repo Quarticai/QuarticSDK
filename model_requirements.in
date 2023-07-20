@@ -16,7 +16,7 @@ pycurl==7.43.0.6
 pynndescent==0.5.2
 pypmml==0.9.9
 pytorch-ignite==0.4.3
-scikit-learn==0.23.1
+scikit-learn==0.24.2
 scikit-optimize==0.8.1
 scipy==1.7.0
 seaborn==0.11.1
