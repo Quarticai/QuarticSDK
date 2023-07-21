@@ -14,7 +14,7 @@ export GITHUB_TOKEN="$GIT_TOKEN"
 apt-get update && apt-get install libcurl4-gnutls-dev -y
 
 pip install -U pip==22.0.4
-pip install pip-tools
+pip install pip-tools==7.0.0
 
 echo "creating requirements"
 bash ./jenkins_scripts/update_dependency.sh $BRANCH_NAME
