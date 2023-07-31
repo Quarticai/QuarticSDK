@@ -42,5 +42,8 @@ Changes
 Changes
 ``````````
 - `@mayuresh-quartic <https://github.com/mayuresh-quartic>`_: Maintenance Updates
-- `@smit-quartic <https://github.com/smit-quartic>`_: Updated pagination call to Post(https://github.com/Quarticai/QuarticSDK/pull/258)`_)
+- `@smit-quartic <https://github.com/smit-quartic>`_: Updated pagination call to Post (`#258 https://github.com/Quarticai/QuarticSDK/pull/258`)
+- `@smit-quartic <https://github.com/smit-quartic>`_: Deprecated POST APIs for product harbour (`#253 https://github.com/Quarticai/QuarticSDK/pull/253`)
+- `@aman-quartic <https://github.com/aman-quartic>`_: Use urljoin while creating graphql host url (`#251 https://github.com/Quarticai/QuarticSDK/pull/251`)
+
 ~~~~~~~~~~~~~
