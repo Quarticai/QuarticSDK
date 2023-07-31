@@ -36,3 +36,11 @@ Changes
 - `@niharp2 <https://github.com/niharp2/>`_: Updated Tag.data() to pass wavelengths for spectral tags (`#153 <https://github.com/Quarticai/QuarticSDK/pull/153>`_)
 - `@niharp2 <https://github.com/niharp2/>`_: Added Implementation for BaseSpectralModel (`#160 <https://github.com/Quarticai/QuarticSDK/pull/160>`_)
 ~~~~~~~~~~~~~
+
+**Version 2.12.0**
+-----------------
+Changes
+``````````
+- `@mayuresh-quartic <https://github.com/mayuresh-quartic>`_: Maintenance Updates
+- `@smit-quartic <https://github.com/smit-quartic>`_: Updated pagination call to Post(https://github.com/Quarticai/QuarticSDK/pull/258)`_)
+~~~~~~~~~~~~~
