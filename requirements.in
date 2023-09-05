@@ -61,3 +61,4 @@ sphinxcontrib-jsmath==1.0.1
 sphinxcontrib-qthelp==1.0.3
 sphinxcontrib-serializinghtml==1.1.5
 async-timeout==4.0.2
+soupsieve==2.4.1
