@@ -136,13 +136,12 @@ class TagDataIterator:
         """
         if self.limit == -1 or self.__count == self.offset:
             raise StopIteration
-        else:
-            if not self.body_json:
-                self.body_json = self.create_post_data()
+        if not self.body_json:
+            self.body_json = self.create_post_data()
 
-            tag_data_return = self.api_helper.call_api(
-                Constants.RETURN_TAG_DATA, Constants.API_POST, body=self.body_json).json()
-            # self._data_call_state = 1
+        tag_data_return = self.api_helper.call_api(
+            Constants.RETURN_TAG_DATA, Constants.API_POST, body=self.body_json).json()
+        # self._data_call_state = 1
         # else:
         #     tag_data_return = self.api_helper.call_api(
         #         url=Constants.RETURN_TAG_DATA_CURSOR,
@@ -150,13 +149,13 @@ class TagDataIterator:
         #         body={"cursor": self._cursor}).json()
 
         # self._cursor = tag_data_return["cursor"]
-            self.__count = tag_data_return['count']
-            self.offset = tag_data_return['offset']
-            self.limit = tag_data_return['limit']
+        self.__count = tag_data_return['count']
+        self.offset = tag_data_return['offset']
+        self.limit = tag_data_return['limit']
 
-            self.body_json['offset'] = self.offset
-            self.body_json['count'] = self.__count
-            self.body_json['limit'] = self.limit
+        self.body_json['offset'] = self.offset
+        self.body_json['count'] = self.__count
+        self.body_json['limit'] = self.limit
 
         if self.return_type == Constants.RETURN_JSON:
             return tag_data_return["data"]
