@@ -31,15 +31,12 @@ def get_or_generate_encryption_key():
 
 def encrypt_credentials(credentials, encryption_key):
     cipher_suite = Fernet(encryption_key)
-    encrypted_credentials = cipher_suite.encrypt(credentials.encode())
-    return encrypted_credentials
+    return cipher_suite.encrypt(credentials.encode())
 
 
 def decrypt_credentials(encrypted_credentials, encryption_key):
     cipher_suite = Fernet(encryption_key)
-    decrypted_credentials = cipher_suite.decrypt(
-        encrypted_credentials).decode()
-    return decrypted_credentials
+    return cipher_suite.decrypt(encrypted_credentials).decode()
 
 # Function to save encrypted user credentials and token
 
@@ -82,7 +79,7 @@ def request_new_token(username, password, host, oauth_token=None, cert_path=None
             username, password, new_token, get_or_generate_encryption_key())
         return new_token
     except Exception as e:
-        print("Error requesting new token:", str(e))
+        print("Error requesting new token:", e)
         return None
 
 # Decorator function to handle token expiration, login, and password change
@@ -124,6 +121,7 @@ def authenticate_with_tokens(func):
                     self.access_token = json.dumps(token)['access_token']
             return func(self,*args, **kwargs)
         except Exception as e:
-            print("Error authenticating:", str(e))
+            print("Error authenticating:", e)
             return None
+
     return wrapper
