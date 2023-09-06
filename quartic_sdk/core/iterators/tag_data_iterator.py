@@ -150,11 +150,12 @@ class TagDataIterator:
         if self.return_type == Constants.RETURN_JSON:
             return tag_data_return["data"]
 
-        return_dataframe = pd.read_json(json.dumps(tag_data_return["data"]),
-                                        orient="split",
-                                        convert_dates=False,
-                                        convert_axes=False)
-        return return_dataframe
+        return pd.read_json(
+            json.dumps(tag_data_return["data"]),
+            orient="split",
+            convert_dates=False,
+            convert_axes=False,
+        )
 
     @classmethod
     def create_tag_data_iterator(
