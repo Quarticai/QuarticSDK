@@ -1,6 +1,9 @@
 import requests
+import os
+import json
 from quartic_sdk.utilities.configuration import Configuration
 import quartic_sdk.utilities.constants as Constants
+from quartic_sdk.utilities.decorator import authenticate_with_tokens,save_token
 
 
 class APIHelper:
@@ -14,6 +17,7 @@ class APIHelper:
         """
         self.configuration = Configuration.get_configuration(
             host, username, password, oauth_token, cert_path, verify_ssl, gql_host)
+        self.__get_and_save_token()
 
     def can_verify_ssl_certificate(self):
         """
@@ -57,6 +61,7 @@ class APIHelper:
             "Accept": "application/json"
         }
 
+    @authenticate_with_tokens
     def __http_get_api(self, url, path_params=[], query_params={}, body={}):
         """
         The method makes a GET call via the requests module
@@ -70,9 +75,12 @@ class APIHelper:
             request_url += str(path_param) + "/"
 
         if self.configuration.auth_type == Constants.BASIC:
+            headers={
+                    'Authorization': f'Bearer {self.access_token}'
+                    }
             return requests.get(
                 request_url,
-                auth=(self.configuration.username, self.configuration.password),
+                headers=headers,
                 params=query_params,
                 verify=self.can_verify_ssl_certificate()
             )
@@ -82,6 +90,7 @@ class APIHelper:
                 request_url, params=query_params, headers=headers, verify=self.can_verify_ssl_certificate()
             )
 
+    @authenticate_with_tokens
     def __http_post_api(self, url, path_params=[], query_params={}, body={}):
         """
         The method makes a POST call via the requests module
@@ -94,10 +103,13 @@ class APIHelper:
         for path_param in path_params:
             request_url += str(path_param) + "/"
         if self.configuration.auth_type == Constants.BASIC:
-            headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+            headers = {
+                'Content-Type': 'application/json', 
+                'Accept': 'application/json',
+                'Authorization': f'Bearer {self.access_token}'
+                }
             return requests.post(
                 request_url,
-                auth=(self.configuration.username, self.configuration.password),
                 json=body,
                 headers=headers,
                 params=query_params,
@@ -138,3 +150,22 @@ class APIHelper:
         :param: body:
         """
         raise NotImplementedError
+    
+    def __get_and_save_token(self):
+        if not os.path.exists(Constants.TOKEN_FILE):
+            headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+            response = requests.post(
+                self.configuration.host + Constants.LOGIN,
+                data={
+                    "username": self.configuration.username,
+                    "password": self.configuration.password
+                },
+                headers=headers,
+                verify=self.can_verify_ssl_certificate()
+            )
+            if response.status_code != 302:
+                raise PermissionError('Error while Login and generating token')
+            access_token = response.cookies.get('access_token')
+            refresh_token = response.cookies.get('refresh_token')
+            new_token = json.dumps({"access_token":access_token,"refresh_token":refresh_token})
+            save_token(new_token)
