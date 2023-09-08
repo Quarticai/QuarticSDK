@@ -56,9 +56,9 @@ class APIHelper:
         Get OAuth headers
         """
         return {
-            "Authorization": "Bearer " + self.configuration.oauth_token,
+            "Authorization": f"Bearer {self.configuration.oauth_token}",
             "Content-Type": "application/json",
-            "Accept": "application/json"
+            "Accept": "application/json",
         }
 
     @authenticate_with_tokens
@@ -72,7 +72,7 @@ class APIHelper:
         """
         request_url = self.configuration.host + url
         for path_param in path_params:
-            request_url += str(path_param) + "/"
+            request_url += f"{str(path_param)}/"
 
         if self.configuration.auth_type == Constants.BASIC:
             headers={
@@ -101,7 +101,7 @@ class APIHelper:
         """
         request_url = self.configuration.host + url
         for path_param in path_params:
-            request_url += str(path_param) + "/"
+            request_url += f"{str(path_param)}/"
         if self.configuration.auth_type == Constants.BASIC:
             headers = {
                 'Content-Type': 'application/json', 
