@@ -152,20 +152,35 @@ class APIHelper:
         raise NotImplementedError
     
     def __get_and_save_token(self):
-        if not os.path.exists(Constants.TOKEN_FILE):
-            headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
-            response = requests.post(
-                self.configuration.host + Constants.LOGIN,
-                data={
-                    "username": self.configuration.username,
-                    "password": self.configuration.password
-                },
-                headers=headers,
-                verify=self.can_verify_ssl_certificate()
-            )
-            if response.status_code != 302:
-                raise PermissionError('Error while Login and generating token')
-            access_token = response.cookies.get('access_token')
-            refresh_token = response.cookies.get('refresh_token')
-            new_token = json.dumps({"access_token":access_token,"refresh_token":refresh_token})
-            save_token(new_token)
+        """
+        Get a new access token and refresh token from the authentication endpoint and save them.
+
+        This method sends a POST request to the authentication endpoint with the provided username and password
+        to obtain a new access token and refresh token. It then saves these tokens to a file.
+
+        Args:
+            None
+
+        Returns:
+            None
+
+        Raises:
+            PermissionError: If there is an error during the authentication process or if the response status
+                            code indicates an issue.
+        """
+        headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+        response = requests.post(
+            self.configuration.host + Constants.GENERATE_TOKEN,
+            json={
+                "username": self.configuration.username,
+                "password": self.configuration.password
+            },
+            headers=headers,
+            verify=self.can_verify_ssl_certificate()
+        )
+        if response.status_code != 200:
+            raise PermissionError('Error while Login and generating token')
+        access_token = response.json().get('access')
+        refresh_token = response.json().get('refresh')
+        new_token = json.dumps({"access_token":access_token,"refresh_token":refresh_token})
+        save_token(new_token)
