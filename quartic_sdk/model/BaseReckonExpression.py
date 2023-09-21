@@ -143,13 +143,12 @@ class BaseReckonExpression(metaclass=abc.ABCMeta):
             raise MovingWindowException("only callable for models with window support")
         if not self.__window_duration:
             raise MovingWindowException("Predict must be called atleast once before calling moving window predict")
-       
+
         for index, row in input_df.iterrows():
             start_ts = int(index) - self.__window_duration * 1000
             df_to_predict = window_df.loc[(window_df.index >= start_ts) & (window_df.index <= int(index))]
-            prediction = self.evaluate.__wrapped__(self, df_to_predict)
-            if prediction:
+            if prediction := self.evaluate.__wrapped__(self, df_to_predict):
                 predictions.loc[index] = prediction
 
-        
+
         return predictions
