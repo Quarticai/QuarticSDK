@@ -8,7 +8,7 @@ import numpy as np
 
 from time import time
 from typing import Union
-from quartic_sdk.exceptions import InvalidPredictionException
+from quartic_sdk.exceptions import InvalidPredictionException, InvalidValueException
 from quartic_sdk.utilities.constants import NUM_ROW_PER_PREDICTION, MAX_PREDICTION_PROCESSING_TIME
 
 class Validation(object):
@@ -68,6 +68,14 @@ class Validation(object):
             cls.validate_window_prediction_output(prediction_result)    
         if processing_time > MAX_PREDICTION_PROCESSING_TIME:
             raise InvalidPredictionException("Prediction takes longer than expected..., Cannot be deployed.")
+    
+    @classmethod
+    def validate_expression(cls, model, test_df):
+        results = model.evaluate(test_df)
+
+        for result in results:
+            if type(result) not in [int, float, bool]:
+                raise InvalidValueException("This value is not supported")
 
 
 class ModelUtils(object):

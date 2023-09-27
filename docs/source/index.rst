@@ -17,6 +17,7 @@ of username and password; and in OAuth2.0, the client token.
    basic.rst
    gql.rst
    model_creation.rst
+   expression_creation.rst
    changelog.rst
 
 .. include:: home.rst

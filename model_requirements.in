@@ -68,6 +68,8 @@ autodocsumm>=0.2.0
 cachecontrol[filecache]==0.12.6
 docutils==0.17.1
 msgpack==1.0.2
+ipykernel==6.25.2
+jupyter-client==7.2.0
 yarl==1.8.2
 ruamel-yaml==0.17.22
 cssutils==2.6.0
@@ -89,3 +91,5 @@ sphinxcontrib-qthelp==1.0.3
 sphinxcontrib-serializinghtml==1.1.5
 async-timeout==4.0.2
 soupsieve==2.4.1
+psutil==5.9.4
+pyzmq==22.0.2
