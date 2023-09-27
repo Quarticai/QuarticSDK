@@ -1,4 +1,6 @@
 import aiohttp
+import json
+import requests
 from aiogqlc import GraphQLClient as AioGraphQLClient
 import asyncio
 import nest_asyncio
@@ -12,6 +14,8 @@ import re
 from quartic_sdk.api.api_helper import APIHelper
 from quartic_sdk.utilities.constants import OAUTH, BASIC
 from quartic_sdk.utilities.exceptions import IncorrectAuthTypeException
+import quartic_sdk.utilities.constants as Constants
+from quartic_sdk.utilities.decorator import save_token
 
 SCHEMA_REGEX = re.compile(r"(?:(?:https?)://)")
 
@@ -49,6 +53,7 @@ class GraphqlClient:
         self.verify_ssl = verify_ssl
         self.timeout = timeout
         self.__graphql_url = self._get_graphql_url()
+        self.__get_and_save_token()
         self.logger = logging.getLogger()
         coloredlogs.install(level='DEBUG', logger=self.logger)
         loop = asyncio.new_event_loop()
@@ -68,12 +73,7 @@ class GraphqlClient:
         """
         _client_opts = {}
         if self.username and self.password:
-            _opts = {
-                'login': self.username,
-                'password': self.password
-            }
-
-            _client_opts['auth'] = aiohttp.BasicAuth(**_opts)
+            _client_opts['headers'] = {'Authorization': f"Bearer {self.access_token}"}
         elif self.token:
             _client_opts['headers'] = {'Authorization': f"Bearer {self.token}"}
         else:
@@ -160,3 +160,44 @@ class GraphqlClient:
             verify_ssl=configuration.verify_ssl)    
         else:
             raise IncorrectAuthTypeException('Only OAUTH and BASIC auth_types are supported')
+        
+    def __get_and_save_token(self):
+        """
+        Get a new access token and refresh token from the authentication endpoint and save them.
+
+        This method sends a POST request to the authentication endpoint with the provided username and password
+        to obtain a new access token and refresh token. It then saves these tokens to a file.
+
+        Args:
+            None
+
+        Returns:
+            None
+
+        Raises:
+            PermissionError: If there is an error during the authentication process or if the response status
+                            code indicates an issue.
+        """
+        # Read the stored token
+        with open(Constants.TOKEN_FILE, 'r') as token_file:
+            token_dict = json.loads(token_file.read())
+        if not token_dict:
+            headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+            response = requests.post(
+                self.url + Constants.GENERATE_TOKEN,
+                json={
+                    "username": self.username,
+                    "password": self.password
+                },
+                headers=headers,
+                verify=self.verify_ssl
+            )
+            if response.status_code != 200:
+                raise PermissionError('Error while Login and generating token')
+            token_dict = {
+                'access_token' : response.json().get('access'),
+            'refresh_token' : response.json().get('refresh')}
+            new_token = json.dumps(token_dict)
+            save_token(new_token)
+        self.access_token = token_dict['access']
+
