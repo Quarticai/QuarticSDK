@@ -1,5 +1,5 @@
 import aiohttp
-import json
+import json, os
 import requests
 from aiogqlc import GraphQLClient as AioGraphQLClient
 import asyncio
@@ -178,10 +178,7 @@ class GraphqlClient:
             PermissionError: If there is an error during the authentication process or if the response status
                             code indicates an issue.
         """
-        # Read the stored token
-        with open(Constants.TOKEN_FILE, 'r') as token_file:
-            token_dict = json.loads(token_file.read())
-        if not token_dict:
+        if not os.path.exists(Constants.TOKEN_FILE):
             headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
             response = requests.post(
                 self.url + Constants.GENERATE_TOKEN,
@@ -196,8 +193,13 @@ class GraphqlClient:
                 raise PermissionError('Error while Login and generating token')
             token_dict = {
                 'access_token' : response.json().get('access'),
-            'refresh_token' : response.json().get('refresh')}
+                'refresh_token' : response.json().get('refresh')
+                }
             new_token = json.dumps(token_dict)
             save_token(new_token)
-        self.access_token = token_dict['access']
+        else:
+            # Read the stored token
+            with open(Constants.TOKEN_FILE, 'r') as token_file:
+                token_dict = json.loads(token_file.read())
+        self.access_token = token_dict['access_token']
 
