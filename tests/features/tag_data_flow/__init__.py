@@ -12,7 +12,8 @@ from quartic_sdk.utilities.test_helpers import (
     APIHelperCallAPI,
     ASSET_LIST_GET,
     TAG_LIST_GET,
-    TAG_DATA_POST
+    TAG_DATA_POST,
+    JWT_TOKEN_RESPONSE
 )
 
 
@@ -21,10 +22,13 @@ def step_impl(context):
     """
     For the first step we setup the APIClient
     """
-    world.client = APIClient(
-        "http://test_host",
-        username="username",
-        password="password")
+    with mock.patch('requests.post') as jwt_requests_post:
+        jwt_requests_post.return_value = APIHelperCallAPI(
+            JWT_TOKEN_RESPONSE)
+        world.client = APIClient(
+            "http://test_host",
+            username="username",
+            password="password")
 
 
 @step("we call the required methods to get the tag details")

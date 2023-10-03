@@ -13,7 +13,8 @@ from quartic_sdk.utilities.test_helpers import (
     ASSET_LIST_GET,
     TAG_LIST_MULTI_GET,
     ASSET_DATA_POST,
-    TAG_LIST_DATA_POST
+    TAG_LIST_DATA_POST,
+    JWT_TOKEN_RESPONSE
 )
 import quartic_sdk.utilities.constants as Constants
 
@@ -23,11 +24,14 @@ def step_impl(context):
     """
     For the first step we setup the APIClient, and the related tag_list
     """
-    world.client = APIClient(
-        "http://test_host",
-        username="username",
-        password="password")
-    world.tag_list = EntityList(Constants.TAG_ENTITY)
+    with mock.patch('requests.post') as jwt_requests_post:
+        jwt_requests_post.return_value = APIHelperCallAPI(
+            JWT_TOKEN_RESPONSE)
+        world.client = APIClient(
+            "http://test_host",
+            username="username",
+            password="password")
+        world.tag_list = EntityList(Constants.TAG_ENTITY)
 
 
 @step("we call the required methods to get the tags list data")
