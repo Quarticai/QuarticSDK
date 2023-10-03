@@ -179,6 +179,7 @@ class APIHelper:
                 headers=headers,
                 verify=self.can_verify_ssl_certificate()
             )
+            print(f'{response.status_code=}')
             if response.status_code != 200:
                 raise PermissionError('Error while Login and generating token')
             token_dict = {
