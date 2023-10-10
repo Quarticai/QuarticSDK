@@ -93,3 +93,5 @@ async-timeout==4.0.2
 soupsieve==2.4.1
 psutil==5.9.4
 pyzmq==22.0.2
+cycler==0.12.1
+executing==1.2.0
