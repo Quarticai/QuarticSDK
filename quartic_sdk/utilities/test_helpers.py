@@ -19,6 +19,10 @@ class APIHelperCallAPI:
 
     def raise_for_status(self):
         return None
+    
+    @property
+    def status_code(self):
+        return 200
 
 
 # Test constants
@@ -187,3 +191,8 @@ EVENT_FRAME_OCCURRENCE_LIST_GET = [
      'parent_tags': []
      }
 ]
+
+JWT_TOKEN_RESPONSE = {
+    "access": "test-access",
+    "refresh": "test-refresh"
+}

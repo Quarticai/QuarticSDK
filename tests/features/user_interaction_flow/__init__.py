@@ -16,10 +16,13 @@ def step_impl(context):
     """
     For the first step we setup the APIClient
     """
-    world.client = APIClient(
-        "http://test_host",
-        username="username",
-        password="password")
+    with mock.patch('requests.post') as jwt_requests_post:
+        jwt_requests_post.return_value = TestHelpers.APIHelperCallAPI(
+            TestHelpers.JWT_TOKEN_RESPONSE)
+        world.client = APIClient(
+            "http://test_host",
+            username="username",
+            password="password")
 
 
 @step("we call all the different possible methods in the entities")
