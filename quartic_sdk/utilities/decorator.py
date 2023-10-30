@@ -7,6 +7,21 @@ import quartic_sdk.utilities.constants as Constants
 
 
 def save_token(token):
+    """
+    Save a token to a file.
+
+    This function creates the necessary directory structure and saves the provided token to a file.
+
+    Args:
+        token (str): The token to be saved.
+
+    Returns:
+        None
+
+    Raises:
+        None
+    """
+    os.makedirs(os.path.dirname(Constants.TOKEN_FILE), exist_ok=True)
     # Save token
     with open(Constants.TOKEN_FILE, 'w') as token_file:
         token_file.write(token)
@@ -15,6 +30,22 @@ def save_token(token):
 
 
 def request_new_token(refresh_token, host):
+    """
+    Request a new access token using a refresh token.
+
+    This function sends a request to the specified host's refresh token endpoint to obtain a new access token.
+    It includes the provided refresh token in the request data.
+
+    Args:
+        refresh_token (str): The refresh token used to obtain a new access token. If None, the request will fail.
+        host (str): The base URL of the host where the refresh token request will be sent.
+
+    Returns:
+        str: The new access token obtained from the response.
+
+    Raises:
+        PermissionError: If the refresh token has expired or if any other error occurs during the token request.
+    """
     try:
         headers = {'Content-Type': 'application/json',
                    'Accept': 'application/json'}
@@ -40,6 +71,23 @@ def request_new_token(refresh_token, host):
 
 
 def authenticate_with_tokens(func):
+    """
+    Decorator to handle token expiration and refresh for API authentication.
+
+    This decorator checks for the existence of a token file, reads the stored access token, and attempts
+    to refresh the token if it has expired. It updates the token file with the new access token and retries
+    the original API call with the refreshed token if necessary.
+
+    Args:
+        func (callable): The function to decorate.
+
+    Returns:
+        callable: The decorated function.
+
+    Raises:
+        Exception: If the token file does not exist or if any other error occurs during token management.
+        PermissionError: If the access token is missing in the token file.
+    """
     def wrapper(self, *args, **kwargs):
         try:
             # Check if the token file exists
