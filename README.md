@@ -36,14 +36,32 @@ Here's an example on how the Quartic SDK can be used:
 
 from quartic_sdk import APIClient
 
-client = APIClient("https://test.quartic.ai/", username="testuser", password="testpassword")
-user_assets = client.assets() # Get the list of all assets that the user has access to
+retry_count = 2  # Number of times to retry the code
+retry_delay = 5  # Delay in seconds between retries
 
-asset = user_assets.get("name","Test Asset") # Get a specific asset with the name "Test Asset"
-asset_tags = asset.get_tags() # Gets the list of all tags
+while retry_count > 0:
+    try:
+        client = APIClient("https://test.quartic.ai/", username="testuser", password="testpassword")
+        user_assets = client.assets()  # Get the list of all assets that the user has access to
 
-first_tag=asset_tags.first() # Returns the first in the list of tags
-first_tag_data_iterator=first_tag.data(start_time=1000000,stop_time=2000000) # Returns the data present in the first tag for the time range of 1000000 to 2000000
+        asset = user_assets.get("name", "Test Asset")  # Get a specific asset with the name "Test Asset"
+        asset_tags = asset.get_tags()  # Gets the list of all tags
+
+        first_tag = asset_tags.first()  # Returns the first in the list of tags
+        first_tag_data_iterator = first_tag.data(start_time=1000000, stop_time=2000000)  # Returns the data present in the first tag for the time range of 1000000 to 2000000
+
+        # If the code reaches here without exceptions, break out of the loop
+        break
+    except PermissionError:
+      # If the refresh token expires, this error is thrown and recreation of client is needed to update the tokens
+        retry_count -= 1
+        if retry_count > 0:
+            print(f"PermissionError: Retrying in {retry_delay} seconds...")
+            time.sleep(retry_delay)
+        else:
+          # If still the error persist, the password might have been changed
+            print("PermissionError: Maximum retries reached. Exiting.")
+            break
 
 ```
 
