@@ -56,9 +56,9 @@ class APIHelper:
         Get OAuth headers
         """
         return {
-            "Authorization": "Bearer " + self.configuration.oauth_token,
+            "Authorization": f"Bearer {self.configuration.oauth_token}",
             "Content-Type": "application/json",
-            "Accept": "application/json"
+            "Accept": "application/json",
         }
 
     @authenticate_with_tokens
@@ -72,7 +72,7 @@ class APIHelper:
         """
         request_url = self.configuration.host + url
         for path_param in path_params:
-            request_url += str(path_param) + "/"
+            request_url += f"{str(path_param)}/"
 
         if self.configuration.auth_type == Constants.BASIC:
             headers={
@@ -101,7 +101,7 @@ class APIHelper:
         """
         request_url = self.configuration.host + url
         for path_param in path_params:
-            request_url += str(path_param) + "/"
+            request_url += f"{str(path_param)}/"
         if self.configuration.auth_type == Constants.BASIC:
             headers = {
                 'Content-Type': 'application/json', 
@@ -171,13 +171,13 @@ class APIHelper:
         if not os.path.exists(TOKEN_FILE):
             headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
             response = requests.post(
-                self.configuration.host + "/accounts/tokens/",
+                f"{self.configuration.host}/accounts/tokens/",
                 json={
                     "username": self.configuration.username,
-                    "password": self.configuration.password
+                    "password": self.configuration.password,
                 },
                 headers=headers,
-                verify=self.can_verify_ssl_certificate()
+                verify=self.can_verify_ssl_certificate(),
             )
             if response.status_code != 200:
                 raise PermissionError('Error while Login and generating token')

@@ -54,12 +54,12 @@ def request_new_token(refresh_token, host):
                    'Accept': 'application/json'}
         if refresh_token:
             response = requests.post(
-                url=host + "/api/token/refresh/",
+                url=f"{host}/api/token/refresh/",
                 method_type=Constants.API_POST,
                 data={
                     "refresh": refresh_token,
                 },
-                headers=headers
+                headers=headers,
             )
             # Check if the login was successful
             if response.status_code == 401:
