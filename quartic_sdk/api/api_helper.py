@@ -3,7 +3,7 @@ import os
 import json
 from quartic_sdk.utilities.configuration import Configuration
 import quartic_sdk.utilities.constants as Constants
-from quartic_sdk.utilities.decorator import authenticate_with_tokens,save_token
+from quartic_sdk.utilities.decorator import authenticate_with_tokens,save_token, TOKEN_FILE
 
 
 class APIHelper:
@@ -168,10 +168,10 @@ class APIHelper:
             PermissionError: If there is an error during the authentication process or if the response status
                             code indicates an issue.
         """
-        if not os.path.exists(Constants.TOKEN_FILE):
+        if not os.path.exists(TOKEN_FILE):
             headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
             response = requests.post(
-                self.configuration.host + Constants.GENERATE_TOKEN,
+                self.configuration.host + "/accounts/tokens/",
                 json={
                     "username": self.configuration.username,
                     "password": self.configuration.password
@@ -179,7 +179,6 @@ class APIHelper:
                 headers=headers,
                 verify=self.can_verify_ssl_certificate()
             )
-            print(f'{response.status_code=}')
             if response.status_code != 200:
                 raise PermissionError('Error while Login and generating token')
             token_dict = {
@@ -190,6 +189,6 @@ class APIHelper:
             save_token(new_token)
         else:
             # Read the stored token
-            with open(Constants.TOKEN_FILE, 'r') as token_file:
+            with open(TOKEN_FILE, 'r') as token_file:
                 token_dict = json.loads(token_file.read())
         self.access_token = token_dict['access_token']

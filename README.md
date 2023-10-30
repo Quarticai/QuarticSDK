@@ -35,6 +35,21 @@ Here's an example on how the Quartic SDK can be used:
 # then use APIClient in the following format.
 
 from quartic_sdk import APIClient
+client = APIClient("https://test.quartic.ai/", username="testuser", password="testpassword")
+user_assets = client.assets() # Get the list of all assets that the user has access to
+
+asset = user_assets.get("name","Test Asset") # Get a specific asset with the name "Test Asset"
+asset_tags = asset.get_tags() # Gets the list of all tags
+
+first_tag=asset_tags.first() # Returns the first in the list of tags
+first_tag_data_iterator=first_tag.data(start_time=1000000,stop_time=2000000) # Returns the data present in the first tag for the time range of 1000000 to 2000000
+
+# If jwt auth expires the above code will throw Permission Error
+
+# Another way to handle this is using retry mechanism which on permission error will handle the recreation of client.
+# It is mentioned as below
+
+from quartic_sdk import APIClient
 
 retry_count = 2  # Number of times to retry the code
 retry_delay = 5  # Delay in seconds between retries

@@ -45,8 +45,6 @@ API_PUT = "PUT"
 API_DELETE = "DELETE"
 
 # API calls
-REFRESH_TOKEN = "/api/token/refresh/"
-GENERATE_TOKEN = "/accounts/tokens/"
 GET_ASSETS = "/api/v1/asset/"
 GET_CONTEXT_FRAME_DEFINITIONS = "/api/v1/context_frame_definitions/"
 GET_EDGE_CONNECTORS = "/api/v1/edge_connector/"
@@ -220,5 +218,3 @@ AND = '12'
 OR = '13'
 
 MAX_BATCH_SIZE_FOR_PAGINATED_QUERY = 20_000
-
-TOKEN_FILE = os.path.expanduser('~/.quartic/token.txt')
