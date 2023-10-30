@@ -81,6 +81,7 @@ def authenticate_with_tokens(func):
 
             return response
         except Exception as e:
-            print("Error authenticating:", str(e))
+            print("Error authenticating:", e)
             return None
+
     return wrapper
