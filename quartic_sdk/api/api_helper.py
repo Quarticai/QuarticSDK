@@ -168,10 +168,7 @@ class APIHelper:
             PermissionError: If there is an error during the authentication process or if the response status
                             code indicates an issue.
         """
-        # Read the stored token
-        with open(Constants.TOKEN_FILE, 'r') as token_file:
-            token_dict = json.loads(token_file.read())
-        if not token_dict:
+        if not os.path.exists(Constants.TOKEN_FILE):
             headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
             response = requests.post(
                 self.configuration.host + Constants.GENERATE_TOKEN,
@@ -184,7 +181,14 @@ class APIHelper:
             )
             if response.status_code != 200:
                 raise PermissionError('Error while Login and generating token')
-            access_token = response.json().get('access')
-            refresh_token = response.json().get('refresh')
-            new_token = json.dumps({"access_token":access_token,"refresh_token":refresh_token})
+            token_dict = {
+                'access_token' : response.json().get('access'),
+                'refresh_token' : response.json().get('refresh')
+                }
+            new_token = json.dumps(token_dict)
             save_token(new_token)
+        else:
+            # Read the stored token
+            with open(Constants.TOKEN_FILE, 'r') as token_file:
+                token_dict = json.loads(token_file.read())
+        self.access_token = token_dict['access_token']
