@@ -8,7 +8,6 @@ onnx==1.9.0
 pamela==1.0.0
 patsy==0.5.1
 plotly==4.14.3
-py4j==0.10.9.1
 pyaml==20.4.0
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
@@ -95,3 +94,4 @@ psutil==5.9.4
 pyzmq==22.0.2
 cycler==0.12.1
 executing==1.2.0
+py4j==0.10.9.7
