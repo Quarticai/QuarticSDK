@@ -168,7 +168,7 @@ class APIHelper:
             PermissionError: If there is an error during the authentication process or if the response status
                             code indicates an issue.
         """
-        if not os.path.exists(TOKEN_FILE):
+        if not os.path.exists(f'{TOKEN_FILE}/{self.configuration.username}/token.txt'):
             headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
             response = requests.post(
                 self.configuration.host + "/accounts/tokens/",
@@ -186,9 +186,9 @@ class APIHelper:
                 'refresh_token' : response.json().get('refresh')
                 }
             new_token = json.dumps(token_dict)
-            save_token(new_token)
+            save_token(new_token, self.configuration.username)
         else:
             # Read the stored token
-            with open(TOKEN_FILE, 'r') as token_file:
+            with open(f'{TOKEN_FILE}/{self.configuration.username}/token.txt', 'r') as token_file:
                 token_dict = json.loads(token_file.read())
         self.access_token = token_dict['access_token']

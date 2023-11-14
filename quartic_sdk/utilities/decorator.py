@@ -6,10 +6,10 @@ import requests
 import quartic_sdk.utilities.constants as Constants
 from pathlib import Path
 
-TOKEN_FILE = os.getenv("TOKEN_FILE_PATH",Path.home() / ".quartic" / "token.txt")
+TOKEN_FILE = os.getenv("TOKEN_FILE_PATH",Path.home() / ".quartic")
 
 
-def save_token(token):
+def save_token(token, user_identification_string):
     """
     Save a token to a file.
 
@@ -24,9 +24,9 @@ def save_token(token):
     Raises:
         None
     """
-    os.makedirs(os.path.dirname(TOKEN_FILE), exist_ok=True)
+    os.makedirs(os.path.dirname(f'{TOKEN_FILE}/{user_identification_string}/token.txt'), exist_ok=True)
     # Save token
-    with open(TOKEN_FILE, 'w') as token_file:
+    with open(f'{TOKEN_FILE}/{user_identification_string}/token.txt', 'w') as token_file:
         token_file.write(token)
 
 # Function to request a new token (You need to implement this)
@@ -55,7 +55,6 @@ def request_new_token(refresh_token, host):
         if refresh_token:
             response = requests.post(
                 url=host + "/api/token/refresh/",
-                method_type=Constants.API_POST,
                 data={
                     "refresh": refresh_token,
                 },
@@ -94,11 +93,11 @@ def authenticate_with_tokens(func):
     def wrapper(self, *args, **kwargs):
         try:
             # Check if the token file exists
-            if not os.path.exists(TOKEN_FILE):
+            if not os.path.exists(f'{TOKEN_FILE}/{self.configuration.username}/token.txt'):
                 raise Exception("Token file does not exist. ")
 
             # Read the stored token
-            with open(TOKEN_FILE, 'r') as token_file:
+            with open(f'{TOKEN_FILE}/{self.configuration.username}/token.txt', 'r') as token_file:
                 token_dict = json.loads(token_file.read())
 
             # Extract access token from the token dictionary
@@ -124,7 +123,7 @@ def authenticate_with_tokens(func):
                 token_dict['access_token'] = self.access_token
 
                 # Save the updated token dictionary back to the token file
-                with open(TOKEN_FILE, 'w') as new_token_file:
+                with open(f'{TOKEN_FILE}/{self.configuration.username}/token.txt', 'w') as new_token_file:
                     new_token_file.write(json.dumps(token_dict))
 
                 # Retry the original API call with the new access token

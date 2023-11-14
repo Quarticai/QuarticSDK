@@ -15,7 +15,7 @@ from quartic_sdk.api.api_helper import APIHelper
 from quartic_sdk.utilities.constants import OAUTH, BASIC
 from quartic_sdk.utilities.exceptions import IncorrectAuthTypeException
 import quartic_sdk.utilities.constants as Constants
-from quartic_sdk.utilities.decorator import save_token, TOKEN_FILE
+from quartic_sdk.utilities.decorator import save_token, TOKEN_FILE, authenticate_with_tokens
 
 SCHEMA_REGEX = re.compile(r"(?:(?:https?)://)")
 
@@ -73,7 +73,11 @@ class GraphqlClient:
         """
         _client_opts = {}
         if self.username and self.password:
-            _client_opts['headers'] = {'Authorization': f"Bearer {self.access_token}"}
+           _opts = {
+                'login': self.username,
+                'password': self.password
+            }
+           _client_opts['auth'] = aiohttp.BasicAuth(**_opts)
         elif self.token:
             _client_opts['headers'] = {'Authorization': f"Bearer {self.token}"}
         else:
@@ -101,11 +105,13 @@ class GraphqlClient:
             raise AttributeError(f'url {self.url} is incorrect')
         return __graphql_url
 
+    @authenticate_with_tokens
     async def __execute__query(self, query: str, variables: dict = None):
         """
         Execute query
         """
         _client = await self._get_client()
+        _client.headers.update({"Authorization": f'Bearer {self.access_token}'})
         async with _client as session:
             graphql_client = AioGraphQLClient(
                 self.__graphql_url, session=session)
@@ -178,7 +184,7 @@ class GraphqlClient:
             PermissionError: If there is an error during the authentication process or if the response status
                             code indicates an issue.
         """
-        if not os.path.exists(TOKEN_FILE):
+        if not os.path.exists(f'{TOKEN_FILE}/{self.username}/token.txt'):
             headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
             response = requests.post(
                 self.url + "/accounts/tokens/",
@@ -196,10 +202,10 @@ class GraphqlClient:
                 'refresh_token' : response.json().get('refresh')
                 }
             new_token = json.dumps(token_dict)
-            save_token(new_token)
+            save_token(new_token, self.username)
         else:
             # Read the stored token
-            with open(TOKEN_FILE, 'r') as token_file:
+            with open(f'{TOKEN_FILE}/{self.username}/token.txt', 'r') as token_file:
                 token_dict = json.loads(token_file.read())
         self.access_token = token_dict['access_token']
 
