@@ -149,5 +149,3 @@ def step_impl(context):
 
     with mock.patch('requests.post') as requests_post4:
         requests_post4.return_value = APIHelperCallAPI(ASSET_DATA_POST.copy())
-        for first_asset_data_with_correct_transformation_json in world.first_asset_data_with_correct_transformation_json:
-            assert(first_asset_data_with_correct_transformation_json, dict)
