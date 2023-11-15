@@ -3,7 +3,7 @@ import os
 import json
 from quartic_sdk.utilities.configuration import Configuration
 import quartic_sdk.utilities.constants as Constants
-from quartic_sdk.utilities.decorator import authenticate_with_tokens,save_token, TOKEN_FILE
+from quartic_sdk.utilities.decorator import authenticate_with_tokens,save_token, get_and_save_token
 
 
 class APIHelper:
@@ -17,7 +17,7 @@ class APIHelper:
         """
         self.configuration = Configuration.get_configuration(
             host, username, password, oauth_token, cert_path, verify_ssl, gql_host)
-        self.__get_and_save_token()
+        self.access_token = get_and_save_token(host,username,password,verify_ssl)
 
     def can_verify_ssl_certificate(self):
         """
@@ -150,45 +150,3 @@ class APIHelper:
         :param: body:
         """
         raise NotImplementedError
-    
-    def __get_and_save_token(self):
-        """
-        Get a new access token and refresh token from the authentication endpoint and save them.
-
-        This method sends a POST request to the authentication endpoint with the provided username and password
-        to obtain a new access token and refresh token. It then saves these tokens to a file.
-
-        Args:
-            None
-
-        Returns:
-            None
-
-        Raises:
-            PermissionError: If there is an error during the authentication process or if the response status
-                            code indicates an issue.
-        """
-        if not os.path.exists(f'{TOKEN_FILE}/{self.configuration.username}/token.txt'):
-            headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
-            response = requests.post(
-                self.configuration.host + "/accounts/tokens/",
-                json={
-                    "username": self.configuration.username,
-                    "password": self.configuration.password
-                },
-                headers=headers,
-                verify=self.can_verify_ssl_certificate()
-            )
-            if response.status_code != 200:
-                raise PermissionError('Error while Login and generating token')
-            token_dict = {
-                'access_token' : response.json().get('access'),
-                'refresh_token' : response.json().get('refresh')
-                }
-            new_token = json.dumps(token_dict)
-            save_token(new_token, self.configuration.username)
-        else:
-            # Read the stored token
-            with open(f'{TOKEN_FILE}/{self.configuration.username}/token.txt', 'r') as token_file:
-                token_dict = json.loads(token_file.read())
-        self.access_token = token_dict['access_token']
