@@ -2,11 +2,51 @@ import json
 import os
 
 import requests
+from urllib.parse import urljoin
+import traceback
 
-import quartic_sdk.utilities.constants as Constants
-from pathlib import Path
+TOKEN_FILE = os.getenv("TOKEN_FILE_PATH","/tmp/.quartic")
 
-TOKEN_FILE = os.getenv("TOKEN_FILE_PATH",Path.home() / ".quartic")
+def get_and_save_token(host,username,password,verify_ssl):
+        """
+        Get a new access token and refresh token from the authentication endpoint and save them.
+        This method sends a POST request to the authentication endpoint with the provided username and password
+        to obtain a new access token and refresh token. It then saves these tokens to a file.
+        Args:
+            host
+            username
+            password
+            verify_ssl
+        Returns:
+            access_token
+        Raises:
+            PermissionError: If there is an error during the authentication process or if the response status
+                            code indicates an issue.
+        """
+        if not os.path.exists(f'{TOKEN_FILE}/{username}/token.txt'):
+            headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+            response = requests.post(
+                urljoin(host ,"/accounts/tokens/"),
+                json={
+                    "username": username,
+                    "password": password
+                },
+                headers=headers,
+                verify=verify_ssl
+            )
+            if response.status_code != 200:
+                raise PermissionError('Error while Login and generating token')
+            token_dict = {
+                'access_token' : response.json().get('access'),
+                'refresh_token' : response.json().get('refresh')
+                }
+            new_token = json.dumps(token_dict)
+            save_token(new_token, username)
+        else:
+            # Read the stored token
+            with open(f'{TOKEN_FILE}/{username}/token.txt', 'r') as token_file:
+                token_dict = json.loads(token_file.read())
+        return token_dict['access_token']
 
 
 def save_token(token, user_identification_string):
@@ -131,7 +171,7 @@ def authenticate_with_tokens(func):
 
             return response
         except Exception as e:
-            print("Error authenticating:", e)
+            traceback.print_exc()
             return None
 
     return wrapper
