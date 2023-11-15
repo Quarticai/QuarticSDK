@@ -1,4 +1,3 @@
-import os
 
 # Authentication types
 OAUTH = 1
