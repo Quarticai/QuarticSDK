@@ -1,4 +1,3 @@
-
 # Authentication types
 OAUTH = 1
 BASIC = 2
