@@ -15,7 +15,7 @@ from quartic_sdk.api.api_helper import APIHelper
 from quartic_sdk.utilities.constants import OAUTH, BASIC
 from quartic_sdk.utilities.exceptions import IncorrectAuthTypeException
 import quartic_sdk.utilities.constants as Constants
-from quartic_sdk.utilities.decorator import save_token, authenticate_with_tokens, get_and_save_token
+from quartic_sdk.utilities.decorator import save_token, async_authenticate_with_tokens, get_and_save_token
 
 SCHEMA_REGEX = re.compile(r"(?:(?:https?)://)")
 
@@ -67,21 +67,14 @@ class GraphqlClient:
         """
         return __version__
 
+    @async_authenticate_with_tokens
     async def _get_client(self) -> aiohttp.ClientSession:
         """
         Get aiohttp client session object.
         """
         _client_opts = {}
-        if self.username and self.password:
-           _opts = {
-                'login': self.username,
-                'password': self.password
-            }
-           _client_opts['auth'] = aiohttp.BasicAuth(**_opts)
-        elif self.token:
-            _client_opts['headers'] = {'Authorization': f"Bearer {self.token}"}
-        else:
-            raise AttributeError('Authentication method not found')
+        
+        _client_opts['headers'] = {'Authorization': f"Bearer {self.access_token}"}
 
         if self.timeout:
             if isinstance(self.timeout, aiohttp.ClientTimeout):
@@ -105,17 +98,16 @@ class GraphqlClient:
             raise AttributeError(f'url {self.url} is incorrect')
         return __graphql_url
 
-    @authenticate_with_tokens
     async def __execute__query(self, query: str, variables: dict = None):
         """
         Execute query
         """
         _client = await self._get_client()
-        _client.headers.update({"Authorization": f'Bearer {self.access_token}'})
         async with _client as session:
             graphql_client = AioGraphQLClient(
                 self.__graphql_url, session=session)
             _response = await graphql_client.execute(query, variables=variables)
+            _response.raise_for_status()
             response = await _response.json()
         return response
 
