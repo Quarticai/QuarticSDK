@@ -43,7 +43,7 @@ class GraphqlClient:
             raise AttributeError('Need to provide password')
         if password and not username:
             raise AttributeError('Need to provide username')
-        if not password and not username and not token:
+        if not password and not token:
             raise AttributeError(
                 'Need to provide either username and password or oauth token')
         self.url = url
@@ -72,9 +72,7 @@ class GraphqlClient:
         """
         Get aiohttp client session object.
         """
-        _client_opts = {}
-        
-        _client_opts['headers'] = {'Authorization': f"Bearer {self.access_token}"}
+        _client_opts = {'headers': {'Authorization': f"Bearer {self.access_token}"}}
 
         if self.timeout:
             if isinstance(self.timeout, aiohttp.ClientTimeout):
@@ -122,7 +120,7 @@ class GraphqlClient:
             loop = asyncio.new_event_loop()
             asyncio.set_event_loop(loop)
             return loop.run_until_complete(self.__execute__query(query, variables))
-        except (RuntimeError, Exception) as e:
+        except Exception as e:
             self.logger.error(f"Error occurred = {e}")
 
     async def execute_async_query(self, query: str, variables: dict = None):
@@ -134,7 +132,7 @@ class GraphqlClient:
         """
         try:
             return await self.__execute__query(query, variables)
-        except (RuntimeError, Exception) as e:
+        except Exception as e:
             self.logger.error(f"Error occurred = {e}")
 
     @staticmethod
