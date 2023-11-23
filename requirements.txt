@@ -6,7 +6,7 @@
 #
 aiogqlc==2.2.0
     # via -r requirements.in
-aiohttp==3.8.1
+aiohttp==3.8.6
     # via
     #   -r requirements.in
     #   aiogqlc
@@ -50,6 +50,7 @@ beautifulsoup4==4.12.2
 cachecontrol[filecache]==0.12.6
     # via
     #   -r requirements.in
+    #   cachecontrol
     #   sphinx-toolbox
 cachetools==5.2.0
     # via
@@ -89,7 +90,9 @@ decorator==5.1.1
     #   ipython
     #   validators
 dict2css==0.3.0.post1
-    # via sphinx-toolbox
+    # via
+    #   -r requirements.in
+    #   sphinx-toolbox
 docutils==0.17.1
     # via
     #   -r requirements.in
@@ -105,7 +108,9 @@ domdf-python-tools==3.7.0
 entrypoints==0.4
     # via jupyter-client
 exceptiongroup==1.2.0
-    # via ipython
+    # via
+    #   -r requirements.in
+    #   ipython
 executing==1.2.0
     # via
     #   -r requirements.in
@@ -402,7 +407,9 @@ urllib3==1.26.6
 validators==0.18.2
     # via -r requirements.in
 wcwidth==0.2.12
-    # via prompt-toolkit
+    # via
+    #   -r requirements.in
+    #   prompt-toolkit
 webencodings==0.5.1
     # via html5lib
 wrapt==1.12.1
