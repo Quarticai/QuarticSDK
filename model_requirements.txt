@@ -367,7 +367,7 @@ pyasn1-modules==0.2.8
     #   google-auth
 pycurl==7.43.0.6
     # via -r model_requirements.in
-pygments==2.17.1
+pygments==2.17.2
     # via
     #   -r model_requirements.in
     #   ipython
