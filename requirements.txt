@@ -88,7 +88,7 @@ decorator==5.1.1
     # via
     #   ipython
     #   validators
-dict2css==0.3.0
+dict2css==0.3.0.post1
     # via sphinx-toolbox
 docutils==0.17.1
     # via
