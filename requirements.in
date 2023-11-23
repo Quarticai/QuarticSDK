@@ -70,3 +70,4 @@ cycler==0.12.1
 executing==1.2.0
 py4j==0.10.9.7
 wcwidth==0.2.11
+exceptiongroup==1.2.0
