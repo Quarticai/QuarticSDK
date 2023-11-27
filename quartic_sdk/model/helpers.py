@@ -51,6 +51,25 @@ class Validation(object):
             raise InvalidPredictionException("Prediction result for with window model must be int/float/None")
 
     @classmethod
+    def validate_model(cls, model, test_df):
+        """
+        Validates the model for size and performance
+        :param model:   Instance of BaseQuarticModel
+        :param test_df: Test dataframe
+        """
+        performance_test_df = ModelUtils.get_performance_test_df(test_df)
+        prediction_result, processing_time = cls.get_model_prediction_and_time(model, performance_test_df)
+
+        if not hasattr(model,'_BaseQuarticModel__window_duration') or \
+            not model._BaseQuarticModel__window_duration or \
+            not  hasattr(model.predict, '__wrapped__'):
+            cls.validate_prediction_output(prediction_result)
+        else:
+            cls.validate_window_prediction_output(prediction_result)    
+        if processing_time > MAX_PREDICTION_PROCESSING_TIME:
+            raise InvalidPredictionException("Prediction takes longer than expected..., Cannot be deployed.")
+    
+    @classmethod
     def validate_expression(cls, model, test_df):
         results = model.evaluate(test_df)
 
