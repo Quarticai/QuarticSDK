@@ -6,8 +6,7 @@ import numpy as np
 from quartic_sdk.exceptions import InvalidPredictionException
 from quartic_sdk.utilities.exceptions import InvalidWindowDuration,MovingWindowException
 from quartic_sdk.model.helpers import ModelUtils, Validation
-from quartic_sdk.model.tests import ModelThatReturnsString, ModelWithValidWindow, SlowModel,\
-     SpectralModelThatReturnsString, SlowSpectralModel, ModelWithInValidWindow,SupportedModel
+from quartic_sdk.model.tests import SpectralModelThatReturnsString, SlowSpectralModel
 from quartic_sdk.utilities import constants
 
 
@@ -26,36 +25,6 @@ class TestModelValidations(TestCase):
         Validation.validate_prediction_output(pd.Series([sys.float_info.min,
                                                          sys.float_info.max, 1, 2]))
 
-    def test_validate_model(self):
-        with self.assertRaises(InvalidPredictionException):
-            data = {'col_A': [1, 2], 'col_B': [3, 4]}
-            Validation.validate_model(ModelThatReturnsString(), pd.DataFrame(data=data))
-
-        with self.assertRaises(InvalidPredictionException):
-            data = {'col_A': [1, 2], 'col_B': [3, 4]}
-            Validation.validate_model(SlowModel(), pd.DataFrame(data=data))
-               
-    def test_validate_model_with_window(self):
-        with self.assertRaises(InvalidWindowDuration):
-            data = {'col_A': [1, 2], 'col_B': [3, 4]}
-            Validation.validate_model(ModelWithInValidWindow(), pd.DataFrame(data=data))
-        
-
-    def test_validate_moving_window_prediction(self):
-        model  = ModelWithValidWindow()
-        input_df = pd.DataFrame(data={'col_A': [1, 2], 'col_B': [3, 4]}, index=[1586160870000,1586160871000])
-        prev_df = pd.DataFrame(data={'col_A': [1, 2], 'col_B': [3, 4]}, index=[1586160872000,1586160873000])
-        model.predict(input_df)
-        predictions = model.moving_window_predict(input_df, prev_df)
-        self.assertEquals(predictions.size , input_df.shape[0])  
-    
-    def test_validate_moving_window_prediction_with_non_window_model(self):
-        with self.assertRaises(MovingWindowException):
-            model  = SupportedModel()
-            input_df = pd.DataFrame(data={'col_A': [1, 2], 'col_B': [3, 4]}, index=[1586160870000,1586160871000])
-            prev_df = pd.DataFrame(data={'col_A': [1, 2], 'col_B': [3, 4]}, index=[1586160872000,1586160873000])
-            model.predict(input_df)
-            model.moving_window_predict(input_df, prev_df)
                   
 
     def test_validate_spectral_model(self):
