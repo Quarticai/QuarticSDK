@@ -38,7 +38,7 @@ class SupportedSpectralModel(BaseSpectralModel):
         super().__init__("test_spectral_model")
 
     def predict(self, input_df: pd.DataFrame) -> pd.Series:
-        return pd.Series([i for i in range(input_df.shape[0])])
+        return pd.Series(list(range(input_df.shape[0])))
 
 class SpectralModelThatReturnsString(BaseSpectralModel):
     """
@@ -54,7 +54,7 @@ class SpectralModelThatReturnsString(BaseSpectralModel):
         return data
 
     def predict(self, input_df: pd.DataFrame) -> pd.Series:
-        output = pd.Series([i for i in range(input_df.shape[0])])
+        output = pd.Series(list(range(input_df.shape[0])))
         return self.post_transform(output)
 
 class SlowSpectralModel(BaseSpectralModel):
@@ -78,4 +78,4 @@ class SlowSpectralModel(BaseSpectralModel):
             sample prediction
         """
         self.pre_transform(input_df)
-        return pd.Series([i for i in range(input_df.shape[0])])
+        return pd.Series(list(range(input_df.shape[0])))
