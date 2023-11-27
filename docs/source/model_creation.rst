@@ -9,7 +9,7 @@ spectral tag wavelengths as the feature variables.
 This article explains how to create, wrap, and deploy both kinds of models to the
 Quartic AI Platform.
 
-BaseQuarticModel
+BaseQuarticModel(Deprecated. Please use BaseReckonExpression)
 ----------------
 
 BaseQuarticModel is a base class for all the ML models that can be deployed to
