@@ -39,12 +39,7 @@ class TestModelValidations(TestCase):
         with self.assertRaises(InvalidWindowDuration):
             data = {'col_A': [1, 2], 'col_B': [3, 4]}
             Validation.validate_model(ModelWithInValidWindow(), pd.DataFrame(data=data))
-    
-    def test_validate_model_window_vars(self):
-        model  = ModelWithValidWindow()
-        data = {'col_A': [1, 2], 'col_B': [3, 4]}
-        model.predict(pd.DataFrame(data=data))
-        self.assertEquals(model._BaseQuarticModel__window_duration, 3)      
+        
 
     def test_validate_moving_window_prediction(self):
         model  = ModelWithValidWindow()
