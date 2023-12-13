@@ -99,4 +99,4 @@ wcwidth==0.2.12
 exceptiongroup==1.2.0
 dict2css==0.3.0.post1
 importlib-metadata==7.0.0
-prompt-toolkit==3.0.41
+prompt-toolkit==3.0.42
