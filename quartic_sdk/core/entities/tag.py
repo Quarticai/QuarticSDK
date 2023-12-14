@@ -54,7 +54,7 @@ class Tag(Base):
             sampling_ratio=1,
             return_type=Constants.RETURN_PANDAS,
             batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS,
-            wavelengths = {},
+            wavelengths = [],
             transformations=[]):
         """
         Get the data for the given tag between the start_time and the stop_time
