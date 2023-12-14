@@ -153,9 +153,11 @@ class TagDataIterator:
 
         if self.return_type == Constants.RETURN_JSON:
             return tag_data_return["data"]
-        return_dataframe = pd.DataFrame(
-            tag_data_return["data"]["data"], index=tag_data_return["data"]["index"], columns=tag_data_return["data"]["columns"])
-        return return_dataframe
+        return pd.DataFrame(
+            tag_data_return["data"]["data"],
+            index=tag_data_return["data"]["index"],
+            columns=tag_data_return["data"]["columns"],
+        )
 
     @classmethod
     def create_tag_data_iterator(
