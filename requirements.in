@@ -40,6 +40,7 @@ autodocsumm>=0.2.0
 cachecontrol[filecache]==0.12.6
 docutils==0.17.1
 ipykernel==6.25.2
+ipynbname==2023.2.0.0
 jupyter-client==7.2.0
 msgpack==1.0.2
 yarl==1.8.2
