@@ -93,6 +93,8 @@ class BaseReckonExpression(metaclass=abc.ABCMeta):
         try:
             res = client.execute_query(graphQLQuery, variables)
             self.log.info(res)
+            if not res['data']['TagexpressionCreate']['ok']:
+                raise Exception(res['data']['TagexpressionCreate']['errors'])
             self.log.info("Successfully saved the model to Quartic Platform")
         except HTTPError as ex:
             raise Exception(f"Failed to Save model: {ex.response.content.decode()}")
