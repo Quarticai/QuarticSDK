@@ -36,7 +36,7 @@ class BaseReckonExpression(metaclass=abc.ABCMeta):
 
     def save(self, client, output_tag_name: str,
              needs: List[int], asset: int, is_streaming: bool,
-               tag_category: str, test_df: pd.DataFrame):
+               tag_category: str, test_df: pd.DataFrame, update: bool = False):
         """
 
         :param client:          Quartic GraphQLClient
@@ -47,11 +47,33 @@ class BaseReckonExpression(metaclass=abc.ABCMeta):
         :param tag_category:    Tag Category
         :param test_df:         Test input dataframe to validate input and
                                 prediction output in agreement with Quartic AI Platform
-        :param ml_node:         Optional - Ml Node Id if deployment of model needs to be done to specific node
+        :param update:          Optional - Update the model if already exists
         :return:                None on successfully storing the model to the Quartic AI Platform
         """
         from quartic_sdk import GraphqlClient
         assert isinstance(client, GraphqlClient)
+        try:
+            graphQLQueryGetModel = """
+                query MyQuery($asset: ID!, $name: String!) {
+                    TagExpression(asset: $asset, tag_ShortName_Iexact: $name) {
+                        id
+                    }
+                }
+            """
+            get_result = client.execute_query(graphQLQueryGetModel, {"asset": asset, "name": output_tag_name})
+            if get_result['data']['TagExpression'] and get_result['data']['TagExpression'][0]['id']:
+                self.log.warning(f"Model with name {output_tag_name} with TagExpression id {get_result['data']['TagExpression'][0]['id']} already exists.")
+                if not update:
+                    self.log.exception("To update the model, please add argument update=True when calling the save method")
+                    return
+                else:
+                    self.log.info("Updating the model")
+                
+        except HTTPError as ex:
+            raise Exception(f"Failed while trying to check if model already exists: {ex.response.content.decode()}")
+        except Exception as ex:
+            self.log.warning(f"Failed while trying to check if model already exists: {ex}")
+
 
         test_df = ModelUtils.get_performance_test_df(test_df)
         model_pkl = ModelUtils.get_pickled_object(self)
