@@ -106,18 +106,20 @@ class Asset(Base):
         :return: (DataIterator) DataIterator object which can be iterated to get the data
             between the given duration
         """
+        print("Inside asset data")
         tags = self.get_tags().exclude(
             tag_data_type=Constants.TAG_DATA_TYPES[Constants.SPECTRAL])
+        print(f'{tags=}')
         logging.info("Filtering to fetch data only for non-spectral tags")
         return TagDataIterator.create_tag_data_iterator(
-            tags,
-            start_time,
-            stop_time,
-            self.api_helper,
-            sampling_ratio,
-            return_type,
-            batch_size,
-            transformations)
+            tags=tags,
+            start_time=start_time,
+            stop_time=stop_time,
+            api_helper=self.api_helper,
+            sampling_ratio=sampling_ratio,
+            return_type=return_type,
+            batch_size=batch_size,
+            transformations=transformations)
 
     def __getattribute__(self, name):
         """

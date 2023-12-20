@@ -86,8 +86,15 @@ class EdgeConnector(Base):
             between the given duration
         """
         tags = self.get_tags()
-        return TagDataIterator.create_tag_data_iterator(tags, start_time, stop_time, self.api_helper,
-                                                        sampling_ratio, return_type, batch_size, transformations)
+        return TagDataIterator.create_tag_data_iterator(
+            tags=tags,
+            start_time=start_time,
+            stop_time=stop_time,
+            api_helper=self.api_helper,
+            sampling_ratio=sampling_ratio,
+            return_type=return_type,
+            batch_size=batch_size,
+            transformations=transformations)
 
     def __getattribute__(self, name):
         """

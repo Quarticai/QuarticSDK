@@ -81,7 +81,7 @@ class TagDataIterator:
         :param tags: List of tag ids
         :return: (None) Does not return anything, raises exception if validation fails
         """
-
+        print(f'{transformations=}')
         agg_transformation = [transformation for transformation in transformations if transformation.get(
             "transformation_type") == "aggregation"]
         if len(agg_transformation) > 1:
@@ -206,21 +206,21 @@ class TagDataIterator:
 
         TagDataIterator.raise_exception_for_transformation_schema(
             transformations, tags)
-        body_json = {
-            "tags": [],
-            "start_time": start_time,
-            "stop_time": stop_time,
-            "sampling_ratio": sampling_ratio,
-            "wavelengths": wavelengths,
-            "transformations": transformations,
-            "batch_size": batch_size
-        }
+        # body_json = {
+        #     "tags": [],
+        #     "start_time": start_time,
+        #     "stop_time": stop_time,
+        #     "sampling_ratio": sampling_ratio,
+        #     "wavelengths": wavelengths,
+        #     "transformations": transformations,
+        #     "batch_size": batch_size
+        # }
         if tags.count() == 0:
             raise Exception("There are no tags to fetch data of")
-        tag_data_response = api_helper.call_api(
-            Constants.RETURN_TAG_DATA,
-            Constants.API_POST,
-            body=body_json).json()
+        # tag_data_response = api_helper.call_api(
+        #     Constants.RETURN_TAG_DATA,
+        #     Constants.API_POST,
+        #     body=body_json).json()
         return TagDataIterator(
             tags=tags,
             start_time=start_time,

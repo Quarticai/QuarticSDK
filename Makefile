@@ -23,7 +23,7 @@ clean-cache:
 clean: clean-dist clean-cache
 
 test:
-	 pytest -s && aloe
+	 pytest -s && aloe -v
 
 build: clean
 	python setup.py sdist bdist_wheel

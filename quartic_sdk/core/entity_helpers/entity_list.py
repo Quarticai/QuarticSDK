@@ -187,11 +187,11 @@ class EntityList:
         """
         assert self._class_type == Constants.TAG_ENTITY
         return TagDataIterator.create_tag_data_iterator(
-            self,
-            start_time,
-            stop_time,
-            self.first().api_helper,
-            sampling_ratio,
-            return_type,
-            batch_size,
-            transformations)
+            tags=self,
+            start_time=start_time,
+            stop_time=stop_time,
+            api_helper=self.first().api_helper,
+            sampling_ratio=sampling_ratio,
+            return_type=return_type,
+            batch_size=batch_size,
+            transformations=transformations)
