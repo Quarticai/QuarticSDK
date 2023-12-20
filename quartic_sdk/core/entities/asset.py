@@ -110,14 +110,14 @@ class Asset(Base):
             tag_data_type=Constants.TAG_DATA_TYPES[Constants.SPECTRAL])
         logging.info("Filtering to fetch data only for non-spectral tags")
         return TagDataIterator.create_tag_data_iterator(
-            tags,
-            start_time,
-            stop_time,
-            self.api_helper,
-            sampling_ratio,
-            return_type,
-            batch_size,
-            transformations)
+            tags=tags,
+            start_time=start_time,
+            stop_time=stop_time,
+            api_helper=self.api_helper,
+            sampling_ratio=sampling_ratio,
+            return_type=return_type,
+            batch_size=batch_size,
+            transformations=transformations)
 
     def __getattribute__(self, name):
         """
