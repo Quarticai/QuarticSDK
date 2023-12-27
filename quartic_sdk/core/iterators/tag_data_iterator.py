@@ -67,8 +67,7 @@ class TagDataIterator:
         self.return_type = return_type
         self.wavelengths = wavelengths
         self._transformations = transformations
-        self._cursor = None
-        self._data_call_state = 0
+        self.offset_map = {}
 
     @staticmethod
     def raise_exception_for_transformation_schema(transformations, tags):
@@ -116,7 +115,8 @@ class TagDataIterator:
             "sampling_ratio": self.sampling_ratio,
             "wavelengths" : self.wavelengths,
             "transformations": self._transformations,
-            "batch_size": self.batch_size
+            "batch_size": self.batch_size,
+            "offset_map": self.offset_map
         }
 
     def __iter__(self):
@@ -131,32 +131,25 @@ class TagDataIterator:
         Get the next object in the iteration.
         Note that the return object is inclusive of time ranges
         """
-        if self._data_call_state == 0:
+        if self._data_call_state == 1:
+            self._data_call_state = 0
+            raise StopIteration
+        else:
             body_json = self.create_post_data()
             tag_data_return = self.api_helper.call_api(
                 Constants.RETURN_TAG_DATA, Constants.API_POST, body=body_json).json()
-            self._data_call_state = 1
-        else:
-            body_json = self.create_post_data()
-            body_json.update({'offset': self.offset})
-            tag_data_return = self.api_helper.call_api(
-                url=Constants.RETURN_TAG_DATA_CURSOR,
-                method_type=Constants.API_POST,
-                body=body_json).json()
-        if self._data_call_state != 0 and (
-            not tag_data_return or (tag_data_return.get('data') and
-                                    len(tag_data_return['data']['data']) < body_json['batch_size'])):
-            self._data_call_state = 0
-            raise StopIteration
-        self.offset = tag_data_return.get("offset", 0)
+            if not tag_data_return or (tag_data_return.get('data') and
+                                        len(tag_data_return['data']['data']) < body_json['batch_size']):
+                self._data_call_state = 1
+            self.offset_map = tag_data_return.get("offset_map", {})
 
-        if self.return_type == Constants.RETURN_JSON:
-            return tag_data_return["data"]
-        return pd.DataFrame(
-            tag_data_return["data"]["data"],
-            index=tag_data_return["data"]["index"],
-            columns=tag_data_return["data"]["columns"],
-        )
+            if self.return_type == Constants.RETURN_JSON:
+                return tag_data_return["data"]
+            return pd.DataFrame(
+                tag_data_return["data"]["data"],
+                index=tag_data_return["data"]["index"],
+                columns=tag_data_return["data"]["columns"],
+            )
 
     @classmethod
     def create_tag_data_iterator(

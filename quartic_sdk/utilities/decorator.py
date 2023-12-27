@@ -96,7 +96,7 @@ def request_new_token(refresh_token, host,user_identification_string):
         if refresh_token:
             response = requests.post(
                 url=host + "/api/token/refresh/",
-                data={
+                json={
                     "refresh": refresh_token,
                 },
                 headers=headers
