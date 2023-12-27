@@ -17,9 +17,6 @@ from quartic_sdk.utilities.test_helpers import (
     JWT_TOKEN_RESPONSE
 )
 import quartic_sdk.utilities.constants as Constants
-import logging
-
-logging.basicConfig(level=logging.INFO)
 
 
 @step("we have successfully set up client to test asset data flow")
@@ -27,11 +24,9 @@ def step_impl(context):
     """
     For the first step we setup the APIClient
     """
-    logging.info("First step")
     with mock.patch('requests.post') as jwt_requests_post:
         jwt_requests_post.return_value = APIHelperCallAPI(
             JWT_TOKEN_RESPONSE)
-        logging.info(f'{jwt_requests_post=}')
         world.client = APIClient(
             "http://test_host",
             username="username",
@@ -44,7 +39,6 @@ def step_impl(context):
     Now we call the different internal methods and save their values
     internally in the world parameter
     """
-    logging.info("Test Start")
     with mock.patch('requests.get') as requests_get:
         requests_get.return_value = APIHelperCallAPI(ASSET_LIST_GET)
 
