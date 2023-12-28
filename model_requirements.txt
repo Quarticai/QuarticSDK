@@ -4,8 +4,6 @@
 #
 #    pip-compile --find-links=https://download.pytorch.org/whl/torch_stable.html --pre model_requirements.in
 #
---find-links https://download.pytorch.org/whl/torch_stable.html
-
 absl-py==2.0.0
     # via
     #   tensorboard
@@ -58,6 +56,7 @@ beautifulsoup4==4.12.2
 cachecontrol[filecache]==0.12.6
     # via
     #   -r model_requirements.in
+    #   cachecontrol
     #   sphinx-toolbox
 cachetools==5.2.0
     # via
@@ -101,7 +100,9 @@ decorator==5.1.1
     #   ipython
     #   validators
 dict2css==0.3.0.post1
-    # via sphinx-toolbox
+    # via
+    #   -r model_requirements.in
+    #   sphinx-toolbox
 docutils==0.17.1
     # via
     #   -r model_requirements.in
@@ -117,7 +118,9 @@ domdf-python-tools==3.7.0
 entrypoints==0.4
     # via jupyter-client
 exceptiongroup==1.2.0
-    # via ipython
+    # via
+    #   -r model_requirements.in
+    #   ipython
 executing==1.2.0
     # via
     #   -r model_requirements.in
@@ -166,8 +169,10 @@ idna==3.4
     #   yarl
 imagesize==1.4.1
     # via sphinx
-importlib-metadata==6.8.0
-    # via markdown
+importlib-metadata==7.0.0
+    # via
+    #   -r model_requirements.in
+    #   markdown
 iniconfig==2.0.0
     # via pytest
 ipykernel==6.25.2
@@ -330,8 +335,10 @@ pluggy==0.13.1
     # via
     #   -r model_requirements.in
     #   pytest
-prompt-toolkit==3.0.41
-    # via ipython
+prompt-toolkit==3.0.42
+    # via
+    #   -r model_requirements.in
+    #   ipython
 protobuf==3.20.3
     # via
     #   -r model_requirements.in
@@ -593,14 +600,16 @@ umap-learn==0.4.1
     # via -r model_requirements.in
 unidecode==1.3.7
     # via sphinx-autoapi
-urllib3==1.26.6
+urllib3==1.26.18
     # via
     #   -r model_requirements.in
     #   requests
 validators==0.18.2
     # via -r model_requirements.in
 wcwidth==0.2.12
-    # via prompt-toolkit
+    # via
+    #   -r model_requirements.in
+    #   prompt-toolkit
 webencodings==0.5.1
     # via html5lib
 werkzeug==3.0.1
