@@ -74,7 +74,7 @@ def save_token(token, user_identification_string):
 
 
 def request_new_token(refresh_token, host,user_identification_string):
-    """
+        """
     Request a new access token using a refresh token.
 
     This function sends a request to the specified host's refresh token endpoint to obtain a new access token.
@@ -90,26 +90,26 @@ def request_new_token(refresh_token, host,user_identification_string):
     Raises:
         PermissionError: If the refresh token has expired or if any other error occurs during the token request.
     """
-    try:
-        headers = {'Content-Type': 'application/json',
-                   'Accept': 'application/json'}
-        if refresh_token:
-            response = requests.post(
-                url=host + "/api/token/refresh/",
-                json={
-                    "refresh": refresh_token,
-                },
-                headers=headers
-            )
-            # Check if the login was successful
-            if response.status_code == 401:
-                # Extract the access token and refresh token from the response cookies
-                os.remove(f'{TOKEN_FILE}/{user_identification_string}/token.txt')
-                raise PermissionError(
-                    'Refresh token has expired. Please recreate APIClient')
-        return response.json().get('access')
-    except Exception as e:
-        raise e
+        try:
+                headers = {'Content-Type': 'application/json',
+                           'Accept': 'application/json'}
+                if refresh_token:
+                        response = requests.post(
+                            url=f"{host}/api/token/refresh/",
+                            json={
+                                "refresh": refresh_token,
+                            },
+                            headers=headers,
+                        )
+                        # Check if the login was successful
+                        if response.status_code == 401:
+                            # Extract the access token and refresh token from the response cookies
+                            os.remove(f'{TOKEN_FILE}/{user_identification_string}/token.txt')
+                            raise PermissionError(
+                                'Refresh token has expired. Please recreate APIClient')
+                return response.json().get('access')
+        except Exception as e:
+            raise e
 
 # Decorator function to handle token expiration and refresh
 
