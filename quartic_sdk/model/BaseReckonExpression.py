@@ -76,8 +76,9 @@ class BaseReckonExpression(metaclass=abc.ABCMeta):
 
 
         test_df = ModelUtils.get_performance_test_df(test_df)
-        model_pkl = ModelUtils.get_pickled_object(self)
         Validation.validate_expression(self, test_df)
+        model_pkl = ModelUtils.get_pickled_object(self)
+        
         assert sys.getsizeof(model_pkl) <= constants.MAX_MODEL_SIZE, \
             f"model can't be more than {constants.MAX_MODEL_SIZE}MB"
 
@@ -172,7 +173,7 @@ class BaseReckonExpression(metaclass=abc.ABCMeta):
             start_ts = int(index) - self.__window_duration * 1000
             df_to_predict = window_df.loc[(window_df.index >= start_ts) & (window_df.index <= int(index))]
             prediction = self.evaluate.__wrapped__(self, df_to_predict)
-            if prediction:
+            if not prediction.empty:
                 predictions.loc[index] = prediction
 
         
