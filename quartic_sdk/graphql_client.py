@@ -67,7 +67,7 @@ class GraphqlClient:
         """
         return __version__
 
-    @async_authenticate_with_tokens
+    
     async def _get_client(self) -> aiohttp.ClientSession:
         """
         Get aiohttp client session object.
@@ -83,6 +83,7 @@ class GraphqlClient:
                 _client_opts.update(
                     timeout=aiohttp.ClientTimeout(total=self.timeout))
         _client_opts['connector'] = aiohttp.TCPConnector(ssl=self.verify_ssl)
+        _client_opts['raise_for_status'] = True
         return aiohttp.ClientSession(**_client_opts)
 
     def _get_graphql_url(self) -> str:
@@ -97,7 +98,8 @@ class GraphqlClient:
         if not result.scheme or not result.netloc:
             raise AttributeError(f'url {self.url} is incorrect')
         return __graphql_url
-
+    
+    @async_authenticate_with_tokens
     async def __execute__query(self, query: str, variables: dict = None):
         """
         Execute query
