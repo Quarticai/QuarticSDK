@@ -7,7 +7,6 @@ from aloe import step, world
 from quartic_sdk import APIClient
 from quartic_sdk.core.entities import Tag, Asset
 from quartic_sdk.core.entity_helpers.entity_list import EntityList
-from quartic_sdk.core.iterators.tag_data_iterator import TagDataIterator
 from quartic_sdk.utilities.test_helpers import (
     APIHelperCallAPI,
     ASSET_LIST_GET,
@@ -78,12 +77,6 @@ def step_impl(context):
     """
     assert isinstance(world.first_tag, Tag)
     assert world.first_tag.id == TAG_LIST_GET[0]["id"]
-
-    assert isinstance(world.tag_data_without_transformation, TagDataIterator)
-
-    assert isinstance(
-        world.tag_data_with_correct_transformation,
-        TagDataIterator)
 
     with pytest.raises(Exception):
         test_transformation2 = [{

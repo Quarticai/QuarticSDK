@@ -7,7 +7,6 @@ from aloe import step, world
 from quartic_sdk import APIClient
 from quartic_sdk.core.entities import Tag, Asset
 from quartic_sdk.core.entity_helpers.entity_list import EntityList
-from quartic_sdk.core.iterators.tag_data_iterator import TagDataIterator
 from quartic_sdk.utilities.test_helpers import (
     APIHelperCallAPI,
     ASSET_LIST_GET,
@@ -119,34 +118,20 @@ def step_impl(context):
     assert isinstance(world.first_asset, Asset)
     assert world.first_asset.id == ASSET_LIST_GET[0]["id"]
 
-    assert isinstance(world.first_asset_data_pd, TagDataIterator)
-
     with mock.patch('requests.post') as requests_post1:
         requests_post1.return_value = APIHelperCallAPI(ASSET_DATA_POST.copy())
-        for first_asset_data_pd in world.first_asset_data_pd:
-            assert isinstance(first_asset_data_pd, pd.DataFrame)
+        assert isinstance(world.first_asset_data_pd, pd.DataFrame)
 
     with mock.patch('requests.post') as requests_post2:
         requests_post2.return_value = APIHelperCallAPI(ASSET_DATA_POST.copy())
-        for first_asset_data_json in world.first_asset_data_json:
-            assert isinstance(first_asset_data_json, dict)
-
-    assert isinstance(
-        world.first_asset_data_with_correct_transformation_pd,
-        TagDataIterator)
+        assert isinstance(world.first_asset_data_json, dict)
 
     with mock.patch('requests.post') as requests_post3:
         requests_post3.return_value = APIHelperCallAPI(ASSET_DATA_POST.copy())
-        for first_asset_data_with_correct_transformation_pd in world.first_asset_data_with_correct_transformation_pd:
-            assert isinstance(
-                first_asset_data_with_correct_transformation_pd,
+        assert isinstance(
+                world.first_asset_data_with_correct_transformation_pd,
                 pd.DataFrame)
-
-    assert isinstance(
-        world.first_asset_data_with_correct_transformation_json,
-        TagDataIterator)
 
     with mock.patch('requests.post') as requests_post4:
         requests_post4.return_value = APIHelperCallAPI(ASSET_DATA_POST.copy())
-        for first_asset_data_with_correct_transformation_json in world.first_asset_data_with_correct_transformation_json:
-            assert isinstance(first_asset_data_with_correct_transformation_json, dict)
+        assert isinstance(world.first_asset_data_with_correct_transformation_json, dict)

@@ -28,6 +28,7 @@ class APIHelper:
             verify = self.configuration.cert_path
         return verify
 
+    @authenticate_with_tokens
     def call_api(self, url, method_type, path_params=[], query_params={}, body={}):
         """
         Call the API at the given url
@@ -61,7 +62,6 @@ class APIHelper:
             "Accept": "application/json"
         }
 
-    @authenticate_with_tokens
     def __http_get_api(self, url, path_params=[], query_params={}, body={}):
         """
         The method makes a GET call via the requests module
@@ -90,7 +90,6 @@ class APIHelper:
                 request_url, params=query_params, headers=headers, verify=self.can_verify_ssl_certificate()
             )
 
-    @authenticate_with_tokens
     def __http_post_api(self, url, path_params=[], query_params={}, body={}):
         """
         The method makes a POST call via the requests module

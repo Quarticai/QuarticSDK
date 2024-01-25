@@ -7,7 +7,6 @@ from aloe import step, world
 from quartic_sdk import APIClient
 from quartic_sdk.core.entities import Tag, Asset
 from quartic_sdk.core.entity_helpers.entity_list import EntityList
-from quartic_sdk.core.iterators.tag_data_iterator import TagDataIterator
 from quartic_sdk.utilities.test_helpers import (
     APIHelperCallAPI,
     ASSET_LIST_GET,
@@ -92,25 +91,15 @@ def step_impl(context):
     with pytest.raises(Exception):
         world.tag_list.add(world.first_asset)
 
-    assert isinstance(world.tag_list_data_pd, TagDataIterator)
+    with mock.patch('requests.post') as requests_post:
+        requests_post.return_value = APIHelperCallAPI(
+            TAG_LIST_DATA_POST.copy())
+        assert isinstance(world.tag_list_data_pd, pd.DataFrame)
 
     with mock.patch('requests.post') as requests_post:
         requests_post.return_value = APIHelperCallAPI(
             TAG_LIST_DATA_POST.copy())
-        for tag_data in world.tag_list_data_pd:
-            assert isinstance(tag_data, pd.DataFrame)
-
-    assert isinstance(world.tag_list_data_json, TagDataIterator)
-
-    with mock.patch('requests.post') as requests_post:
-        requests_post.return_value = APIHelperCallAPI(
-            TAG_LIST_DATA_POST.copy())
-        for tag_data in world.tag_list_data_json:
-            assert isinstance(tag_data, dict)
-
-    assert isinstance(
-        world.first_asset_data_with_correct_transformation,
-        TagDataIterator)
+        assert isinstance(world.tag_list_data_json, dict)
 
     with pytest.raises(Exception):
         test_transformation2 = [{

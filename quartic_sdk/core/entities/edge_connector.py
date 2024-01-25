@@ -55,7 +55,7 @@ class EdgeConnector(Base):
         return HistoricalTagDataIterator(tags, self.id, start_time, stop_time, self.api_helper, batch_size, max_records,
             return_type)
 
-    def data(self, start_time, stop_time, sampling_ratio=1, return_type=Constants.RETURN_PANDAS, batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS, transformations=[]):
+    def data(self, start_time, stop_time, sampling_value=1500, return_type=Constants.RETURN_PANDAS, transformations=[]):
         """
         Get the data of all tags in the edge connector between the given start_time and
         stop_time for the given sampling_ratio
@@ -86,14 +86,13 @@ class EdgeConnector(Base):
             between the given duration
         """
         tags = self.get_tags()
-        return TagDataIterator.create_tag_data_iterator(
+        return TagDataIterator.get_tag_data(
             tags=tags,
             start_time=start_time,
             stop_time=stop_time,
             api_helper=self.api_helper,
-            sampling_ratio=sampling_ratio,
+            sampling_value=sampling_value,
             return_type=return_type,
-            batch_size=batch_size,
             transformations=transformations)
 
     def __getattribute__(self, name):

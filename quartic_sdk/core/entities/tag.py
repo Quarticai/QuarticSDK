@@ -51,9 +51,8 @@ class Tag(Base):
             self,
             start_time,
             stop_time,
-            sampling_ratio=1,
+            sampling_value=1500,
             return_type=Constants.RETURN_PANDAS,
-            batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS,
             wavelengths = [],
             transformations=[]):
         """
@@ -94,18 +93,17 @@ class Tag(Base):
             raise IncorrectTagParameterException( "Invalid parameters : Wavelengths are only supported with spectral tag type")                    
         if wavelengths:
             Tag.raise_exception_for_wavelegths(wavelengths)
-        return TagDataIterator.create_tag_data_iterator(
-            EntityList(
+        return TagDataIterator.get_tag_data(
+            tags=EntityList(
                 Constants.TAG_ENTITY,
                 [self]),
-            start_time,
-            stop_time,
-            self.api_helper,
-            sampling_ratio,
-            return_type,
-            batch_size,
-            wavelengths,
-            transformations)
+            start_time=start_time,
+            stop_time=stop_time,
+            api_helper=self.api_helper,
+            sampling_value=sampling_value,
+            return_type=return_type,
+            wavelengths=wavelengths,
+            transformations=transformations)
 
     def wavelengths(self, start_time=None, stop_time=None):
         """

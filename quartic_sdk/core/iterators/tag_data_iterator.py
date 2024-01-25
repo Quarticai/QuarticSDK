@@ -209,3 +209,68 @@ class TagDataIterator:
             return_type=return_type,
             wavelengths = wavelengths,
             transformations=transformations)
+
+    @classmethod
+    def get_tag_data(
+            cls,
+            tags,
+            start_time,
+            stop_time,
+            api_helper,
+            sampling_value=1500,
+            return_type=Constants.RETURN_PANDAS,
+            wavelengths = [],
+            transformations=[]):
+        """
+        The method gets the tag data based upon the parameters that are passed here
+        :param start_time: (epoch) Start_time for getting data
+        :param stop_time: (epoch) Stop_time for getting data
+        :param sampling_ratio: sampling_ratio of the data
+        :param return_type: The param decides whether the data after querying will be
+            json(when value is "json") or pandas dataframe(when value is "pd"). By default,
+            it takes the value as "json"
+        :param wavelengths: dict containing list of wavelengths(string) as value with key "wavelengths"
+            Used for getting data for a spectral tag for specified wavelengths. 
+            An example value here is:
+            {"wavelengths:['1460000.0','1460001.0']}                                
+        :param transformations: Refers to the list of transformations. It supports either
+            interpolation or aggregation, depending upon which, we pass the value of this
+            dictionary. If `transformation_type` is "aggregation", an optional key can be
+            passed called `aggregation_timestamp`, which determines how the timestamp information
+            will be retained after aggregation. Valid options are "first", "last" or "discard". By
+            default, the last timestamp in each group will be retained.
+            An example value here is:
+            [{
+                "transformation_type": "interpolation",
+                "column": "3",
+                "method": "linear"
+            }, {
+                "transformation_type": "aggregation",
+                "aggregation_column": "4",
+                "aggregation_dict": {"3": "max"},
+                "aggregation_timestamp": "last",
+            }]
+        :return: (DataIterator) DataIterator object which can be iterated to get the data
+            between the given duration
+        """
+        TagDataIterator.raise_exception_for_transformation_schema(
+            transformations, tags)
+        if tags.count() == 0:
+            raise Exception("There are no tags to fetch data of")
+        body_json = {
+            "tags": [tag.id for tag in tags.all()],
+            "start_time": start_time,
+            "stop_time": stop_time,
+            "sampling_value": sampling_value,
+            "wavelengths" : wavelengths,
+            "transformations": transformations
+        }
+        tag_data_return = api_helper.call_api(
+                Constants.RETURN_TAG_DATA, Constants.API_POST, body=body_json).json()
+        if return_type == Constants.RETURN_JSON:
+                return tag_data_return["data"]
+        return pd.DataFrame(
+            tag_data_return["data"]["data"],
+            index=tag_data_return["data"]["index"],
+            columns=tag_data_return["data"]["columns"],
+        )
