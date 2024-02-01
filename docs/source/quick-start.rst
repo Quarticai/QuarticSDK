@@ -51,7 +51,7 @@ corresponding time in epoch would be 1609439400000 and 1609525800000.
     asset_tags = asset.get_tags()
     feature_tags = [tag.id for tag in asset_tags[:5]]
     target_tag = asset_tags.last().id
-    asset_data = asset.data(start_time=1609439400000, stop_time=1609525800000)
+    asset_data = asset.data(start_time=1609439400000, stop_time=1609525800000) # This will get downsampled data
 
 Step 4
 ---------
