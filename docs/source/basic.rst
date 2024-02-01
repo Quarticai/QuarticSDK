@@ -398,10 +398,9 @@ The method parameters as included in v2.0.0 are as follows:
 .data
 ~~~~~
 
-The method returns the tag data iterator for all the tags present in the
-asset for the set ``start_time`` and ``stop_time``. It can be used to
-iterate through the data in batches of 200,000 datapoints. More details
-are provided under the ``TagDataIterator`` subsection.
+The method returns the downsampled tag data for all the tags present in the
+asset for the set ``start_time`` and ``stop_time``. Using ``sampling_value``
+parameter you can control the downsampled points.
 
 The method parameters are as follows:
 
@@ -409,12 +408,10 @@ The method parameters are as follows:
    ``start_time`` for fetching the data of the asset.
 -  **stop\_time (mandatory)**: (epoch) This refers to the ``stop_time``
    for fetching the data of the asset.
--  **granularity (optional)**: This refers to the granularity at which
-   data is required. If the granularity provided, the method returns the
-   data in the tag for the given time range with the lower of the
-   closest possible granularity: Raw (granularity of the datasource),
-   5s, 30s, 60s, 300s, 1200s, 3600s, 10800s, 21600s, 43200s or 86400s.
-   The default granularity is Raw.
+-  **sampling_value (optional)**: This refers to the sampling_value at which
+   the downsampled data is required. If the sampling_value provided, the method returns the
+   data in the tag for the given time range with the datapoints equal to sampling_value.
+   The default sampling_value is 1500.
 -  **return\_type (optional)**: The user can pass either ``pd``, which
    will return the pandas dataframe iterator, or ``json`` which will
    return json object on return. This value takes the ``pd`` value as
@@ -514,21 +511,18 @@ The available methods are as follows:
 .data
 ~~~~~
 
-The method returns the tagdata iterator for the selected tag for the set
-``start_time`` and ``stop_time``, which can be used to iterate through
-the data in batches of 200,000 datapoints. More details under the
-``TagDataIterator`` subsection. The method parameters are as follows:
+The method returns the downsampled tagdata for the selected tag for the set
+``start_time`` and ``stop_time``,Using ``sampling_value``
+parameter you can control the downsampled points. The method parameters are as follows:
 
 -  **start\_time (mandatory)**: (epoch) Refers to the ``start_time`` for
    fetching the data of the asset.
 -  **stop\_time (mandatory)**: (epoch) Refers to the ``stop_time`` for
    fetching the data of the asset.
--  **granularity (optional)**: This refers to the granularity at which
-   data is required. If the granularity provided, the method returns the
-   data in the tag for the given time range with the lower of the
-   closest possible granularity: Raw (granularity of the datasource),
-   5s, 30s, 60s, 300s, 1200s, 3600s, 10800s, 21600s, 43200s or 86400s.
-   The default granularity is Raw.
+-  **sampling_value (optional)**: This refers to the sampling_value at which
+   the downsampled data is required. If the sampling_value provided, the method returns the
+   data in the tag for the given time range with the datapoints equal to sampling_value.
+   The default sampling_value is 1500.
 -  **return\_type (optional)**: The user can pass either ``pd``, which
    will return the pandas dataframe iterator, or ``json`` which will
    return json object on return. This value takes the ``pd`` value as
@@ -646,10 +640,9 @@ of ``EntityList`` where each object refers to ``Tag``.
 .data
 ~~~~~
 
-The method returns the tag data iterator for all the tags present in the
-datasource for the set ``start_time`` and ``stop_time``. It can be used to
-iterate through the data in batches of 200,000 datapoints. More details
-are provided under the ``TagDataIterator`` subsection.
+The method returns the downsampled tag data for all the tags present in the
+datasource for the set ``start_time`` and ``stop_time``. Using ``sampling_value``
+parameter you can control the downsampled points.
 
 The method parameters are as follows:
 
@@ -657,12 +650,10 @@ The method parameters are as follows:
    ``start_time`` for fetching the data of the datasource.
 -  **stop\_time (mandatory)**: (epoch) This refers to the ``stop_time``
    for fetching the data of the data ource.
--  **granularity (optional)**: This refers to the granularity at which
-   data is required. If the granularity provided, the method returns the
-   data in the tag for the given time range with the lower of the
-   closest possible granularity: Raw (granularity of the datasource),
-   5s, 30s, 60s, 300s, 1200s, 3600s, 10800s, 21600s, 43200s or 86400s.
-   The default granularity is Raw.
+-  **sampling_value (optional)**: This refers to the sampling_value at which
+   the downsampled data is required. If the sampling_value provided, the method returns the
+   data in the tag for the given time range with the datapoints equal to sampling_value.
+   The default sampling_value is 1500.
 -  **return\_type (optional)**: The user can pass either ``pd``, which
    will return the pandas dataframe iterator, or ``json`` which will
    return json object on return. This value takes the ``pd`` value as
@@ -882,19 +873,17 @@ It takes the same arguments as ``.filter`` above but negates the conditions to e
 ~~~~~
 
 This method is present only for the ``Tag`` type EntityList, and it
-returns the data present in the given tags. It returns a TagDataIterator
-instance, and has the following parameters:
+returns the data present in the given tags. It returns downsampled 
+data for given tags, and has the following parameters:
 
 -  **start\_time (mandatory)**: (epoch) Refers to the ``start_time`` for
    fetching the data of the asset.
 -  **stop\_time (mandatory)**: (epoch) Refers to the ``stop_time`` for
    fetching the data of the asset.
--  **granularity (optional)**: This refers to the granularity at which
-   data is required. If granularity is provided, the method returns the
-   data in the tag for the given time range with the lower of the
-   closest possible granularity: Raw (granularity of the datasource),
-   5s, 30s, 60s, 300s, 1200s, 3600s, 10800s, 21600s, 43200s or 86400s.
-   The default granularity is Raw.
+-  **sampling_value (optional)**: This refers to the sampling_value at which
+   the downsampled data is required. If the sampling_value provided, the method returns the
+   data in the tag for the given time range with the datapoints equal to sampling_value.
+   The default sampling_value is 1500.
 -  **return\_type (optional)**: The user can pass either ``pd``, which
    will return the pandas dataframe iterator, or ``json`` which will
    return json object on return. This value takes the ``pd`` value as
@@ -903,16 +892,14 @@ instance, and has the following parameters:
    of interpolations and aggregations here. Further details on
    transformations is provided towards the end of this documentation.
 
-TagDataIterator
+TagData
 ------------------
 
-Querying data for any set of tags in any given duration returns an
-instance of ``TagDataIterator``, which can be used to iterate between
-the given time range. When the ``.data`` of tags/assets is called, the
-method divides the complete interval between ``start_time`` and
-``stop_time`` into different time\_ranges, with each range containing up
-to 200,000 data points for all the tags. The user can loop through this
-interval to get all the data points.
+Querying data for any set of tags in any given duration returns downsampled
+tag data.Using ``sampling_value`` parameter you can control the downsampled 
+points. When the ``.data`` of tags/assets is called, the
+method queries for data between ``start_time`` and ``stop_time`` 
+and downsample the data points for all the tags for given ``sampling_value``.
 
 HistoricalTagDataIterator
 -------------------------

@@ -1,14 +1,12 @@
 
-import json
 import pandas as pd
 import quartic_sdk.utilities.constants as Constants
 from quartic_sdk.utilities.exceptions import IncorrectTransformationException
 
 
-class TagDataIterator:
+class TagData:
     """
-    The given class is the iterator class, which will be used to iterate
-    for getting the tag data values at the given intervals
+    This helper class is used for getting tag data by calling tagdata cursor api
     """
 
     def __init__(
@@ -16,14 +14,13 @@ class TagDataIterator:
             tags,
             start_time,
             stop_time,
-            batch_size,
             api_helper,
-            sampling_ratio=1,
-            return_type=Constants.RETURN_JSON,
+            sampling_value=1500,
+            return_type=Constants.RETURN_PANDAS,
             wavelengths = [],
             transformations=[]):
         """
-        We initialize the iterator with the given parameters
+        We initialize the class with the given parameters
         :param tags: (BaseEntityList) Refers to the instance of BaseEntityList with
                 each containing tags as the individual items
         :param start_time: (epoch) Start time of the query
@@ -31,8 +28,7 @@ class TagDataIterator:
         :param count: Count of time ranges in this interval with each interval
                 containing 200,000 points
         :param api_helper: (APIHelper) APIHelper class object
-        :param cursor: Pagination cursor string
-        :param sampling_ratio: The sampling_ratio at which the tag data is queried
+        :param sampling_value: The sampling_value at which the tag data is queried
         :param return_type: The param decides whether the data after querying will be
             json(when value is "json") or pandas dataframe(when value is "pd"). By default,
             it takes the value as "json"
@@ -55,15 +51,14 @@ class TagDataIterator:
             }]
         """
 
-        TagDataIterator.raise_exception_for_transformation_schema(
+        TagData.raise_exception_for_transformation_schema(
             transformations, tags)
 
-        self.batch_size = batch_size
         self.tags = tags
         self.start_time = start_time
         self.stop_time = stop_time
         self.api_helper = api_helper
-        self.sampling_ratio = sampling_ratio
+        self.sampling_value = sampling_value
         self.return_type = return_type
         self.wavelengths = wavelengths
         self._transformations = transformations
@@ -103,112 +98,6 @@ class TagDataIterator:
             else:
                 raise IncorrectTransformationException(
                     "Invalid transformations : transformation_type is invalid")
-
-    def create_post_data(self):
-        """
-        We create the required post data which will be used for making the POST call
-        """
-        return {
-            "tags": [tag.id for tag in self.tags.all()],
-            "start_time": self.start_time,
-            "stop_time": self.stop_time,
-            "sampling_ratio": self.sampling_ratio,
-            "wavelengths" : self.wavelengths,
-            "transformations": self._transformations,
-            "batch_size": self.batch_size,
-            "offset_map": self.offset_map
-        }
-
-    def __iter__(self):
-        """
-        Return the data iterator with the data fetch state set at 0
-        """
-        self._data_call_state = 0
-        return self
-
-    def __next__(self):
-        """
-        Get the next object in the iteration.
-        Note that the return object is inclusive of time ranges
-        """
-        if self._data_call_state == 1:
-            self._data_call_state = 0
-            raise StopIteration
-        else:
-            body_json = self.create_post_data()
-            tag_data_return = self.api_helper.call_api(
-                Constants.RETURN_TAG_DATA, Constants.API_POST, body=body_json).json()
-            if not tag_data_return or (tag_data_return.get('data') and
-                                        len(tag_data_return['data']['data']) < body_json['batch_size']):
-                self._data_call_state = 1
-            self.offset_map = tag_data_return.get("offset_map", {})
-
-            if self.return_type == Constants.RETURN_JSON:
-                return tag_data_return["data"]
-            return pd.DataFrame(
-                tag_data_return["data"]["data"],
-                index=tag_data_return["data"]["index"],
-                columns=tag_data_return["data"]["columns"],
-            )
-
-    @classmethod
-    def create_tag_data_iterator(
-            cls,
-            tags,
-            start_time,
-            stop_time,
-            api_helper,
-            sampling_ratio=1,
-            return_type=Constants.RETURN_PANDAS,
-            batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS,
-            wavelengths = [],
-            transformations=[]):
-        """
-        The method creates the TagDataIterator instance based upon the parameters that are passed here
-        :param start_time: (epoch) Start_time for getting data
-        :param stop_time: (epoch) Stop_time for getting data
-        :param sampling_ratio: sampling_ratio of the data
-        :param return_type: The param decides whether the data after querying will be
-            json(when value is "json") or pandas dataframe(when value is "pd"). By default,
-            it takes the value as "json"
-        :param wavelengths: dict containing list of wavelengths(string) as value with key "wavelengths"
-            Used for getting data for a spectral tag for specified wavelengths. 
-            An example value here is:
-            {"wavelengths:['1460000.0','1460001.0']}                                
-        :param transformations: Refers to the list of transformations. It supports either
-            interpolation or aggregation, depending upon which, we pass the value of this
-            dictionary. If `transformation_type` is "aggregation", an optional key can be
-            passed called `aggregation_timestamp`, which determines how the timestamp information
-            will be retained after aggregation. Valid options are "first", "last" or "discard". By
-            default, the last timestamp in each group will be retained.
-            An example value here is:
-            [{
-                "transformation_type": "interpolation",
-                "column": "3",
-                "method": "linear"
-            }, {
-                "transformation_type": "aggregation",
-                "aggregation_column": "4",
-                "aggregation_dict": {"3": "max"},
-                "aggregation_timestamp": "last",
-            }]
-        :return: (DataIterator) DataIterator object which can be iterated to get the data
-            between the given duration
-        """
-        TagDataIterator.raise_exception_for_transformation_schema(
-            transformations, tags)
-        if tags.count() == 0:
-            raise Exception("There are no tags to fetch data of")
-        return TagDataIterator(
-            tags=tags,
-            start_time=start_time,
-            stop_time=stop_time,
-            api_helper=api_helper,
-            batch_size=batch_size,
-            sampling_ratio=sampling_ratio,
-            return_type=return_type,
-            wavelengths = wavelengths,
-            transformations=transformations)
 
     @classmethod
     def get_tag_data(
@@ -253,7 +142,7 @@ class TagDataIterator:
         :return: (DataIterator) DataIterator object which can be iterated to get the data
             between the given duration
         """
-        TagDataIterator.raise_exception_for_transformation_schema(
+        cls.raise_exception_for_transformation_schema(
             transformations, tags)
         if tags.count() == 0:
             raise Exception("There are no tags to fetch data of")

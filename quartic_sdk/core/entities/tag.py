@@ -3,7 +3,7 @@ The given file contains the class to refer to the tag entity
 """
 from quartic_sdk.core.entities.base import Base
 import quartic_sdk.utilities.constants as Constants
-from quartic_sdk.core.iterators.tag_data_iterator import TagDataIterator
+from quartic_sdk.utilities.tag_data import TagData
 from quartic_sdk.utilities.exceptions import IncorrectTagParameterException,IncorrectWavelengthParamException, \
     InvalidTagAttributeException
 from quartic_sdk.graphql_client import GraphqlClient
@@ -93,7 +93,7 @@ class Tag(Base):
             raise IncorrectTagParameterException( "Invalid parameters : Wavelengths are only supported with spectral tag type")                    
         if wavelengths:
             Tag.raise_exception_for_wavelegths(wavelengths)
-        return TagDataIterator.get_tag_data(
+        return TagData.get_tag_data(
             tags=EntityList(
                 Constants.TAG_ENTITY,
                 [self]),

@@ -4,7 +4,7 @@ The given file contains the class to refer to the asset entity
 import logging
 from quartic_sdk.core.entities.base import Base
 import quartic_sdk.utilities.constants as Constants
-from quartic_sdk.core.iterators.tag_data_iterator import TagDataIterator
+from quartic_sdk.utilities.tag_data import TagData
 
 
 class Asset(Base):
@@ -109,7 +109,7 @@ class Asset(Base):
         tags = self.get_tags().exclude(
             tag_data_type=Constants.TAG_DATA_TYPES[Constants.SPECTRAL])
         logging.info("Filtering to fetch data only for non-spectral tags")
-        return TagDataIterator.get_tag_data(
+        return TagData.get_tag_data(
             tags=tags,
             start_time=start_time,
             stop_time=stop_time,

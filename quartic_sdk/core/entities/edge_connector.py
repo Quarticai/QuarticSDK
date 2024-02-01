@@ -1,6 +1,6 @@
 from quartic_sdk.core.entities.base import Base
 import quartic_sdk.utilities.constants as Constants
-from quartic_sdk.core.iterators.tag_data_iterator import TagDataIterator
+from quartic_sdk.utilities.tag_data import TagData
 from quartic_sdk.core.iterators.historical_tag_data_iterator import HistoricalTagDataIterator
 
 
@@ -86,7 +86,7 @@ class EdgeConnector(Base):
             between the given duration
         """
         tags = self.get_tags()
-        return TagDataIterator.get_tag_data(
+        return TagData.get_tag_data(
             tags=tags,
             start_time=start_time,
             stop_time=stop_time,

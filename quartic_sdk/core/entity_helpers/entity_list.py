@@ -2,7 +2,7 @@
 import quartic_sdk.utilities.constants as Constants
 from quartic_sdk.core.entities.type_mapping import ENTITY_DICTIONARY
 from quartic_sdk.core.iterators.entity_list_iterator import EntityListIterator
-from quartic_sdk.core.iterators.tag_data_iterator import TagDataIterator
+from quartic_sdk.utilities.tag_data import TagData
 import operator
 
 
@@ -186,7 +186,7 @@ class EntityList:
             between the given duration
         """
         assert self._class_type == Constants.TAG_ENTITY
-        return TagDataIterator.get_tag_data(
+        return TagData.get_tag_data(
             tags=self,
             start_time=start_time,
             stop_time=stop_time,
