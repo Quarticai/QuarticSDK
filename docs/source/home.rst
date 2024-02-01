@@ -112,6 +112,6 @@ Getting the assets, tags, batches from the server
 
     asset = user_assets.get("name","Test Asset") # Get a specific asset with the name "Test Asset"
     asset_tags = asset.get_tags() # Gets the list of all tags
-    asset_data = asset.data(start_time=1000000, stop_time=2000000) # Get the data of the asset for the given interval between start_time and stop_time. This returns an iterator, which can be iterated to get all the data points present.
-    print(asset_data[0]) # Returns the data present at the 0th index
+    asset_data = asset.data(start_time=1000000, stop_time=2000000) # Get the data of the asset for the given interval between start_time and stop_time. This returns downsampled tag data.
+    print(asset_data) # Returns the data present in dataframe format
 

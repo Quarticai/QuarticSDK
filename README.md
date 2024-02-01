@@ -42,7 +42,7 @@ asset = user_assets.get("name","Test Asset") # Get a specific asset with the nam
 asset_tags = asset.get_tags() # Gets the list of all tags
 
 first_tag=asset_tags.first() # Returns the first in the list of tags
-first_tag_data_iterator=first_tag.data(start_time=1000000,stop_time=2000000) # Returns the data present in the first tag for the time range of 1000000 to 2000000
+tag_data=first_tag.data(start_time=1000000,stop_time=2000000) # Returns the data present in the first tag for the time range of 1000000 to 2000000
 
 # If jwt auth expires the above code will throw Permission Error
 
@@ -63,7 +63,7 @@ while retry_count > 0:
         asset_tags = asset.get_tags()  # Gets the list of all tags
 
         first_tag = asset_tags.first()  # Returns the first in the list of tags
-        first_tag_data_iterator = first_tag.data(start_time=1000000, stop_time=2000000)  # Returns the data present in the first tag for the time range of 1000000 to 2000000
+        tag_data = first_tag.data(start_time=1000000, stop_time=2000000)  # Returns the data present in the first tag for the time range of 1000000 to 2000000
 
         # If the code reaches here without exceptions, break out of the loop
         break
