@@ -101,4 +101,4 @@ dict2css==0.3.0.post1
 importlib-metadata==7.0.1
 lazy-object-proxy==1.10.0
 prompt-toolkit==3.0.43
-alabaster==0.7.13
+alabaster==0.7.16
