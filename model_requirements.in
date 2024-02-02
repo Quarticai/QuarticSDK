@@ -103,3 +103,4 @@ lazy-object-proxy==1.10.0
 prompt-toolkit==3.0.43
 alabaster==0.7.16
 domdf-python-tools==3.7.0
+idna==3.4
