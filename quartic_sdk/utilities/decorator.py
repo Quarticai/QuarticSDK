@@ -175,7 +175,7 @@ def authenticate_with_tokens(func):
             return response
         except Exception as e:
             traceback.print_exc()
-            return None
+            raise e
 
     return wrapper
 
@@ -243,6 +243,6 @@ def async_authenticate_with_tokens(func):
             return response
         except Exception as e:
             traceback.print_exc()
-            return None
+            raise e
 
     return wrapper
