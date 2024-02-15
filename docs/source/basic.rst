@@ -399,7 +399,7 @@ The method parameters as included in v2.0.0 are as follows:
 ~~~~~
 
 The method returns the downsampled tag data for all the tags present in the
-asset for the set ``start_time`` and ``stop_time``. Using ``sampling_value``
+asset for the set ``start_time`` and ``stop_time``. Using ``sampling_data_points``
 parameter you can control the downsampled points.
 
 The method parameters are as follows:
@@ -408,10 +408,10 @@ The method parameters are as follows:
    ``start_time`` for fetching the data of the asset.
 -  **stop\_time (mandatory)**: (epoch) This refers to the ``stop_time``
    for fetching the data of the asset.
--  **sampling_value (optional)**: This refers to the sampling_value at which
-   the downsampled data is required. If the sampling_value provided, the method returns the
-   data in the tag for the given time range with the datapoints equal to sampling_value.
-   The default sampling_value is 1500.
+-  **sampling_data_points (optional)**: This refers to the sampling_data_points at which
+   the downsampled data is required. If the sampling_data_points provided, the method returns the
+   data in the tag for the given time range with the datapoints equal to sampling_data_points.
+   The default sampling_data_points is 1500.
 -  **return\_type (optional)**: The user can pass either ``pd``, which
    will return the pandas dataframe iterator, or ``json`` which will
    return json object on return. This value takes the ``pd`` value as
@@ -512,17 +512,17 @@ The available methods are as follows:
 ~~~~~
 
 The method returns the downsampled tagdata for the selected tag for the set
-``start_time`` and ``stop_time``,Using ``sampling_value``
+``start_time`` and ``stop_time``,Using ``sampling_data_points``
 parameter you can control the downsampled points. The method parameters are as follows:
 
 -  **start\_time (mandatory)**: (epoch) Refers to the ``start_time`` for
    fetching the data of the asset.
 -  **stop\_time (mandatory)**: (epoch) Refers to the ``stop_time`` for
    fetching the data of the asset.
--  **sampling_value (optional)**: This refers to the sampling_value at which
-   the downsampled data is required. If the sampling_value provided, the method returns the
-   data in the tag for the given time range with the datapoints equal to sampling_value.
-   The default sampling_value is 1500.
+-  **sampling_data_points (optional)**: This refers to the sampling_data_points at which
+   the downsampled data is required. If the sampling_data_points provided, the method returns the
+   data in the tag for the given time range with the datapoints equal to sampling_data_points.
+   The default sampling_data_points is 1500.
 -  **return\_type (optional)**: The user can pass either ``pd``, which
    will return the pandas dataframe iterator, or ``json`` which will
    return json object on return. This value takes the ``pd`` value as
@@ -641,7 +641,7 @@ of ``EntityList`` where each object refers to ``Tag``.
 ~~~~~
 
 The method returns the downsampled tag data for all the tags present in the
-datasource for the set ``start_time`` and ``stop_time``. Using ``sampling_value``
+datasource for the set ``start_time`` and ``stop_time``. Using ``sampling_data_points``
 parameter you can control the downsampled points.
 
 The method parameters are as follows:
@@ -650,10 +650,10 @@ The method parameters are as follows:
    ``start_time`` for fetching the data of the datasource.
 -  **stop\_time (mandatory)**: (epoch) This refers to the ``stop_time``
    for fetching the data of the data ource.
--  **sampling_value (optional)**: This refers to the sampling_value at which
-   the downsampled data is required. If the sampling_value provided, the method returns the
-   data in the tag for the given time range with the datapoints equal to sampling_value.
-   The default sampling_value is 1500.
+-  **sampling_data_points (optional)**: This refers to the sampling_data_points at which
+   the downsampled data is required. If the sampling_data_points provided, the method returns the
+   data in the tag for the given time range with the datapoints equal to sampling_data_points.
+   The default sampling_data_points is 1500.
 -  **return\_type (optional)**: The user can pass either ``pd``, which
    will return the pandas dataframe iterator, or ``json`` which will
    return json object on return. This value takes the ``pd`` value as
@@ -880,10 +880,10 @@ data for given tags, and has the following parameters:
    fetching the data of the asset.
 -  **stop\_time (mandatory)**: (epoch) Refers to the ``stop_time`` for
    fetching the data of the asset.
--  **sampling_value (optional)**: This refers to the sampling_value at which
-   the downsampled data is required. If the sampling_value provided, the method returns the
-   data in the tag for the given time range with the datapoints equal to sampling_value.
-   The default sampling_value is 1500.
+-  **sampling_data_points (optional)**: This refers to the sampling_data_points at which
+   the downsampled data is required. If the sampling_data_points provided, the method returns the
+   data in the tag for the given time range with the datapoints equal to sampling_data_points.
+   The default sampling_data_points is 1500.
 -  **return\_type (optional)**: The user can pass either ``pd``, which
    will return the pandas dataframe iterator, or ``json`` which will
    return json object on return. This value takes the ``pd`` value as
@@ -896,10 +896,10 @@ TagData
 ------------------
 
 Querying data for any set of tags in any given duration returns downsampled
-tag data.Using ``sampling_value`` parameter you can control the downsampled 
+tag data.Using ``sampling_data_points`` parameter you can control the downsampled
 points. When the ``.data`` of tags/assets is called, the
 method queries for data between ``start_time`` and ``stop_time`` 
-and downsample the data points for all the tags for given ``sampling_value``.
+and downsample the data points for all the tags for given ``sampling_data_points``.
 
 HistoricalTagDataIterator
 -------------------------

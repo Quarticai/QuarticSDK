@@ -55,13 +55,14 @@ class EdgeConnector(Base):
         return HistoricalTagDataIterator(tags, self.id, start_time, stop_time, self.api_helper, batch_size, max_records,
             return_type)
 
-    def data(self, start_time, stop_time, sampling_value=1500, return_type=Constants.RETURN_PANDAS, transformations=[]):
+    def data(self, start_time, stop_time, sampling_data_points=1500, return_type=Constants.RETURN_PANDAS,
+             transformations=[], wide_df=True):
         """
         Get the data of all tags in the edge connector between the given start_time and
         stop_time for the given sampling_ratio
         :param start_time: (epoch) Start_time for getting data
         :param stop_time: (epoch) Stop_time for getting data
-        :param sampling_ratio: sampling_ratio of the data
+        :param sampling_data_points: sampling_ratio of the data
         :param return_type: The param decides whether the data after querying will be
             json(when value is "json") or pandas dataframe(when value is "pd"). By default,
             it takes the value as "json"
@@ -82,18 +83,14 @@ class EdgeConnector(Base):
                 "aggregation_dict": {"3": "max"},
                 "aggregation_timestamp": "last",
             }]
+        :param wide_df: bool to get data in wide_dataframe format
         :return: (DataIterator) DataIterator object which can be iterated to get the data
             between the given duration
         """
         tags = self.get_tags()
-        return TagData.get_tag_data(
-            tags=tags,
-            start_time=start_time,
-            stop_time=stop_time,
-            api_helper=self.api_helper,
-            sampling_value=sampling_value,
-            return_type=return_type,
-            transformations=transformations)
+        return TagData.get_tag_data(tags=tags, start_time=start_time, stop_time=stop_time, api_helper=self.api_helper,
+                                    sampling_data_points=sampling_data_points, return_type=return_type,
+                                    transformations=transformations, wide_df=wide_df)
 
     def __getattribute__(self, name):
         """

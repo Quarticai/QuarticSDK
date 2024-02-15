@@ -100,21 +100,13 @@ class TagData:
                     "Invalid transformations : transformation_type is invalid")
 
     @classmethod
-    def get_tag_data(
-            cls,
-            tags,
-            start_time,
-            stop_time,
-            api_helper,
-            sampling_value=1500,
-            return_type=Constants.RETURN_PANDAS,
-            wavelengths = [],
-            transformations=[]):
+    def get_tag_data(cls, tags, start_time, stop_time, api_helper, sampling_data_points=1500,
+                     return_type=Constants.RETURN_PANDAS, wavelengths=[], transformations=[], wide_df=True):
         """
         The method gets the tag data based upon the parameters that are passed here
         :param start_time: (epoch) Start_time for getting data
         :param stop_time: (epoch) Stop_time for getting data
-        :param sampling_ratio: sampling_ratio of the data
+        :param sampling_data_points: sampling_ratio of the data
         :param return_type: The param decides whether the data after querying will be
             json(when value is "json") or pandas dataframe(when value is "pd"). By default,
             it takes the value as "json"
@@ -139,6 +131,7 @@ class TagData:
                 "aggregation_dict": {"3": "max"},
                 "aggregation_timestamp": "last",
             }]
+        :param wide_df: bool to get data in wide_dataframe format
         :return: (DataIterator) DataIterator object which can be iterated to get the data
             between the given duration
         """
@@ -150,8 +143,9 @@ class TagData:
             "tags": [tag.id for tag in tags.all()],
             "start_time": start_time,
             "stop_time": stop_time,
-            "sampling_value": sampling_value,
-            "wavelengths" : wavelengths,
+            "sampling_data_points": sampling_data_points,
+            "wavelengths": wavelengths,
+            "wide_df": wide_df,
             "transformations": transformations
         }
         tag_data_return = api_helper.call_api(

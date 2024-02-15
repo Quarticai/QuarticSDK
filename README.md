@@ -168,18 +168,19 @@ while retry_count > 0:
         asset_tags = asset.get_tags()  # Gets the list of all tags
 
         first_tag = asset_tags.first()  # Returns the first in the list of tags
-        tag_data = first_tag.data(start_time=1000000, stop_time=2000000)  # Returns the data present in the first tag for the time range of 1000000 to 2000000
+        tag_data = first_tag.data(start_time=1000000,
+                                  stop_time=2000000)  # Returns the data present in the first tag for the time range of 1000000 to 2000000
 
         # If the code reaches here without exceptions, break out of the loop
         break
     except PermissionError:
-      # If the refresh token expires, this error is thrown and recreation of client is needed to update the tokens
+        # If the refresh token expires, this error is thrown and recreation of client is needed to update the tokens
         retry_count -= 1
         if retry_count > 0:
             print(f"PermissionError: Retrying in {retry_delay} seconds...")
             time.sleep(retry_delay)
         else:
-          # If still the error persist, the password might have been changed
+            # If still the error persist, the password might have been changed
             print("PermissionError: Maximum retries reached. Exiting.")
             break
 

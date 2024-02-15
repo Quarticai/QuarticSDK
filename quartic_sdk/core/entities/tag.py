@@ -47,20 +47,14 @@ class Tag(Base):
         """
         return f"<{Constants.TAG_ENTITY}: {self.name}>"
 
-    def data(
-            self,
-            start_time,
-            stop_time,
-            sampling_value=1500,
-            return_type=Constants.RETURN_PANDAS,
-            wavelengths = [],
-            transformations=[]):
+    def data(self, start_time, stop_time, sampling_data_points=1500, return_type=Constants.RETURN_PANDAS,
+             wavelengths=[], transformations=[], wide_df=True):
         """
         Get the data for the given tag between the start_time and the stop_time
         for the given sampling_ratio
         :param start_time: (epoch) Start_time for getting data
         :param stop_time: (epoch) Stop_time for getting data
-        :param sampling_ratio: sampling_ratio of the data
+        :param sampling_data_points: sampling_ratio of the data
         :param return_type: The param decides whether the data after querying will be
             json(when value is "json") or pandas dataframe(when value is "pd"). By default,
             it takes the value as "json"
@@ -85,6 +79,7 @@ class Tag(Base):
                 "aggregation_dict": {"3": "max"},
                 "aggregation_timestamp": "last",
             }]
+        :param wide_df: bool to get data in wide_dataframe format
         :return: (DataIterator) DataIterator object which can be iterated to get the data
             between the given duration
         """
@@ -93,17 +88,11 @@ class Tag(Base):
             raise IncorrectTagParameterException( "Invalid parameters : Wavelengths are only supported with spectral tag type")                    
         if wavelengths:
             Tag.raise_exception_for_wavelegths(wavelengths)
-        return TagData.get_tag_data(
-            tags=EntityList(
-                Constants.TAG_ENTITY,
-                [self]),
-            start_time=start_time,
-            stop_time=stop_time,
-            api_helper=self.api_helper,
-            sampling_value=sampling_value,
-            return_type=return_type,
-            wavelengths=wavelengths,
-            transformations=transformations)
+        return TagData.get_tag_data(tags=EntityList(
+            Constants.TAG_ENTITY,
+            [self]), start_time=start_time, stop_time=stop_time, api_helper=self.api_helper,
+            sampling_data_points=sampling_data_points, return_type=return_type, wavelengths=wavelengths,
+            transformations=transformations, wide_df=wide_df)
 
     def wavelengths(self, start_time=None, stop_time=None):
         """
