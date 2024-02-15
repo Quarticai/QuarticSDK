@@ -48,9 +48,9 @@ class APIHelper:
             Constants.API_DELETE: self.__http_delete_api
         }
 
-        response = http_method_function_mapping[method_type](url, path_params, query_params, body)
-        response.raise_for_status()
-        return response
+        return http_method_function_mapping[method_type](
+            url, path_params, query_params, body
+        )
 
     def _get_oauth_headers(self):
         """
