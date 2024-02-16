@@ -112,8 +112,12 @@ Getting the assets, tags, batches from the server
 
     asset = user_assets.get("name","Test Asset") # Get a specific asset with the name "Test Asset"
     asset_tags = asset.get_tags() # Gets the list of all tags
+
     asset_data = asset.data(start_time=1000000, stop_time=2000000) # Get the data of the asset for the given interval between start_time and stop_time. This returns downsampled tag data.
-    print(asset_data) # Returns the data present in dataframe format
+    print(asset_data) # Returns the data present in wide dataframe format.
+
+    asset_data = asset.data(start_time=1000000, stop_time=2000000, wide_df=False) # Get the data of the asset for the given interval between start_time and stop_time in long df format. This returns downsampled tag data.
+    print(asset_data) # Returns the data present in long dataframe format.
 
     # For getting raw data we need to use freeflowpaginated query using Graphql Client
     # Below is the example for the same

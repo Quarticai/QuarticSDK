@@ -408,7 +408,7 @@ The method parameters are as follows:
    ``start_time`` for fetching the data of the asset.
 -  **stop\_time (mandatory)**: (epoch) This refers to the ``stop_time``
    for fetching the data of the asset.
--  **sampling_data_points (optional)**: This refers to the sampling_data_points at which
+-  **sampling\_data\_points (optional)**: This refers to the sampling_data_points at which
    the downsampled data is required. If the sampling_data_points provided, the method returns the
    data in the tag for the given time range with the datapoints equal to sampling_data_points.
    The default sampling_data_points is 1500.
@@ -419,6 +419,9 @@ The method parameters are as follows:
 -  **transformations (optional)**: The user is supposed to pass the list
    of interpolations and aggregations here. Further details on
    transformations is provided towards the end of this documentation.
+-  **wide\_df (optional)**: When passed as ``true``, the data is returned
+   in a wide format, and when passed as ``false``, it is returned in a
+   long format. By default, the setting is ``true``.
 
 Tag
 ------
@@ -519,7 +522,7 @@ parameter you can control the downsampled points. The method parameters are as f
    fetching the data of the asset.
 -  **stop\_time (mandatory)**: (epoch) Refers to the ``stop_time`` for
    fetching the data of the asset.
--  **sampling_data_points (optional)**: This refers to the sampling_data_points at which
+-  **sampling\_data_\points (optional)**: This refers to the sampling_data_points at which
    the downsampled data is required. If the sampling_data_points provided, the method returns the
    data in the tag for the given time range with the datapoints equal to sampling_data_points.
    The default sampling_data_points is 1500.
@@ -536,6 +539,10 @@ parameter you can control the downsampled points. The method parameters are as f
 -  **transformations (optional)**: The user is supposed to pass the list
    of interpolations and aggregations here. Further details on
    transformations is provided towards the end of this documentation.
+-  **wide\_df (optional)**: When passed as ``true``, the data is returned
+   in a wide format, and when passed as ``false``, it is returned in a
+   long format. By default, the setting is ``true``.
+
 
 .wavelengths
 ~~~~~~~~~~~~
@@ -650,7 +657,7 @@ The method parameters are as follows:
    ``start_time`` for fetching the data of the datasource.
 -  **stop\_time (mandatory)**: (epoch) This refers to the ``stop_time``
    for fetching the data of the data ource.
--  **sampling_data_points (optional)**: This refers to the sampling_data_points at which
+-  **sampling\_data\_points (optional)**: This refers to the sampling_data_points at which
    the downsampled data is required. If the sampling_data_points provided, the method returns the
    data in the tag for the given time range with the datapoints equal to sampling_data_points.
    The default sampling_data_points is 1500.
@@ -661,6 +668,9 @@ The method parameters are as follows:
 -  **transformations (optional)**: The user must pass the list
    of interpolations and aggregations here. Further details on
    transformations is provided towards the end of this documentation.
+-  **wide\_df (optional)**: When passed as ``true``, the data is returned
+   in a wide format, and when passed as ``false``, it is returned in a
+   long format. By default, the setting is ``true``.
 
 .historical_data
 ~~~~~~~~~~~~~~~~
@@ -880,7 +890,7 @@ data for given tags, and has the following parameters:
    fetching the data of the asset.
 -  **stop\_time (mandatory)**: (epoch) Refers to the ``stop_time`` for
    fetching the data of the asset.
--  **sampling_data_points (optional)**: This refers to the sampling_data_points at which
+-  **sampling\_data\_points (optional)**: This refers to the sampling_data_points at which
    the downsampled data is required. If the sampling_data_points provided, the method returns the
    data in the tag for the given time range with the datapoints equal to sampling_data_points.
    The default sampling_data_points is 1500.
@@ -891,6 +901,9 @@ data for given tags, and has the following parameters:
 -  **transformations (optional)**: The user must pass the list
    of interpolations and aggregations here. Further details on
    transformations is provided towards the end of this documentation.
+-  **wide\_df (optional)**: When passed as ``true``, the data is returned
+    in a wide format, and when passed as ``false``, it is returned in a
+    long format. By default, the setting is ``true``.
 
 TagData
 ------------------
