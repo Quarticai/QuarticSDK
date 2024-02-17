@@ -149,7 +149,7 @@ class EntityList:
         return self.count() > 0
 
     def data(self, start_time, stop_time, sampling_data_points=1500, return_type=Constants.RETURN_PANDAS,
-             transformations=[], wide_df=True):
+             transformations=[]):
         """
         Get the data of all tags in the list between the given start_time and
         stop_time for the given sampling_ratio
@@ -176,11 +176,10 @@ class EntityList:
                 "aggregation_dict": {"3": "max"},
                 "aggregation_timestamp": "last",
             }]
-        :param wide_df: bool to get data in wide_dataframe format
         :return: (DataIterator) DataIterator object which can be iterated to get the data
             between the given duration
         """
         assert self._class_type == Constants.TAG_ENTITY
         return TagData.get_tag_data(tags=self, start_time=start_time, stop_time=stop_time,
                                     api_helper=self.first().api_helper, sampling_data_points=sampling_data_points,
-                                    return_type=return_type, transformations=transformations, wide_df=wide_df)
+                                    return_type=return_type, transformations=transformations)

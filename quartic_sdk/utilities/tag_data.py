@@ -101,7 +101,7 @@ class TagData:
 
     @classmethod
     def get_tag_data(cls, tags, start_time, stop_time, api_helper, sampling_data_points=1500,
-                     return_type=Constants.RETURN_PANDAS, wavelengths=[], transformations=[], wide_df=True):
+                     return_type=Constants.RETURN_PANDAS, wavelengths=[], transformations=[]):
         """
         The method gets the tag data based upon the parameters that are passed here
         :param start_time: (epoch) Start_time for getting data
@@ -131,7 +131,6 @@ class TagData:
                 "aggregation_dict": {"3": "max"},
                 "aggregation_timestamp": "last",
             }]
-        :param wide_df: bool to get data in wide_dataframe format
         :return: (DataIterator) DataIterator object which can be iterated to get the data
             between the given duration
         """
@@ -145,7 +144,6 @@ class TagData:
             "stop_time": stop_time,
             "sampling_data_points": sampling_data_points,
             "wavelengths": wavelengths,
-            "wide_df": wide_df,
             "transformations": transformations
         }
         tag_data_return = api_helper.call_api(

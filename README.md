@@ -43,7 +43,6 @@ asset_tags = asset.get_tags() # Gets the list of all tags
 
 first_tag=asset_tags.first() # Returns the first in the list of tags
 tag_data = first_tag.data(start_time=1000000,stop_time=2000000) # Returns the downsampled data present in the first tag for the time range of 1000000 to 2000000 in wide data format.
-tag_data_long = first_tag.data(start_time=1000000, stop_time=200000, wide_df=False) # Returns the same data, in long format. 
 ```
 ```python
 # For getting raw data we need to use freeflowpaginated query using Graphql Client

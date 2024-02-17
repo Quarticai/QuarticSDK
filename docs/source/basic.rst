@@ -419,9 +419,6 @@ The method parameters are as follows:
 -  **transformations (optional)**: The user is supposed to pass the list
    of interpolations and aggregations here. Further details on
    transformations is provided towards the end of this documentation.
--  **wide\_df (optional)**: When passed as ``true``, the data is returned
-   in a wide format, and when passed as ``false``, it is returned in a
-   long format. By default, the setting is ``true``.
 
 Tag
 ------
@@ -539,9 +536,6 @@ parameter you can control the downsampled points. The method parameters are as f
 -  **transformations (optional)**: The user is supposed to pass the list
    of interpolations and aggregations here. Further details on
    transformations is provided towards the end of this documentation.
--  **wide\_df (optional)**: When passed as ``true``, the data is returned
-   in a wide format, and when passed as ``false``, it is returned in a
-   long format. By default, the setting is ``true``.
 
 
 .wavelengths
@@ -668,9 +662,6 @@ The method parameters are as follows:
 -  **transformations (optional)**: The user must pass the list
    of interpolations and aggregations here. Further details on
    transformations is provided towards the end of this documentation.
--  **wide\_df (optional)**: When passed as ``true``, the data is returned
-   in a wide format, and when passed as ``false``, it is returned in a
-   long format. By default, the setting is ``true``.
 
 .historical_data
 ~~~~~~~~~~~~~~~~
@@ -901,9 +892,6 @@ data for given tags, and has the following parameters:
 -  **transformations (optional)**: The user must pass the list
    of interpolations and aggregations here. Further details on
    transformations is provided towards the end of this documentation.
--  **wide\_df (optional)**: When passed as ``true``, the data is returned
-    in a wide format, and when passed as ``false``, it is returned in a
-    long format. By default, the setting is ``true``.
 
 TagData
 ------------------

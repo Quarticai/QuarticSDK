@@ -48,7 +48,7 @@ class Tag(Base):
         return f"<{Constants.TAG_ENTITY}: {self.name}>"
 
     def data(self, start_time, stop_time, sampling_data_points=1500, return_type=Constants.RETURN_PANDAS,
-             wavelengths=[], transformations=[], wide_df=True):
+             wavelengths=[], transformations=[]):
         """
         Get the data for the given tag between the start_time and the stop_time
         for the given sampling_ratio
@@ -79,7 +79,6 @@ class Tag(Base):
                 "aggregation_dict": {"3": "max"},
                 "aggregation_timestamp": "last",
             }]
-        :param wide_df: bool to get data in wide_dataframe format
         :return: (DataIterator) DataIterator object which can be iterated to get the data
             between the given duration
         """
@@ -92,7 +91,7 @@ class Tag(Base):
             Constants.TAG_ENTITY,
             [self]), start_time=start_time, stop_time=stop_time, api_helper=self.api_helper,
             sampling_data_points=sampling_data_points, return_type=return_type, wavelengths=wavelengths,
-            transformations=transformations, wide_df=wide_df)
+            transformations=transformations)
 
     def wavelengths(self, start_time=None, stop_time=None):
         """

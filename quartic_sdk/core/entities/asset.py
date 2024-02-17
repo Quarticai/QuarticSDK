@@ -70,7 +70,7 @@ class Asset(Base):
             self.api_helper)
 
     def data(self, start_time, stop_time, sampling_data_points=1500, return_type=Constants.RETURN_PANDAS,
-             transformations=[], wide_df=True):
+             transformations=[]):
         """
         Get the data of all tags in the asset between the given start_time and
         stop_time for the given sampling_ratio
@@ -97,7 +97,6 @@ class Asset(Base):
                 "aggregation_dict": {"3": "max"},
                 "aggregation_timestamp": "last",
             }]
-        :param wide_df: bool to get data in wide_dataframe format
         :return: (DataIterator) DataIterator object which can be iterated to get the data
             between the given duration
         """
@@ -106,7 +105,7 @@ class Asset(Base):
         logging.info("Filtering to fetch data only for non-spectral tags")
         return TagData.get_tag_data(tags=tags, start_time=start_time, stop_time=stop_time, api_helper=self.api_helper,
                                     sampling_data_points=sampling_data_points, return_type=return_type,
-                                    transformations=transformations, wide_df=wide_df)
+                                    transformations=transformations)
 
     def __getattribute__(self, name):
         """
