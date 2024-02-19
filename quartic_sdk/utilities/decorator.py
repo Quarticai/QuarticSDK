@@ -240,7 +240,9 @@ def async_authenticate_with_tokens(func):
                     # Retry the original API call with the new access token
                     response = await func(self, *args, **kwargs)
 
-            return response
+                    return response
+                else:
+                    raise e
         except Exception as e:
             traceback.print_exc()
             raise e

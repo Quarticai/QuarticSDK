@@ -80,7 +80,7 @@ variables={
   "offset_map": {}
 }
 
-result = client.execute_query(query=query)
+result = client.execute_query(query=query, variables=variables)
 
 #You should see the following result:
 
@@ -98,10 +98,10 @@ result = client.execute_query(query=query)
               1706693454000,
               809
             ]
-          ],
-          "offset": 2
+          ]
         }
       },
+      "offset_map":{"21295":4}
       "status": 200
     }
   }
@@ -115,10 +115,10 @@ variables = {
   "startTime": "1706693453221",
   "stopTime": "1706697053222",
   "limit": 2,
-  "offset_map": {21295:result['data']['freeflowPaginated']['data']['21295']['offset']}
+  "offset_map": offset_map
 }
 
-result = client.execute_query(query=query)
+result = client.execute_query(query=query,variables=variables)
 
 #You should see the following result:
 
@@ -136,10 +136,10 @@ result = client.execute_query(query=query)
               1706693455000,
               811
             ]
-          ],
-          "offset": 4
+          ]
         }
       },
+      "offset_map":{"21295":6}
       "status": 200
     }
   }
