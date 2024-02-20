@@ -5,6 +5,7 @@ import requests
 from urllib.parse import urljoin
 import traceback
 import aiohttp
+import logging
 
 TOKEN_FILE = os.getenv("TOKEN_FILE_PATH","/tmp/.quartic")
 
@@ -174,7 +175,7 @@ def authenticate_with_tokens(func):
 
             return response
         except Exception as e:
-            traceback.print_exc()
+            logging.debug(traceback.format_exc())
             raise e
 
     return wrapper
@@ -239,12 +240,12 @@ def async_authenticate_with_tokens(func):
 
                     # Retry the original API call with the new access token
                     response = await func(self, *args, **kwargs)
-
-                    return response
                 else:
+                    logging.debug(traceback.format_exc())
                     raise e
+            return response
         except Exception as e:
-            traceback.print_exc()
+            logging.debug(traceback.format_exc())
             raise e
 
     return wrapper
