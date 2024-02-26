@@ -15,7 +15,6 @@ class TagData:
             start_time,
             stop_time,
             api_helper,
-            sampling_value=1500,
             return_type=Constants.RETURN_PANDAS,
             wavelengths = [],
             transformations=[]):
@@ -28,7 +27,6 @@ class TagData:
         :param count: Count of time ranges in this interval with each interval
                 containing 200,000 points
         :param api_helper: (APIHelper) APIHelper class object
-        :param sampling_value: The sampling_value at which the tag data is queried
         :param return_type: The param decides whether the data after querying will be
             json(when value is "json") or pandas dataframe(when value is "pd"). By default,
             it takes the value as "json"
@@ -58,7 +56,6 @@ class TagData:
         self.start_time = start_time
         self.stop_time = stop_time
         self.api_helper = api_helper
-        self.sampling_value = sampling_value
         self.return_type = return_type
         self.wavelengths = wavelengths
         self._transformations = transformations
@@ -100,13 +97,15 @@ class TagData:
                     "Invalid transformations : transformation_type is invalid")
 
     @classmethod
-    def get_tag_data(cls, tags, start_time, stop_time, api_helper, sampling_data_points=1500,
-                     return_type=Constants.RETURN_PANDAS, wavelengths=[], transformations=[]):
+    def get_tag_data(cls, tags, start_time, stop_time, api_helper, interval_min=1, aggregation_type="last",
+                     wide_df=True, return_type=Constants.RETURN_PANDAS, wavelengths=[], transformations=[]):
         """
         The method gets the tag data based upon the parameters that are passed here
         :param start_time: (epoch) Start_time for getting data
         :param stop_time: (epoch) Stop_time for getting data
-        :param sampling_data_points: sampling_ratio of the data
+        :param interval_min: (int) The interval duration in minutes for downsampling the data
+        :param aggregation_type: (str) The aggregation function to be used for the query. (Valid values: first, last)
+        :param wide_df: (bool) If the response is needed in wide or long format. Defaults to True.
         :param return_type: The param decides whether the data after querying will be
             json(when value is "json") or pandas dataframe(when value is "pd"). By default,
             it takes the value as "json"
@@ -142,9 +141,11 @@ class TagData:
             "tags": [tag.id for tag in tags.all()],
             "start_time": start_time,
             "stop_time": stop_time,
-            "sampling_data_points": sampling_data_points,
             "wavelengths": wavelengths,
-            "transformations": transformations
+            "transformations": transformations,
+            "interval": interval_min, 
+            "aggregation_type": aggregation_type,
+            "wide_df": wide_df,
         }
         tag_data_return = api_helper.call_api(
                 Constants.RETURN_TAG_DATA, Constants.API_POST, body=body_json).json()

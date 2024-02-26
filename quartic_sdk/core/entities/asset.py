@@ -69,14 +69,16 @@ class Asset(Base):
             batches_response,
             self.api_helper)
 
-    def data(self, start_time, stop_time, sampling_data_points=1500, return_type=Constants.RETURN_PANDAS,
+    def data(self, start_time, stop_time, interval_min=1, aggregation_type="last", wide_df=True, return_type=Constants.RETURN_PANDAS,
              transformations=[]):
         """
         Get the data of all tags in the asset between the given start_time and
-        stop_time for the given sampling_ratio
+        stop_time for the given interval duration
         :param start_time: (epoch) Start_time for getting data
         :param stop_time: (epoch) Stop_time for getting data
-        :param sampling_data_points: sampling_ratio of the data
+        :param interval_min: (int) The interval duration in minutes for downsampling the data
+        :param aggregation_type: (str) The aggregation function to be used for the query. (Valid values: first, last)
+        :param wide_df: (bool) If the response is needed in wide or long format. Defaults to True.
         :param return_type: The param decides whether the data after querying will be
             json(when value is "json") or pandas dataframe(when value is "pd"). By default,
             it takes the value as "json"
@@ -104,8 +106,8 @@ class Asset(Base):
             tag_data_type=Constants.TAG_DATA_TYPES[Constants.SPECTRAL])
         logging.info("Filtering to fetch data only for non-spectral tags")
         return TagData.get_tag_data(tags=tags, start_time=start_time, stop_time=stop_time, api_helper=self.api_helper,
-                                    sampling_data_points=sampling_data_points, return_type=return_type,
-                                    transformations=transformations)
+                                    interval_min=interval_min, aggregation_type=aggregation_type, return_type=return_type,
+                                    wide_df=wide_df, transformations=transformations)
 
     def __getattribute__(self, name):
         """

@@ -399,8 +399,8 @@ The method parameters as included in v2.0.0 are as follows:
 ~~~~~
 
 The method returns the downsampled tag data for all the tags present in the
-asset for the set ``start_time`` and ``stop_time``. Using ``sampling_data_points``
-parameter you can control the downsampled points.
+asset for the set ``start_time`` and ``stop_time``. Using ``interval_min``
+parameter you can control the interval of aggregation.
 
 The method parameters are as follows:
 
@@ -408,10 +408,15 @@ The method parameters are as follows:
    ``start_time`` for fetching the data of the asset.
 -  **stop\_time (mandatory)**: (epoch) This refers to the ``stop_time``
    for fetching the data of the asset.
--  **sampling\_data\_points (optional)**: This refers to the sampling_data_points at which
-   the downsampled data is required. If the sampling_data_points provided, the method returns the
-   data in the tag for the given time range with the datapoints equal to sampling_data_points.
-   The default sampling_data_points is 1500.
+-  **interval\_min (optional)**: This refers to the interval of
+   aggregation in minutes. If the interval_min is provided, the method
+   returns the data in the tag for the given time range with the
+   aggregation interval equal to interval_min. The default interval_min
+   is 1.
+-  **aggregation\_type (optional)**: This refers to the type of
+   aggregation. Options currently supported are ``first``, ``last``.
+-  **wide\_df (optional)**: If the response is needed in wide or long format.
+   Defaults to ``True``.
 -  **return\_type (optional)**: The user can pass either ``pd``, which
    will return the pandas dataframe iterator, or ``json`` which will
    return json object on return. This value takes the ``pd`` value as
@@ -512,17 +517,22 @@ The available methods are as follows:
 ~~~~~
 
 The method returns the downsampled tagdata for the selected tag for the set
-``start_time`` and ``stop_time``,Using ``sampling_data_points``
-parameter you can control the downsampled points. The method parameters are as follows:
+``start_time`` and ``stop_time``,Using ``interval_min``
+parameter you can control the interval of aggregation. The method parameters are as follows:
 
 -  **start\_time (mandatory)**: (epoch) Refers to the ``start_time`` for
    fetching the data of the asset.
 -  **stop\_time (mandatory)**: (epoch) Refers to the ``stop_time`` for
    fetching the data of the asset.
--  **sampling\_data_\points (optional)**: This refers to the sampling_data_points at which
-   the downsampled data is required. If the sampling_data_points provided, the method returns the
-   data in the tag for the given time range with the datapoints equal to sampling_data_points.
-   The default sampling_data_points is 1500.
+-  **interval\_min (optional)**: This refers to the interval of
+   aggregation in minutes. If the interval_min is provided, the method
+   returns the data in the tag for the given time range with the
+   aggregation interval equal to interval_min. The default interval_min
+   is 1.
+-  **aggregation\_type (optional)**: This refers to the type of
+   aggregation. Options currently supported are ``first``, ``last``.
+-  **wide\_df (optional)**: If the response is needed in wide or long format.
+   Defaults to ``True``.
 -  **return\_type (optional)**: The user can pass either ``pd``, which
    will return the pandas dataframe iterator, or ``json`` which will
    return json object on return. This value takes the ``pd`` value as
@@ -642,8 +652,8 @@ of ``EntityList`` where each object refers to ``Tag``.
 ~~~~~
 
 The method returns the downsampled tag data for all the tags present in the
-datasource for the set ``start_time`` and ``stop_time``. Using ``sampling_data_points``
-parameter you can control the downsampled points.
+datasource for the set ``start_time`` and ``stop_time``. Using ``interval_min``
+parameter you can control the interval of aggregation.
 
 The method parameters are as follows:
 
@@ -651,10 +661,15 @@ The method parameters are as follows:
    ``start_time`` for fetching the data of the datasource.
 -  **stop\_time (mandatory)**: (epoch) This refers to the ``stop_time``
    for fetching the data of the data ource.
--  **sampling\_data\_points (optional)**: This refers to the sampling_data_points at which
-   the downsampled data is required. If the sampling_data_points provided, the method returns the
-   data in the tag for the given time range with the datapoints equal to sampling_data_points.
-   The default sampling_data_points is 1500.
+-  **interval\_min (optional)**: This refers to the interval of
+   aggregation in minutes. If the interval_min is provided, the method
+   returns the data in the tag for the given time range with the
+   aggregation interval equal to interval_min. The default interval_min
+   is 1.
+-  **aggregation\_type (optional)**: This refers to the type of
+   aggregation. Options currently supported are ``first``, ``last``.
+-  **wide\_df (optional)**: If the response is needed in wide or long format.
+   Defaults to ``True``.
 -  **return\_type (optional)**: The user can pass either ``pd``, which
    will return the pandas dataframe iterator, or ``json`` which will
    return json object on return. This value takes the ``pd`` value as
@@ -881,10 +896,15 @@ data for given tags, and has the following parameters:
    fetching the data of the asset.
 -  **stop\_time (mandatory)**: (epoch) Refers to the ``stop_time`` for
    fetching the data of the asset.
--  **sampling\_data\_points (optional)**: This refers to the sampling_data_points at which
-   the downsampled data is required. If the sampling_data_points provided, the method returns the
-   data in the tag for the given time range with the datapoints equal to sampling_data_points.
-   The default sampling_data_points is 1500.
+-  **interval\_min (optional)**: This refers to the interval of
+   aggregation in minutes. If the interval_min is provided, the method
+   returns the data in the tag for the given time range with the
+   aggregation interval equal to interval_min. The default interval_min
+   is 1.
+-  **aggregation\_type (optional)**: This refers to the type of
+   aggregation. Options currently supported are ``first``, ``last``.
+-  **wide\_df (optional)**: If the response is needed in wide or long format.
+   Defaults to ``True``.
 -  **return\_type (optional)**: The user can pass either ``pd``, which
    will return the pandas dataframe iterator, or ``json`` which will
    return json object on return. This value takes the ``pd`` value as
@@ -897,10 +917,11 @@ TagData
 ------------------
 
 Querying data for any set of tags in any given duration returns downsampled
-tag data.Using ``sampling_data_points`` parameter you can control the downsampled
-points. When the ``.data`` of tags/assets is called, the
+tag data.Using ``interval_min`` parameter you can control the interval of 
+aggregation. When the ``.data`` of tags/assets is called, the
 method queries for data between ``start_time`` and ``stop_time`` 
-and downsample the data points for all the tags for given ``sampling_data_points``.
+and downsample the data points using an aggregation function for 
+all the tags for the given ``aggregation_type``.
 
 HistoricalTagDataIterator
 -------------------------

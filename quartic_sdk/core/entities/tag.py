@@ -47,14 +47,16 @@ class Tag(Base):
         """
         return f"<{Constants.TAG_ENTITY}: {self.name}>"
 
-    def data(self, start_time, stop_time, sampling_data_points=1500, return_type=Constants.RETURN_PANDAS,
+    def data(self, start_time, stop_time, interval_min=1, aggregation_type="last", wide_df=True, return_type=Constants.RETURN_PANDAS,
              wavelengths=[], transformations=[]):
         """
         Get the data for the given tag between the start_time and the stop_time
-        for the given sampling_ratio
+        for the given interval duration
         :param start_time: (epoch) Start_time for getting data
         :param stop_time: (epoch) Stop_time for getting data
-        :param sampling_data_points: sampling_ratio of the data
+        :param interval_min: (int) The interval duration in minutes for downsampling the data
+        :param aggregation_type: (str) The aggregation function to be used for the query. (Valid values: first, last)
+        :param wide_df: (bool) If the response is needed in wide or long format. Defaults to True.
         :param return_type: The param decides whether the data after querying will be
             json(when value is "json") or pandas dataframe(when value is "pd"). By default,
             it takes the value as "json"
@@ -90,8 +92,8 @@ class Tag(Base):
         return TagData.get_tag_data(tags=EntityList(
             Constants.TAG_ENTITY,
             [self]), start_time=start_time, stop_time=stop_time, api_helper=self.api_helper,
-            sampling_data_points=sampling_data_points, return_type=return_type, wavelengths=wavelengths,
-            transformations=transformations)
+            interval_min=interval_min, aggregation_type=aggregation_type, return_type=return_type, wavelengths=wavelengths,
+            wide_df=wide_df, transformations=transformations)
 
     def wavelengths(self, start_time=None, stop_time=None):
         """
