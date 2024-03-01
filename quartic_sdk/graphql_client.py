@@ -90,7 +90,7 @@ class GraphqlClient:
         """
         Generates the graphql endpoint.
         """
-        __graphql_url = urljoin(self.url, "/graphql/")
+        __graphql_url = urljoin(self.url, "/sdk/graphql/")
         result = urlparse(__graphql_url)
         if result.scheme and not SCHEMA_REGEX.match(__graphql_url):
             raise AttributeError(
