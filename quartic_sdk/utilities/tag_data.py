@@ -151,36 +151,8 @@ class TagData:
                 Constants.RETURN_TAG_DATA, Constants.API_POST, body=body_json).json()
         if return_type == Constants.RETURN_JSON:
                 return tag_data_return["data"]
-        # print(f"aman \n{tag_data_return}")
-        # print(f"aman \n{tag_data_return['data']['data']}")
-        # print(f"aman \n{tag_data_return['data']['index']}")
-        # print(f"aman \n{tag_data_return['data']['columns']}")
-        # try:
-
-        print(f"aman \n{len(tag_data_return['data']['data'])=}")
-        print(f"aman \n{len(tag_data_return['data']['index'])=}")
-        print(f"aman \n{len(tag_data_return['data']['columns'])=}")
-
-        print(f"aman \n{tag_data_return['data']['data']=}")
-        print(f"aman \n{tag_data_return['data']['index']=}")
-        print(f"aman \n{tag_data_return['data']['columns'][:10]=}")
         return pd.DataFrame(
             tag_data_return["data"]["data"],
             index=tag_data_return["data"]["index"],
             columns=tag_data_return["data"]["columns"],
         )
-        
-        # except:
-        #     print(f"AMAN ERROR AYAAAA")
-        #     return pd.DataFrame()
-
-# len(tag_data_return['data']['data'])=6
-
-
-# len(tag_data_return['data']['index'])=6
-
-
-# len(tag_data_return['data']['columns'])=2679
-
-
-# # ValueError: Shape of passed values is (6, 2679), indices imply (62, 2679)
