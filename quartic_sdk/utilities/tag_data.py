@@ -104,7 +104,7 @@ class TagData:
         :param start_time: (epoch) Start_time for getting data
         :param stop_time: (epoch) Stop_time for getting data
         :param interval_min: (int) The interval duration in minutes for downsampling the data
-        :param aggregation_type: (str) The aggregation function to be used for the query. (Valid values: first, last)
+        :param aggregation_type: (str) The aggregation function to be used for the query. (Valid values: first, last, max, min, avg)
         :param wide_df: (bool) If the response is needed in wide or long format. Defaults to True.
         :param return_type: The param decides whether the data after querying will be
             json(when value is "json") or pandas dataframe(when value is "pd"). By default,
@@ -151,8 +151,36 @@ class TagData:
                 Constants.RETURN_TAG_DATA, Constants.API_POST, body=body_json).json()
         if return_type == Constants.RETURN_JSON:
                 return tag_data_return["data"]
+        # print(f"aman \n{tag_data_return}")
+        # print(f"aman \n{tag_data_return['data']['data']}")
+        # print(f"aman \n{tag_data_return['data']['index']}")
+        # print(f"aman \n{tag_data_return['data']['columns']}")
+        # try:
+
+        print(f"aman \n{len(tag_data_return['data']['data'])=}")
+        print(f"aman \n{len(tag_data_return['data']['index'])=}")
+        print(f"aman \n{len(tag_data_return['data']['columns'])=}")
+
+        print(f"aman \n{tag_data_return['data']['data']=}")
+        print(f"aman \n{tag_data_return['data']['index']=}")
+        print(f"aman \n{tag_data_return['data']['columns'][:10]=}")
         return pd.DataFrame(
             tag_data_return["data"]["data"],
             index=tag_data_return["data"]["index"],
             columns=tag_data_return["data"]["columns"],
         )
+        
+        # except:
+        #     print(f"AMAN ERROR AYAAAA")
+        #     return pd.DataFrame()
+
+# len(tag_data_return['data']['data'])=6
+
+
+# len(tag_data_return['data']['index'])=6
+
+
+# len(tag_data_return['data']['columns'])=2679
+
+
+# # ValueError: Shape of passed values is (6, 2679), indices imply (62, 2679)

@@ -414,7 +414,7 @@ The method parameters are as follows:
    aggregation interval equal to interval_min. The default interval_min
    is 1.
 -  **aggregation\_type (optional)**: This refers to the type of
-   aggregation. Options currently supported are ``first``, ``last``.
+   aggregation. Options currently supported are ``first``, ``last``, ``min``, ``max``, ``avg``.
 -  **wide\_df (optional)**: If the response is needed in wide or long format.
    Defaults to ``True``.
 -  **return\_type (optional)**: The user can pass either ``pd``, which
@@ -530,7 +530,7 @@ parameter you can control the interval of aggregation. The method parameters are
    aggregation interval equal to interval_min. The default interval_min
    is 1.
 -  **aggregation\_type (optional)**: This refers to the type of
-   aggregation. Options currently supported are ``first``, ``last``.
+   aggregation. Options currently supported are ``first``, ``last``, ``min``, ``max``, ``avg``.
 -  **wide\_df (optional)**: If the response is needed in wide or long format.
    Defaults to ``True``.
 -  **return\_type (optional)**: The user can pass either ``pd``, which
@@ -667,7 +667,7 @@ The method parameters are as follows:
    aggregation interval equal to interval_min. The default interval_min
    is 1.
 -  **aggregation\_type (optional)**: This refers to the type of
-   aggregation. Options currently supported are ``first``, ``last``.
+   aggregation. Options currently supported are ``first``, ``last``, ``min``, ``max``, ``avg``.
 -  **wide\_df (optional)**: If the response is needed in wide or long format.
    Defaults to ``True``.
 -  **return\_type (optional)**: The user can pass either ``pd``, which
@@ -902,7 +902,7 @@ data for given tags, and has the following parameters:
    aggregation interval equal to interval_min. The default interval_min
    is 1.
 -  **aggregation\_type (optional)**: This refers to the type of
-   aggregation. Options currently supported are ``first``, ``last``.
+   aggregation. Options currently supported are ``first``, ``last``, ``min``, ``max``, ``avg``.
 -  **wide\_df (optional)**: If the response is needed in wide or long format.
    Defaults to ``True``.
 -  **return\_type (optional)**: The user can pass either ``pd``, which

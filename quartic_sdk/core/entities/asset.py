@@ -77,7 +77,7 @@ class Asset(Base):
         :param start_time: (epoch) Start_time for getting data
         :param stop_time: (epoch) Stop_time for getting data
         :param interval_min: (int) The interval duration in minutes for downsampling the data
-        :param aggregation_type: (str) The aggregation function to be used for the query. (Valid values: first, last)
+        :param aggregation_type: (str) The aggregation function to be used for the query. (Valid values: first, last, max, min, avg)
         :param wide_df: (bool) If the response is needed in wide or long format. Defaults to True.
         :param return_type: The param decides whether the data after querying will be
             json(when value is "json") or pandas dataframe(when value is "pd"). By default,
