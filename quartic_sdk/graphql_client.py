@@ -61,19 +61,47 @@ class GraphqlClient:
         nest_asyncio.apply()
 
     @staticmethod
+    def __get_access_token():
+        global access_token
+        global hostname
+        from IPython.display import display, Javascript
+        js_code = """
+            var session = jupyterapp.shell.currentWidget.context.sessionContext.session;
+            var ipython = jupyterapp.serviceManager.sessions._connectToKernel({model: {id: session._kernel._id, name: session._kernel._name}})
+            var cookies = document.cookie.split(';').reduce((acc, cookie) => {
+                const [name, value] = cookie.trim().split('=');
+                acc[name] = value;
+                return acc;
+            }, {});
+            var hostname = window.location.hostname
+            ipython.requestExecute({code: `
+            global access_token = '${cookies.access}'
+            global hostname = '${hostname}'
+            `});
+            console.log("executed")
+        """
+        display(Javascript(js_code))
+
+    @classmethod
+    def for_jupyterhub(cls, timeout: Optional[Union[aiohttp.ClientTimeout, float]] = None,
+                            verify_ssl: bool = True):
+        cls.__get_access_token()
+        return cls(hostname, token=access_token, timeout=timeout, verify_ssl=verify_ssl)
+
+    @staticmethod
     def version():
         """
         Return the SDK version
         """
         return __version__
 
-    
+
     async def _get_client(self) -> aiohttp.ClientSession:
         """
         Get aiohttp client session object.
         """
         _client_opts = {}
-        
+
         _client_opts['headers'] = {'Authorization': f"Bearer {self.access_token}"}
 
         if self.timeout:
@@ -98,7 +126,7 @@ class GraphqlClient:
         if not result.scheme or not result.netloc:
             raise AttributeError(f'url {self.url} is incorrect')
         return __graphql_url
-    
+
     @async_authenticate_with_tokens
     async def __execute__query(self, query: str, variables: dict = None):
         """
@@ -145,7 +173,7 @@ class GraphqlClient:
         Returns an instance of GraphqlClient from provided
         api_helper instance.
         :param api_helper: APIHelper instace whose configurations will be used to initialte GraphqlClient
-        :return: new GraphqlCleint instance initiated with existing APIHelper configuration. 
+        :return: new GraphqlCleint instance initiated with existing APIHelper configuration.
         """
         configuration = api_helper.configuration
         if configuration.auth_type == OAUTH:
@@ -157,7 +185,7 @@ class GraphqlClient:
             return GraphqlClient(url=configuration.gql_host,
             username=configuration.username,
             password=configuration.password,
-            verify_ssl=configuration.verify_ssl)    
+            verify_ssl=configuration.verify_ssl)
         else:
             raise IncorrectAuthTypeException('Only OAUTH and BASIC auth_types are supported')
 
