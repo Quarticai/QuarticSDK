@@ -25,30 +25,19 @@ def get_and_save_token(host,username,password,verify_ssl):
             PermissionError: If there is an error during the authentication process or if the response status
                             code indicates an issue.
         """
-        if not os.path.exists(f'{TOKEN_FILE}/{username}/token.txt'):
-            headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
-            response = requests.post(
-                urljoin(host ,"/accounts/tokens/"),
-                json={
-                    "username": username,
-                    "password": password
-                },
-                headers=headers,
-                verify=verify_ssl
-            )
-            if response.status_code != 200:
-                raise PermissionError('Error while Login and generating token')
-            token_dict = {
-                'access_token' : response.json().get('access'),
-                'refresh_token' : response.json().get('refresh')
-                }
-            new_token = json.dumps(token_dict)
-            save_token(new_token, username)
-        else:
-            # Read the stored token
-            with open(f'{TOKEN_FILE}/{username}/token.txt', 'r') as token_file:
-                token_dict = json.loads(token_file.read())
-        return token_dict['access_token']
+        headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+        response = requests.post(
+            urljoin(host ,"/accounts/tokens/"),
+            json={
+                "username": username,
+                "password": password
+            },
+            headers=headers,
+            verify=verify_ssl
+        )
+        if response.status_code != 200:
+            raise PermissionError('Error while Login and generating token')
+        return response.json().get('access'), response.json().get('refresh')
 
 
 def save_token(token, user_identification_string):
@@ -75,7 +64,7 @@ def save_token(token, user_identification_string):
 
 
 def request_new_token(refresh_token, host,user_identification_string):
-    """
+        """
     Request a new access token using a refresh token.
 
     This function sends a request to the specified host's refresh token endpoint to obtain a new access token.
@@ -91,10 +80,9 @@ def request_new_token(refresh_token, host,user_identification_string):
     Raises:
         PermissionError: If the refresh token has expired or if any other error occurs during the token request.
     """
-    try:
-        headers = {'Content-Type': 'application/json',
-                   'Accept': 'application/json'}
-        if refresh_token:
+        try:
+            headers = {'Content-Type': 'application/json',
+                        'Accept': 'application/json'}
             response = requests.post(
                 url=urljoin(host, "/api/token/refresh/"),
                 json={
@@ -103,14 +91,12 @@ def request_new_token(refresh_token, host,user_identification_string):
                 headers=headers
             )
             # Check if the login was successful
-            if response.status_code == 401:
-                # Extract the access token and refresh token from the response cookies
-                os.remove(f'{TOKEN_FILE}/{user_identification_string}/token.txt')
+            if response.status_code in {400, 401}:
                 raise PermissionError(
                     'Refresh token has expired. Please recreate APIClient')
-        return response.json().get('access')
-    except Exception as e:
-        raise e
+            return response.json().get('access')
+        except Exception as e:
+            raise e
 
 # Decorator function to handle token expiration and refresh
 
@@ -135,19 +121,9 @@ def authenticate_with_tokens(func):
     """
     def wrapper(self, *args, **kwargs):
         try:
-            # Check if the token file exists
-            if not os.path.exists(f'{TOKEN_FILE}/{self.configuration.username}/token.txt'):
-                raise Exception("Token file does not exist. ")
 
-            # Read the stored token
-            with open(f'{TOKEN_FILE}/{self.configuration.username}/token.txt', 'r') as token_file:
-                token_dict = json.loads(token_file.read())
-
-            # Extract access token from the token dictionary
-            self.access_token = token_dict.get('access_token')
-
-            if not self.access_token:
-                raise PermissionError("Access token missing in token file.")
+            if not self.access_token and not self.refresh_token:
+                raise PermissionError("Access/Refresh token missing, Please recreate the client")
 
             # Call the decorated function
             response = func(self, *args, **kwargs)
@@ -156,19 +132,13 @@ def authenticate_with_tokens(func):
             if response.status_code == 401:
                 # Access token is likely expired, attempt to refresh it
                 self.access_token = request_new_token(
-                    refresh_token=token_dict.get('refresh_token'),
+                    refresh_token=self.refresh_token,
                     host=self.configuration.host,
                     user_identification_string=self.configuration.username
                 )  # Implement this method to refresh the access token
                 if not self.access_token:
-                    raise Exception("Failed to refresh access token.")
+                    raise PermissionError("Failed to refresh access token.")
 
-                # Update the stored access token in the token dictionary
-                token_dict['access_token'] = self.access_token
-
-                # Save the updated token dictionary back to the token file
-                with open(f'{TOKEN_FILE}/{self.configuration.username}/token.txt', 'w') as new_token_file:
-                    new_token_file.write(json.dumps(token_dict))
 
                 # Retry the original API call with the new access token
                 response = func(self, *args, **kwargs)
@@ -202,19 +172,9 @@ def async_authenticate_with_tokens(func):
         try:
             username = self.username
             host = self._get_graphql_url()
-            # Check if the token file exists
-            if not os.path.exists(f'{TOKEN_FILE}/{username}/token.txt'):
-                raise Exception("Token file does not exist. ")
 
-            # Read the stored token
-            with open(f'{TOKEN_FILE}/{username}/token.txt', 'r') as token_file:
-                token_dict = json.loads(token_file.read())
-
-            # Extract access token from the token dictionary
-            self.access_token = token_dict.get('access_token')
-
-            if not self.access_token:
-                raise PermissionError("Access token missing in token file.")
+            if not self.access_token and not self.refresh_token:
+                raise PermissionError("Access/Refresh token missing, Please recreate the client")
 
             try:
                 # Call the decorated function
@@ -224,19 +184,13 @@ def async_authenticate_with_tokens(func):
                 if e.status == 401:
                     # Access token is likely expired, attempt to refresh it
                     self.access_token = request_new_token(
-                        refresh_token=token_dict.get('refresh_token'),
+                        refresh_token=self.refresh_token,
                         host=host,
                         user_identification_string=username
                     )  # Implement this method to refresh the access token
                     if not self.access_token:
-                        raise Exception("Failed to refresh access token.")
+                        raise PermissionError("Failed to refresh access token.")
 
-                    # Update the stored access token in the token dictionary
-                    token_dict['access_token'] = self.access_token
-
-                    # Save the updated token dictionary back to the token file
-                    with open(f'{TOKEN_FILE}/{username}/token.txt', 'w') as new_token_file:
-                        new_token_file.write(json.dumps(token_dict))
 
                     # Retry the original API call with the new access token
                     response = await func(self, *args, **kwargs)
