@@ -49,11 +49,10 @@ class GraphqlClient:
         self.url = url
         self.username = username
         self.password = password
-        self.token = token
         self.verify_ssl = verify_ssl
         self.timeout = timeout
         self.__graphql_url = self._get_graphql_url()
-        self.access_token = get_and_save_token(self.__graphql_url,username,password,verify_ssl)
+        self.access_token, self.refresh_token = (token,"") if token else get_and_save_token(self.__graphql_url,username,password,verify_ssl)
         self.logger = logging.getLogger()
         coloredlogs.install(level='DEBUG', logger=self.logger)
         loop = asyncio.new_event_loop()
@@ -72,9 +71,7 @@ class GraphqlClient:
         """
         Get aiohttp client session object.
         """
-        _client_opts = {}
-        
-        _client_opts['headers'] = {'Authorization': f"Bearer {self.access_token}"}
+        _client_opts = {'headers': {'Authorization': f"Bearer {self.access_token}"}}
 
         if self.timeout:
             if isinstance(self.timeout, aiohttp.ClientTimeout):

@@ -17,7 +17,7 @@ class APIHelper:
         """
         self.configuration = Configuration.get_configuration(
             host, username, password, oauth_token, cert_path, verify_ssl, gql_host)
-        self.access_token = get_and_save_token(host,username,password,verify_ssl)
+        self.access_token, self.refresh_token = get_and_save_token(host,username,password,verify_ssl)
 
     def can_verify_ssl_certificate(self):
         """
