@@ -87,6 +87,7 @@ class GraphqlClient:
                 console.log("executed")
             }
 
+            getTokens()
         """
         display(Javascript(js_code))
 
