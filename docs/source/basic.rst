@@ -54,7 +54,7 @@ tokens, please refer to the Quartic Knowledge Base.
 
 ::
 
-    client = GraphqlClient(url="https://test.quartic.ai", oauth_token="9865c994212e495690c2db3fc6cbdfea")
+    client = GraphqlClient(url="https://test.quartic.ai", token="9865c994212e495690c2db3fc6cbdfea")
 
 
 
@@ -166,7 +166,7 @@ tokens, please refer to the Global Settings article in the Quartic Knowledge Bas
 
 ::
 
-    client = APIClient(host="https://test.quartic.ai", oauth_token="9865c994212e495690c2db3fc6cbdfea")
+    client = APIClient(host="https://test.quartic.ai", token="9865c994212e495690c2db3fc6cbdfea", refresh="93434332343242")
 
 The available methods are as follows:
 *************************************
@@ -531,7 +531,7 @@ parameter you can control the interval of aggregation. The method parameters are
    aggregation interval equal to interval_min. The default interval_min
    is 1.
 -  **aggregation\_type (optional)**: This refers to the type of
-   aggregation. Options currently supported are ``first``, ``last``,`min`, `max`, `avg`. 
+   aggregation. Options currently supported are ``first``, ``last``,`min`, `max`, `avg`.
    If the aggregation_type is set to `min`, `max`, `avg` , non-numerical tags will not be included.
 -  **wide\_df (optional)**: If the response is needed in wide or long format.
    Defaults to ``True``.
@@ -669,7 +669,7 @@ The method parameters are as follows:
    aggregation interval equal to interval_min. The default interval_min
    is 1.
 -  **aggregation\_type (optional)**: This refers to the type of
-   aggregation. Options currently supported are ``first``, ``last``,`min`, `max`, `avg`.  
+   aggregation. Options currently supported are ``first``, ``last``,`min`, `max`, `avg`.
    If the aggregation_type is set to `min`, `max`, `avg` , non-numerical tags will not be included.
 -  **wide\_df (optional)**: If the response is needed in wide or long format.
    Defaults to ``True``.
@@ -892,7 +892,7 @@ It takes the same arguments as ``.filter`` above but negates the conditions to e
 ~~~~~
 
 This method is present only for the ``Tag`` type EntityList, and it
-returns the data present in the given tags. It returns downsampled 
+returns the data present in the given tags. It returns downsampled
 data for given tags, and has the following parameters:
 
 -  **start\_time (mandatory)**: (epoch) Refers to the ``start_time`` for
@@ -905,7 +905,7 @@ data for given tags, and has the following parameters:
    aggregation interval equal to interval_min. The default interval_min
    is 1.
 -  **aggregation\_type (optional)**: This refers to the type of
-   aggregation. Options currently supported are ``first``, ``last``,`min`, `max`, `avg`.  
+   aggregation. Options currently supported are ``first``, ``last``,`min`, `max`, `avg`.
    If the aggregation_type is set to `min`, `max`, `avg` , non-numerical tags will not be included.
 -  **wide\_df (optional)**: If the response is needed in wide or long format.
    Defaults to ``True``.
@@ -921,10 +921,10 @@ TagData
 ------------------
 
 Querying data for any set of tags in any given duration returns downsampled
-tag data.Using ``interval_min`` parameter you can control the interval of 
+tag data.Using ``interval_min`` parameter you can control the interval of
 aggregation. When the ``.data`` of tags/assets is called, the
-method queries for data between ``start_time`` and ``stop_time`` 
-and downsample the data points using an aggregation function for 
+method queries for data between ``start_time`` and ``stop_time``
+and downsample the data points using an aggregation function for
 all the tags for the given ``aggregation_type``.
 
 HistoricalTagDataIterator
@@ -996,7 +996,7 @@ The available attributes in this class are:
 - **name**: Procedure name
 - **additional_attributes**: This field contains additional information and fields of Procedure like receipe_type, formula and receipe_version
 - **procedure_state**: state among 5 values
-- **test_results**: 
+- **test_results**:
 - **site**: Site id under which procedure gets created
 - **product**: ID of the Product under which that procedure gets created
 - **created_by**: The user ID, who created this procedure

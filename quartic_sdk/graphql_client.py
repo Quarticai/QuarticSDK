@@ -1,6 +1,4 @@
 import aiohttp
-import json, os
-import requests
 from aiogqlc import GraphQLClient as AioGraphQLClient
 import asyncio
 import nest_asyncio
@@ -14,8 +12,7 @@ import re
 from quartic_sdk.api.api_helper import APIHelper
 from quartic_sdk.utilities.constants import OAUTH, BASIC
 from quartic_sdk.utilities.exceptions import IncorrectAuthTypeException
-import quartic_sdk.utilities.constants as Constants
-from quartic_sdk.utilities.decorator import save_token, async_authenticate_with_tokens, get_and_save_token
+from quartic_sdk.utilities.decorator import async_authenticate_with_tokens, get_and_save_token
 
 SCHEMA_REGEX = re.compile(r"(?:(?:https?)://)")
 
@@ -29,6 +26,7 @@ class GraphqlClient:
                  username: str = None,
                  password: str = None,
                  token: str = None,
+                 refresh: str = None,
                  timeout: Optional[Union[aiohttp.ClientTimeout, float]] = None,
                  verify_ssl: bool = True):
         """
@@ -52,7 +50,9 @@ class GraphqlClient:
         self.verify_ssl = verify_ssl
         self.timeout = timeout
         self.__graphql_url = self._get_graphql_url()
-        self.access_token, self.refresh_token = (token,"") if token else get_and_save_token(self.__graphql_url,username,password,verify_ssl)
+        self.access_token, self.refresh_token = (token, "") if token else get_and_save_token(
+            self.__graphql_url, username, password, verify_ssl)
+        self.refresh_token = refresh if refresh else self.refresh_token
         self.logger = logging.getLogger()
         coloredlogs.install(level='DEBUG', logger=self.logger)
         loop = asyncio.new_event_loop()
@@ -61,31 +61,40 @@ class GraphqlClient:
 
     @staticmethod
     def __get_access_token():
+        """
+        Used to get access, refresh and hostname from the browser
+        using IPython Javascript
+        """
         global access_token
+        global refresh_token
         global hostname
         from IPython.display import display, Javascript
         js_code = """
-            var session = jupyterapp.shell.currentWidget.context.sessionContext.session;
-            var ipython = jupyterapp.serviceManager.sessions._connectToKernel({model: {id: session._kernel._id, name: session._kernel._name}})
-            var cookies = document.cookie.split(';').reduce((acc, cookie) => {
-                const [name, value] = cookie.trim().split('=');
-                acc[name] = value;
-                return acc;
-            }, {});
-            var hostname = window.location.hostname
-            ipython.requestExecute({code: `
-            global access_token = '${cookies.access}'
-            global hostname = '${hostname}'
-            `});
-            console.log("executed")
+            async function getTokens() {
+                const session = jupyterapp.shell.currentWidget.context.sessionContext.session;
+                const ipython = jupyterapp.serviceManager.sessions._connectToKernel({model: {id: session._kernel._id, name: session._kernel._name}})
+                const cookies = document.cookie.split(';').reduce((acc, cookie) => {
+                    const [name, value] = cookie.trim().split('=');
+                    acc[name] = value;
+                    return acc;
+                }, {});
+                const hostname = window.location.hostname;
+                await ipython.requestExecute({code: `
+                    global access_token = '${cookies.access}'
+                    global refresh_token = '${cookies.refresh}'
+                    global hostname = '${hostname}'
+                `}).done;
+                console.log("executed")
+            }
+
         """
         display(Javascript(js_code))
 
     @classmethod
-    def for_jupyterhub(cls, timeout: Optional[Union[aiohttp.ClientTimeout, float]] = None,
+    def client_for_jupyterhub(cls, timeout: Optional[Union[aiohttp.ClientTimeout, float]] = None,
                             verify_ssl: bool = True):
         cls.__get_access_token()
-        return cls(hostname, token=access_token, timeout=timeout, verify_ssl=verify_ssl)
+        return cls(hostname, token=access_token, refresh=refresh_token, timeout=timeout, verify_ssl=verify_ssl)
 
     @staticmethod
     def version():
