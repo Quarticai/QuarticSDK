@@ -426,6 +426,14 @@ The method parameters are as follows:
    of interpolations and aggregations here. Further details on
    transformations is provided towards the end of this documentation.
 
+
+.event_frames
+~~~~~~~~~~~~~
+The method returns the list of event frames for the given asset
+
+-  **query\_params (optional)**: User can pass a dictionary of conditions
+   and condition values to filter the event frames accordingly.
+
 Tag
 ------
 
